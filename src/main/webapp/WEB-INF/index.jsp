@@ -7,10 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <title>SmartEDU - Education Responsive HTML5 Template</title>  
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+  <title>SmartEDU - Education Responsive HTML5 Template</title> 
 
     <c:import url="views/common/commonUtil.jsp" />
 
@@ -122,7 +119,7 @@
 		</ol>
 		<div class="carousel-inner" role="listbox">
 			<div class="carousel-item active">
-				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/resources/images/slider-01.jpg');">
+				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/images/slider-01.jpg');">
 					<div class="dtab">
 						<div class="container">
 							<div class="row">
@@ -141,7 +138,7 @@
 				</div><!-- end section -->
 			</div>
 			<div class="carousel-item">
-				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/resources/images/slider-02.jpg');">
+				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/images/slider-02.jpg');">
 					<div class="dtab">
 						<div class="container">
 							<div class="row">
@@ -160,7 +157,7 @@
 				</div><!-- end section -->
 			</div>
 			<div class="carousel-item">
-				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/resources/images/slider-03.jpg');">
+				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/images/slider-03.jpg');">
 					<div class="dtab">
 						<div class="container">
 							<div class="row">
@@ -216,14 +213,14 @@
 				
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
-                        <img src="${pageContext.request.contextPath }/resources/images/about_02.jpg" alt="" class="img-fluid img-rounded">
+                        <img src="${pageContext.request.contextPath }/images/about_02.jpg" alt="" class="img-fluid img-rounded">
                     </div><!-- end media -->
                 </div><!-- end col -->
 			</div>
 			<div class="row align-items-center">
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
-                        <img src="${pageContext.request.contextPath }/resources/images/about_03.jpg" alt="" class="img-fluid img-rounded">
+                        <img src="${pageContext.request.contextPath }/images/about_03.jpg" alt="" class="img-fluid img-rounded">
                     </div><!-- end media -->
                 </div><!-- end col -->
 				
@@ -339,7 +336,7 @@
 		</div><!-- end container -->
 	</div><!-- end section -->
 
-    <div id="testimonials" class="parallax section db parallax-off" style="background-image:url('${pageContext.request.contextPath }/resources/images/parallax_04.jpg');">
+    <div id="testimonials" class="parallax section db parallax-off" style="background-image:url('${pageContext.request.contextPath }/images/parallax_04.jpg');">
         <div class="container">
             <div class="section-title text-center">
                 <h3>Testimonials</h3>
@@ -351,7 +348,7 @@
                     <div class="testi-carousel owl-carousel owl-theme">
                         <div class="testimonial clearfix">
 							<div class="testi-meta">
-                                <img src="${pageContext.request.contextPath }/resources/images/testi_01.png" alt="" class="img-fluid">
+                                <img src="${pageContext.request.contextPath }/images/testi_01.png" alt="" class="img-fluid">
                                 <h4>James Fernando </h4>
                             </div>
                             <div class="desc">
@@ -364,7 +361,7 @@
 
                         <div class="testimonial clearfix">
 							<div class="testi-meta">
-                                <img src="${pageContext.request.contextPath }/resources/images/testi_02.png" alt="" class="img-fluid">
+                                <img src="${pageContext.request.contextPath }/images/testi_02.png" alt="" class="img-fluid">
                                 <h4>Jacques Philips </h4>
                             </div>
                             <div class="desc">
@@ -377,7 +374,7 @@
 
                         <div class="testimonial clearfix">
 							<div class="testi-meta">
-                                <img src="${pageContext.request.contextPath }/resources/images/testi_03.png" alt="" class="img-fluid ">
+                                <img src="${pageContext.request.contextPath }/images/testi_03.png" alt="" class="img-fluid ">
                                 <h4>Venanda Mercy </h4>
                             </div>
                             <div class="desc">
@@ -389,7 +386,7 @@
                         <!-- end testimonial -->
                         <div class="testimonial clearfix">
 							<div class="testi-meta">
-                                <img src="${pageContext.request.contextPath }/resources/images/testi_01.png" alt="" class="img-fluid">
+                                <img src="${pageContext.request.contextPath }/images/testi_01.png" alt="" class="img-fluid">
                                 <h4>James Fernando </h4>
                             </div>
                             <div class="desc">
@@ -402,7 +399,7 @@
 
                         <div class="testimonial clearfix">
 							<div class="testi-meta">
-                                <img src="${pageContext.request.contextPath }/resources/images/testi_02.png" alt="" class="img-fluid">
+                                <img src="${pageContext.request.contextPath }/images/testi_02.png" alt="" class="img-fluid">
                                 <h4>Jacques Philips </h4>
                             </div>
                             <div class="desc">
@@ -415,7 +412,7 @@
 
                         <div class="testimonial clearfix">
 							<div class="testi-meta">
-                                <img src="${pageContext.request.contextPath }/resources/images/testi_03.png" alt="" class="img-fluid">
+                                <img src="${pageContext.request.contextPath }/images/testi_03.png" alt="" class="img-fluid">
                                 <h4>Venanda Mercy </h4>
                             </div>
                             <div class="desc">

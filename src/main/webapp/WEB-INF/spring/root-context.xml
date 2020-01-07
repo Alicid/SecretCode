@@ -51,6 +51,6 @@
 	</tx:advice>
 	
 	<!-- 프로그래밍적 AOP 처리 방식(어노테이션 방식) -->
-	
+	<aop:aspectj-autoproxy />
 	
 </beans>

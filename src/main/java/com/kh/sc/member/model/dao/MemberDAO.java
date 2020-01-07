@@ -17,12 +17,18 @@ public class MemberDAO {
 	public int insertMember(Member member) {
 		return sqlSession.insert("member-mapper.insertMember", member);
 	}
-
+	
+	public Member selectOneMember(Member member) {
+		return sqlSession.selectOne("member-mapper.selectOneMember", member);
+	}
+	
 	public int checkIdDuplicate(String userId) {
 		
 		return sqlSession.selectOne("member-mapper.checkIdDuplicate", userId);
 	}
 	
-	
+	public Member selectMemberView(String userId) {
+		return sqlSession.selectOne("member-mapper.selectMemberView", userId);
+	}
 
 }

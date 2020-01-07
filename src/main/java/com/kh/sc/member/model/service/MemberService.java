@@ -22,10 +22,17 @@ public class MemberService {
 	public int checkIdDuplicate(String userId) {
 		
 		
-		
-		
-		
 		return memberDAO.checkIdDuplicate(userId);
+	}
+	
+	public Member selectOneMember(Member member) {
+			
+			return memberDAO.selectOneMember(member);
+	}
+	
+	public Member memberView(String userId) {
+		return memberDAO.selectMemberView(userId);
+		
 	}
 
 }

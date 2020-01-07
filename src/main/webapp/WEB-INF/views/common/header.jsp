@@ -50,7 +50,7 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div class="tab-pane active" id="Login">
-						<form role="form" class="form-horizontal" action="${pageContext.request.contextPath}/memberLogin.do" method="post">
+						<form role="form" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-sm-12">
 									<input class="form-control" id="userId" name="userId" placeholder="ID" type="text">
@@ -58,7 +58,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="userPwd" name="userPwd" placeholder="userPwd" type="password">
+									<input class="form-control" id="password" name="password" placeholder="Password" type="Password">
 								</div>
 							</div>
 							<div class="row">
@@ -76,25 +76,34 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="Registration">
-						<form role="form" class="form-horizontal">
+						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return fn_enroll_validate();">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" placeholder="ID" type="text">
+									<input class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" type="text" >
+									<span class="guide ok">사용이 가능한 아이디 입니다.</span>
+				            		<span class="guide error">사용이 불가능한 아이디 입니다.</span>
+				            		<span class="guide invalid">4글자 미만의 아이디는 사용이 불가합니다.</span>
+				            		<input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="Password" placeholder="Password" type="password">
+									<input class="form-control" name="userPwd" id="Password" placeholder="비밀번호를 입력하세요" type="password">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="Nickname" placeholder="Nickname" type="text">
+									<input class="form-control" id="Password2" placeholder="비밀번호를 재입력하세요" type="password">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="Email" placeholder="Email" type="email">
+									<input class="form-control" name="nickName" id="Nickname" placeholder="닉네임을 입력하세요" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" name="email" id="Email" placeholder="이메일을 입력하세요" type="email">
 								</div>
 							</div>
 							<div class="row">							

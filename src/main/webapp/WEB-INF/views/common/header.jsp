@@ -28,7 +28,7 @@
                     </c:if>
                     <c:if test="${!empty member}">
                         <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item"><span><a href="${pageContext.request.contextPath}/member/memberView.do?userId=${member.userId}" title="내정보보기"><strong>${member.userName}</strong></a> 님, 안녕하세요</span>
+                        <li class="nav-item"><span><a href="${pageContext.request.contextPath}/member/memberView.do?userId=${member.userId}" title="내정보보기"><strong>${member.nickName}</strong></a> 님, 안녕하세요</span>
                         </li>&nbsp;
                         <li class="nav-item"><a class="hover-btn-new log orange" onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do'"><span>Logout</span></a>
                         </li>
@@ -37,4 +37,81 @@
 				</div>
 			</div>
 		</nav>
+		<!-- Modal -->
+	<div class="modal fade" id="login" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-body customer-box">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs">
+					<li><a class="active" href="#Login" data-toggle="tab">Login</a></li>
+					<li><a href="#Registration" data-toggle="tab">Join</a></li>
+				</ul>
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div class="tab-pane active" id="Login">
+						<form role="form" class="form-horizontal" action="${pageContext.request.contextPath}/memberLogin.do" method="post">
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" id="userId" name="userId" placeholder="ID" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" id="userPwd" name="userPwd" placeholder="userPwd" type="password">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-primary btn-light btn-radius btn-brd grd1">
+										확인
+                                    </button>
+                                    <button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
+										취소
+                                    </button>
+                                    <a class="for-pwd" href="javascript:;">아이디를 잊으셨나요?</a>
+									<a class="for-pwd" href="javascript:;">비밀번호를 잊으셨나요?</a>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="tab-pane" id="Registration">
+						<form role="form" class="form-horizontal">
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" placeholder="ID" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" id="Password" placeholder="Password" type="password">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" id="Nickname" placeholder="Nickname" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" id="Email" placeholder="Email" type="email">
+								</div>
+							</div>
+							<div class="row">							
+								<div class="col-sm-10">
+									<button type="submit" class="btn btn-light btn-radius btn-brd grd1">
+										회원가입
+									</button>
+									<button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
+										취소
+                                    </button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	  </div>
+	</div>
 	</header>

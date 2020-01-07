@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice-mapper">
+	<select id="selectList" resultType="Notice">
+	SELECT N.*,(SELECT COUNT(*) 
+		FROM ATTACHMENT 
+		WHERE B.BOARD NO = BOARDNO) FILECOUNT 
+		FROM BOARD B
+	ORDER BY BOARDDATE DESC		
+	</select>	
+	
+	<select id="selectTotalContents" resultType="int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
+	
+	<insert id="insertNotice" parameterType="Notice">
+		INSERT INTO NOTICE 
+		VALUES(SEQ_N_NO.NEXTVAL, #{N_Title},
+		#{N_}, #{boardContent},
+		DEFAULT, DEFAULT)
+	</insert>
+	
+	<insert id="insertAttachment" parameterType="Attachment">
+		<selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+			SELECT SEQ_BOARDNO.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO ATTACHMENT
+		VALUES (SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo}, 
+				#{originalFileName},
+				#{renamedFileName},
+				DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<select id="selectBoard" parameterType="int" resultType="Notice">
+		SELECT * FROM BOARD WHERE BOARDNO = #{boardNo}
+	</select>
+	
+	<select id="selectAttachment" parameterType="int" resultType="Attachment">
+		SELECT * FROM ATTACHMENT WHERE BOARDNO = #{boardNo}
+	</select>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD 
+		SET BOARDTITLE = #{boardTitle},
+			BOARDCONTENT = #{boardContent}
+		WHERE BOARDNO = #{boardNo}
+	</update>
+	
+	<insert id="updateAttachment" parameterType="Attachment">
+		
+		INSERT INTO ATTACHMENT
+		VALUES (SEQ_ATTACHMENTNO.NEXTVAL, #{boardNo}, 
+				#{originalFileName},
+				#{renamedFileName},
+				DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM BOARD WHERE BOARDNO = #{boardNo}
+	</delete>
+
+</mapper>

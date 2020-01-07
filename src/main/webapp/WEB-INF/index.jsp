@@ -8,95 +8,90 @@
 <head>
 <meta charset="UTF-8">
   <title>SmartEDU - Education Responsive HTML5 Template</title> 
+<<<<<<< HEAD
+<style>
+=======
+>>>>>>> branch 'LKS' of https://github.com/Alicid/SecretCode.git
 
+.Xcontent {
+    min-height: calc(150vh - 20px);
+}
+
+body {
+	margin: 0;
+	width: 100%;
+	height: 100vh;
+	background: linear-gradient(-45deg, #B4455B, #D8BAEA, #F5ABBB, #80002F) center fixed;
+	background-size: 400% 400%;
+	animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+#container {
+	margin: 50px;
+	font-family: 'Quicksand', sans-serif;
+	font-size: 19px;
+}
+
+.cards {
+	margin-left: 14%; 
+}
+
+.card {
+	width: 300px;
+	display: inline-block;
+	background: white;
+	padding: 30px;
+	border-radius: 10px;
+	margin: 10px;
+	box-shadow: 0px 5px 0px 0px lightblue;
+}
+
+.badges {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.timestamp {
+	background: aliceblue;
+	padding: 5px 15px;
+	border-radius: 100px;
+	font-size: 90%;
+}
+
+.content {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 18; /* 라인수 */
+	-webkit-box-orient: vertical;
+	word-wrap: break-word;
+	line-height: 1.2em;
+	max-height: 21.6em;
+	/* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+}
+
+</style>
     <c:import url="views/common/commonUtil.jsp" />
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+
 </head>
 <body class="host_version"> 
 
 <c:import url="views/common/header.jsp" />
             
-	<!-- Modal -->
-	<div class="modal fade" id="login" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-body customer-box">
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs">
-					<li><a class="active" href="#Login" data-toggle="tab">Login</a></li>
-					<li><a href="#Registration" data-toggle="tab">Join</a></li>
-				</ul>
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div class="tab-pane active" id="Login">
-						<form role="form" class="form-horizontal">
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="userId" name="userId" placeholder="ID" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="password" name="password" placeholder="Password" type="Password">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-10">
-									<button type="submit" class="btn btn-primary btn-light btn-radius btn-brd grd1">
-										확인
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
-										취소
-                                    </button>
-                                    <a class="for-pwd" href="javascript:;">아이디를 잊으셨나요?</a>
-									<a class="for-pwd" href="javascript:;">비밀번호를 잊으셨나요?</a>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="tab-pane" id="Registration">
-						<form role="form" class="form-horizontal">
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" placeholder="ID" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="Password" placeholder="Password" type="password">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="Nickname" placeholder="Nickname" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="Email" placeholder="Email" type="email">
-								</div>
-							</div>
-							<div class="row">							
-								<div class="col-sm-10">
-									<button type="submit" class="btn btn-light btn-radius btn-brd grd1">
-										회원가입
-									</button>
-									<button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
-										취소
-                                    </button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	  </div>
-	</div>
+	
 
     <!-- LOADER -->
 	<div id="preloader">
@@ -189,7 +184,7 @@
 		</div>
 	</div>
 	
-    <div id="overviews" class="section wb">
+     <div id="overviews" class="section wb">
         <div class="container">
             <div class="section-title row text-center">
                 <div class="col-md-8 offset-md-2">
@@ -213,14 +208,22 @@
 				
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
+<<<<<<< HEAD
+                        <img src="images/about_02.jpg" alt="" class="img-fluid img-rounded">
+=======
                         <img src="${pageContext.request.contextPath }/images/about_02.jpg" alt="" class="img-fluid img-rounded">
+>>>>>>> branch 'LKS' of https://github.com/Alicid/SecretCode.git
                     </div><!-- end media -->
                 </div><!-- end col -->
 			</div>
 			<div class="row align-items-center">
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
+<<<<<<< HEAD
+                        <img src="images/about_03.jpg" alt="" class="img-fluid img-rounded">
+=======
                         <img src="${pageContext.request.contextPath }/images/about_03.jpg" alt="" class="img-fluid img-rounded">
+>>>>>>> branch 'LKS' of https://github.com/Alicid/SecretCode.git
                     </div><!-- end media -->
                 </div><!-- end col -->
 				
@@ -238,6 +241,31 @@
             </div><!-- end row -->
         </div><!-- end container -->
     </div><!-- end section -->
+
+
+<div class="section cl">
+		<div class="container">
+			<div class="row text-left stat-wrap">
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<span data-scroll class="global-radius icon_wrap effect-1 alignleft"><i class="flaticon-study"></i></span>
+					<p class="stat_count">12000</p>
+					<h3>Students</h3>
+				</div><!-- end col -->
+
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<span data-scroll class="global-radius icon_wrap effect-1 alignleft"><i class="flaticon-online"></i></span>
+					<p class="stat_count">240</p>
+					<h3>Courses</h3>
+				</div><!-- end col -->
+
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<span data-scroll class="global-radius icon_wrap effect-1 alignleft"><i class="flaticon-years"></i></span>
+					<p class="stat_count">55</p>
+					<h3>Years Completed</h3>
+				</div><!-- end col -->
+			</div><!-- end row -->
+		</div><!-- end container -->
+	</div><!-- end section -->
 
     <section class="section lb page-section">
 		<div class="container">
@@ -312,6 +340,9 @@
 		</div>
 	</section>
 
+<<<<<<< HEAD
+	
+=======
 	<div class="section cl">
 		<div class="container">
 			<div class="row text-left stat-wrap">
@@ -427,6 +458,7 @@
         </div><!-- end container -->
     </div><!-- end section -->
 
+>>>>>>> branch 'LKS' of https://github.com/Alicid/SecretCode.git
 <c:import url="views/common/footer.jsp" />
 
 	<script>

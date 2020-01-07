@@ -10,7 +10,13 @@
   <title>SmartEDU - Education Responsive HTML5 Template</title> 
 
     <c:import url="views/common/commonUtil.jsp" />
-
+	<style>
+		/* 중복체크관련 스타일 */
+		div#userId-container{position:relative; padding:0px;}
+		div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
+		div#userId-container span.ok{color:green;}
+		div#userId-container span.error, span.invalid{color:red;}
+	</style>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -59,25 +65,34 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="Registration">
-						<form role="form" class="form-horizontal">
+						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return fn_enroll_validate();">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" placeholder="ID" type="text">
+									<input class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" type="text" >
+									<span class="guide ok">사용이 가능한 아이디 입니다.</span>
+				            		<span class="guide error">사용이 불가능한 아이디 입니다.</span>
+				            		<span class="guide invalid">4글자 미만의 아이디는 사용이 불가합니다.</span>
+				            		<input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="Password" placeholder="Password" type="password">
+									<input class="form-control" name="userPwd" id="Password" placeholder="비밀번호를 입력하세요" type="password">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="Nickname" placeholder="Nickname" type="text">
+									<input class="form-control" id="Password2" placeholder="비밀번호를 재입력하세요" type="password">
 								</div>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="Email" placeholder="Email" type="email">
+									<input class="form-control" name="nickName" id="Nickname" placeholder="닉네임을 입력하세요" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12">
+									<input class="form-control" name="email" id="Email" placeholder="이메일을 입력하세요" type="email">
 								</div>
 							</div>
 							<div class="row">							
@@ -436,6 +451,79 @@
 			verticalStartPosition: 'left',
 			visibleItems: 4
 		});
+		
+		$(function(){
+			
+			$("#Password2").blur(function(){
+				var p1=$("#Password").val(), p2=$("#Password2").val();
+				if(p1!=p2){
+					alert("패스워드가 일치하지 않습니다.");
+					$("#Password").focus();
+				}
+			});
+			
+			/* 아이디 중복검사 이벤트 추가 */
+			$("#userIdEn").on("keyup", function(){
+		        var userId = $("#userIdEn").val();
+		       	//console.log(userId);
+		        if(userId.length<4) {
+		        	$(".guide.error").hide();
+		        	$(".guide.ok").hide();
+		        	$(".guide.invalid").show();
+		        	return;
+		        	
+		        } else {
+		        	
+			        $.ajax({
+			            url  : "${pageContext.request.contextPath}/member/checkIdDuplicate.do",
+			            data : {userId:userId},
+			            dataType: "json",
+			            success : function(data){
+			                console.log(data);
+			                // if(data=="true") //stream 방식
+			                if(data.isUsable==true){ //viewName 방식
+			                    $(".guide.error").hide();
+			                    $(".guide.invalid").hide();
+			                    $(".guide.ok").show();
+			                    $("#idDuplicateCheck").val(1);
+			                } else {
+			                    $(".guide.error").show();
+			                    $(".guide.invalid").hide();
+			                    $(".guide.ok").hide();
+			                    $("#idDuplicateCheck").val(0);
+			                }
+			            }, error : function(jqxhr, textStatus, errorThrown){
+			                console.log("ajax 처리 실패");
+			                //에러로그
+			                console.log(jqxhr);
+			                console.log(textStatus);
+			                console.log(errorThrown);
+			            }
+		        	});
+		     	}
+		     //console.log(userId);
+			});
+		});
+		
+		function validate(){
+			var userId = $("#userId");
+			if(userId.val().trim().length<4){
+				alert("아이디는 최소 4자리이상이어야 합니다.");
+				userId.focus();
+				return false;
+			}
+			
+			//아이디중복체크여부
+		    if($("#idDuplicateCheck").val()==0){
+		        alert("사용가능한 아이디를 입력해주세요.");
+		        return false;
+		    }
+			
+			return true;
+		}
+		
+		
+		
 	</script>
 </body>
 </html>

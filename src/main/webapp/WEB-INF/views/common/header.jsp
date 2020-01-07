@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- Start header -->
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 150px;">
@@ -50,7 +53,7 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div class="tab-pane active" id="Login">
-						<form role="form" class="form-horizontal">
+						<form role="form" class="form-horizontal" action="${pageContext.request.contextPath}/member/memberLogin.do">
 							<div class="form-group">
 								<div class="col-sm-12">
 									<input class="form-control" id="userId" name="userId" placeholder="ID" type="text">
@@ -58,7 +61,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="password" name="password" placeholder="Password" type="Password">
+									<input class="form-control" id="password" name="userPwd" placeholder="Password" type="Password">
 								</div>
 							</div>
 							<div class="row">

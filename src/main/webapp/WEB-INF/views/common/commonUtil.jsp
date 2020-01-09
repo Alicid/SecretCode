@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap-touch-slider.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
 
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/responsive.css">
 
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/custom.css">

@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!-- Start header -->
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 150px;">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="${pageContext.request.contextPath}">
 					<img src="${pageContext.request.contextPath }/resources/images/KakaoTalk_20191226_120151349.png" width="300px" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,10 +17,11 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-host">
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/notice/noticeSelectList.do"><b>공지 사항</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/boardSelectList.do"><b>자유 게시판</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/question/questionSelectList.do"><b>문제 풀이</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/common/pageMove.do?uri=/board/boardDetail.do"><b>테스트</b></a></li>
 					</ul>
                     <c:if test="${empty member}">
                     <div class="modal-header tit-up">
@@ -50,7 +54,7 @@
 				<!-- Tab panes -->
 				<div class="tab-content">
 					<div class="tab-pane active" id="Login">
-						<form role="form" class="form-horizontal">
+						<form role="form" class="form-horizontal" action="${pageContext.request.contextPath}/member/memberLogin.do">
 							<div class="form-group">
 								<div class="col-sm-12">
 									<input class="form-control" id="userId" name="userId" placeholder="ID" type="text">
@@ -58,12 +62,12 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" id="password" name="password" placeholder="Password" type="Password">
+									<input class="form-control" id="password" name="userPwd" placeholder="Password" type="Password">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-sm-10">
-									<button type="submit" class="btn btn-primary btn-light btn-radius btn-brd grd1">
+									<button type="submit" class="btn btn-primary btn-light btn-radius btn-brd grd1" >
 										확인
                                     </button>
                                     <button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
@@ -76,7 +80,7 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="Registration">
-						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return fn_enroll_validate();">
+						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return validate();">
 							<div class="form-group">
 								<div class="col-sm-12">
 									<input class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" type="text" >

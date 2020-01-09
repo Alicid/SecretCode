@@ -14,6 +14,7 @@
   html,
   body {
     height: 100%;
+    overflow : auto;
   }
   
   @media (min-width: 640px) {
@@ -64,15 +65,18 @@
 .t2{
     dispaly : none !important;
     }
+    .container{
+    overflow : auto;
+    }
 
 </style>
 </head>
-<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7;">
+<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7;overflow-y: auto;">
 	<c:import url="../common/header.jsp"/>
 	<br>	<br>	<br>	<br>
     <body class="flex items-center justify-center">
    <div id='root'></div>
-	<div class="container">
+	<div class="container" >
 		<div class="blog-button">
 			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/notice/nInsertForm.no"><span>글 작성<span></a>
 		</div>		

@@ -7,10 +7,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <title>SmartEDU - Education Responsive HTML5 Template</title> 
+  <title>Secret Code</title> 
 
     <c:import url="views/common/commonUtil.jsp" />
-
+	<style>
+		/* 중복체크관련 스타일 */
+		div#userId-container{position:relative; padding:0px;}
+		div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
+		div#userId-container span.ok{color:green;}
+		div#userId-container span.error, span.invalid{color:red;}
+	</style>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -20,83 +26,6 @@
 
 <c:import url="views/common/header.jsp" />
             
-	<!-- Modal -->
-	<div class="modal fade" id="login" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-body customer-box">
-				<!-- Nav tabs -->
-				<ul class="nav nav-tabs">
-					<li><a class="active" href="#Login" data-toggle="tab">Login</a></li>
-					<li><a href="#Registration" data-toggle="tab">Join</a></li>
-				</ul>
-				<!-- Tab panes -->
-				<div class="tab-content">
-					<div class="tab-pane active" id="Login">
-						<form role="form" class="form-horizontal">
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="userId" name="userId" placeholder="ID" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="password" name="password" placeholder="Password" type="Password">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-sm-10">
-									<button type="submit" class="btn btn-primary btn-light btn-radius btn-brd grd1">
-										확인
-                                    </button>
-                                    <button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
-										취소
-                                    </button>
-                                    <a class="for-pwd" href="javascript:;">아이디를 잊으셨나요?</a>
-									<a class="for-pwd" href="javascript:;">비밀번호를 잊으셨나요?</a>
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="tab-pane" id="Registration">
-						<form role="form" class="form-horizontal">
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" placeholder="ID" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="Password" placeholder="Password" type="password">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="Nickname" placeholder="Nickname" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-12">
-									<input class="form-control" id="Email" placeholder="Email" type="email">
-								</div>
-							</div>
-							<div class="row">							
-								<div class="col-sm-10">
-									<button type="submit" class="btn btn-light btn-radius btn-brd grd1">
-										회원가입
-									</button>
-									<button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
-										취소
-                                    </button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	  </div>
-	</div>
 
     <!-- LOADER -->
 	<div id="preloader">
@@ -436,6 +365,79 @@
 			verticalStartPosition: 'left',
 			visibleItems: 4
 		});
+		
+		$(function(){
+			
+			$("#Password2").blur(function(){
+				var p1=$("#Password").val(), p2=$("#Password2").val();
+				if(p1!=p2){
+					alert("패스워드가 일치하지 않습니다.");
+					$("#Password").focus();
+				}
+			});
+			
+			/* 아이디 중복검사 이벤트 추가 */
+			$("#userIdEn").on("keyup", function(){
+		        var userId = $("#userIdEn").val();
+		       	//console.log(userId);
+		        if(userId.length<4) {
+		        	$(".guide.error").hide();
+		        	$(".guide.ok").hide();
+		        	$(".guide.invalid").show();
+		        	return;
+		        	
+		        } else {
+		        	
+			        $.ajax({
+			            url  : "${pageContext.request.contextPath}/member/checkIdDuplicate.do",
+			            data : {userId:userId},
+			            dataType: "json",
+			            success : function(data){
+			                console.log(data);
+			                // if(data=="true") //stream 방식
+			                if(data.isUsable==true){ //viewName 방식
+			                    $(".guide.error").hide();
+			                    $(".guide.invalid").hide();
+			                    $(".guide.ok").show();
+			                    $("#idDuplicateCheck").val(1);
+			                } else {
+			                    $(".guide.error").show();
+			                    $(".guide.invalid").hide();
+			                    $(".guide.ok").hide();
+			                    $("#idDuplicateCheck").val(0);
+			                }
+			            }, error : function(jqxhr, textStatus, errorThrown){
+			                console.log("ajax 처리 실패");
+			                //에러로그
+			                console.log(jqxhr);
+			                console.log(textStatus);
+			                console.log(errorThrown);
+			            }
+		        	});
+		     	}
+		     //console.log(userId);
+			});
+		});
+		
+		function validate(){
+			var userId = $("#userId");
+			if(userId.val().trim().length<4){
+				alert("아이디는 최소 4자리이상이어야 합니다.");
+				userId.focus();
+				return false;
+			}
+			
+			//아이디중복체크여부
+		    if($("#idDuplicateCheck").val()==0){
+		        alert("사용가능한 아이디를 입력해주세요.");
+		        return false;
+		    }
+			
+			return true;
+		}
+		
+		
+		
 	</script>
 </body>
 </html>

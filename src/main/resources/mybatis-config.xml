@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE configuration PUBLIC
+"-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<settings> <!-- 마이바티스 설정을 담당하는 부분 -->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<!-- 나중에 SQL에서 사용할 때 직접 내용을 적지 않고 별칭으로도 접근이 가능해진다. -->
+		<typeAlias type="com.kh.sc.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.sc.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.kh.sc.common.PageInfo" alias="PageInfo"/>
+			<typeAlias type="com.kh.sc.notice.model.vo.Notice" alias="Notice"/>
+	</typeAliases>
+</configuration>
+
+
+
+
+
+
+
+
+
+

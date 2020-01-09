@@ -500,7 +500,7 @@ a img.aligncenter {
 	height: 5px;
     opacity: 0;
     margin-left: -3px;
-    background-color: #ffffff;
+    background-color: #02876C;
 	border-radius: 50px;
     -webkit-transform: translateY(0px);
     transform: translateY(0px);
@@ -522,7 +522,7 @@ a img.aligncenter {
 	border-radius: 50px;
     opacity: 0;
     margin-left: -10px;
-    background-color: #ffffff;
+    background-color: #02876C;
     -webkit-transform: translateY(0px);
     transform: translateY(0px);
     transition: all 900ms ease;
@@ -545,7 +545,7 @@ a img.aligncenter {
 	border: none !important;
     opacity: 0;
     margin-right: -11px;
-    background-color: #ffffff;
+    background-color: #02876C;
     transition: all 900ms ease;
     -webkit-transition: all 900ms ease;
     -ms-transition: all 900ms ease;

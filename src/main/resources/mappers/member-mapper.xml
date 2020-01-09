@@ -58,8 +58,14 @@
 	</delete>
 	
 	<select id="checkIdDuplicate" parameterType="string" resultType="int">
-	     SELECT COUNT(*) FROM MEMBER WHERE USERID=#{userId};
+	     SELECT COUNT(*) FROM MEMBER WHERE USERID=#{userId}
 	</select>
+	
+	<select id="checkEmail" parameterType="string" resultType="string">
+		SELECT USERID FROM MEMBER WHERE EMAIL=#{email}
+	</select>
+	
+	
 </mapper>
 
 

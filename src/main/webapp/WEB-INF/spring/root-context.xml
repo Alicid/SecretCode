@@ -37,6 +37,24 @@
 	      <property name="dataSource" ref="dataSource"/>
 	</bean>
 	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="username" value="zerous1318@gmail.com" />
+      <property name="password" value="xorhdakd2!" />
+    
+
+      <!-- email 요청시는 SMTP -->
+      <property name="javaMailProperties">
+         <props>
+            <prop key="mail.transport.protocol">smtp</prop>
+            <prop key="mail.smtp.auth">true</prop>
+            <prop key="mail.smtp.starttls.enable">true</prop>
+            <prop key="mail.debug">true</prop>
+         </props>
+      </property>
+   	</bean>
+	
 	<!-- 트랜잭션 처리 방식 -->
 	<!-- 선언적 AOP 처리 방식(XML 방식) -->
 	<!-- 트랜잭션 처리를 위한 advice 구간 설정 -->

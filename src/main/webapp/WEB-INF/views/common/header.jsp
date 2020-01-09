@@ -7,7 +7,7 @@
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 150px;">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="index.html">
+				<a class="navbar-brand" href="${pageContext.request.contextPath }">
 					<img src="${pageContext.request.contextPath }/resources/images/KakaoTalk_20191226_120151349.png" width="300px" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +17,7 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-host">
 					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/notice/noticeSelectList.do"><b>공지 사항</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/boardSelectList.do"><b>자유 게시판</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/question/questionSelectList.do"><b>문제 풀이</b></a></li>
@@ -72,8 +72,8 @@
                                     <button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
 										취소
                                     </button>
-                                    <a class="for-pwd" href="javascript:;">아이디를 잊으셨나요?</a>
-									<a class="for-pwd" href="javascript:;">비밀번호를 잊으셨나요?</a>
+                                    <a class="for-pwd" href="${pageContext.request.contextPath}/member/gotoIdFind.do">아이디를 잊으셨나요?</a>
+									<a class="for-pwd" href="${pageContext.request.contextPath}/member/pwFind.do">비밀번호를 잊으셨나요?</a>
 								</div>
 							</div>
 						</form>
@@ -82,10 +82,10 @@
 						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return fn_enroll_validate();">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" type="text" >
-									<span class="guide ok">사용이 가능한 아이디 입니다.</span>
-				            		<span class="guide error">사용이 불가능한 아이디 입니다.</span>
-				            		<span class="guide invalid">4글자 미만의 아이디는 사용이 불가합니다.</span>
+									<input type="text" class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" required>
+									<span class="guide ok">사용 가능</span>
+				            		<span class="guide error">사용 불가</span>
+				            		<span class="guide invalid">4글자 미만</span>
 				            		<input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0"/>
 								</div>
 							</div>

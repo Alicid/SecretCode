@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board-mapper">
+	
+	<resultMap id="boardMap" type="Board">
+		<result column="B_NO" property="bno"/>
+		<result column="BTYPE_NO" property="btype"/>
+		<result column="U_NO" property="uno"/>
+		<result column="BCATEGORY" property="bCategory"/>
+		<result column="B_TITLE" property="bTitle"/>
+		<result column="B_CONTENT" property="bContent"/>
+		<result column="B_ENROLLDATE" property="bDate"/>
+		<result column="B_COUNT" property="bCount"/>
+		<result column="B_STATUS" property="bStatus"/>
+		<result column="RM" property="bnum"/>
+		<result column="N_NAME" property="writer"/>
+	</resultMap>
+
+	<select id="getListCount" resultType="int">
+		SELECT COUNT(*) FROM BOARD
+	</select>
+
+	<select id="selectBoard" parameterType="PageInfo" resultMap="boardMap">
+		<![CDATA[ SELECT * FROM 
+					(SELECT B.*, ROWNUM RNUM 
+     				 FROM(SELECT ROWNUM RM,BD.*,M.N_NAME 
+     				 	  FROM BOARD BD 
+     				 	  JOIN MEMBER M ON (BD.U_NO=M.U_NO)
+          				  WHERE B_STATUS='N' 
+          				  ORDER BY B_ENROLLDATE DESC) B 
+     				WHERE ROWNUM <= #{endRow})BO 
+			WHERE RNUM > #{startRow}
+			]]>
+	</select>
+	<select id="selectOneBoard" parameterType="int" resultMap = "boardMap">
+		SELECT B.*,M.N_NAME 
+		FROM BOARD B 
+		JOIN MEMBER M ON (B.U_NO = M.U_NO)  
+		WHERE B_NO = #{bno}
+	</select>
+	
+	<update id="addReadCount" parameterType="int">
+		UPDATE BOARD SET B_COUNT=B_COUNT+1 WHERE B_NO=#{bno}
+	</update>
+	
+	
+</mapper>

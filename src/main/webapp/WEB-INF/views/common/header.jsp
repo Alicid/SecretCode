@@ -32,9 +32,9 @@
                     </c:if>
                     <c:if test="${!empty member}">
                         <ul class="nav navbar-nav navbar-right">
-                        <li class="nav navbar-nav navbar-right" style="margin-top:2.8%;"><span><a href="${pageContext.request.contextPath}/member/memberView.do?userId=${member.userId}" title="내정보보기"><strong>${member.nickName}</strong></a> 님, 안녕하세요</span>
-                        </li> &nbsp;&nbsp;&nbsp;&nbsp;
-                        <li class="nav navbar-nav navbar-right"><a class="hover-btn-new log orange" onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do'"><span>Logout</span></a>
+                        <li class="nav-item"><span><a href="${pageContext.request.contextPath}/member/memberView.do?userId=${member.userId}" title="내정보보기"><strong>${member.nickName}</strong></a> 님, 안녕하세요</span>
+                        </li>&nbsp;
+                        <li class="nav-item"><a class="hover-btn-new log orange" onclick="location.href='${pageContext.request.contextPath}/member/memberLogout.do'"><span>Logout</span></a>
                         </li>
                         </ul>
                     </c:if>
@@ -73,8 +73,8 @@
                                     <button type="button" class="btn btn-secondary btn-light btn-radius btn-brd grd1" data-dismiss="modal">
 										취소
                                     </button>
-                                    <a class="for-pwd" href="javascript:;">아이디를 잊으셨나요?</a>
-									<a class="for-pwd" href="javascript:;">비밀번호를 잊으셨나요?</a>
+                                    <a class="for-pwd" href="${pageContext.request.contextPath}/member/gotoIdFind.do">아이디를 잊으셨나요?</a>
+									<a class="for-pwd" href="${pageContext.request.contextPath}/member/pwFind.do">비밀번호를 잊으셨나요?</a>
 								</div>
 							</div>
 						</form>
@@ -83,10 +83,10 @@
 						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return fn_enroll_validate();">
 							<div class="form-group">
 								<div class="col-sm-12">
-									<input class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" type="text" >
-									<span class="guide ok">사용이 가능한 아이디 입니다.</span>
-				            		<span class="guide error">사용이 불가능한 아이디 입니다.</span>
-				            		<span class="guide invalid">4글자 미만의 아이디는 사용이 불가합니다.</span>
+									<input type="text" class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" required>
+									<span class="guide ok">사용 가능</span>
+				            		<span class="guide error">사용 불가</span>
+				            		<span class="guide invalid">4글자 미만</span>
 				            		<input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value="0"/>
 								</div>
 							</div>

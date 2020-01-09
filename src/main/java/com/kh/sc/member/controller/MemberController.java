@@ -1,6 +1,7 @@
 package com.kh.sc.member.controller;
 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.sc.member.email.model.service.EmailService;
 import com.kh.sc.member.exception.MemberException;
 import com.kh.sc.member.model.service.MemberService;
 import com.kh.sc.member.model.vo.Member;
@@ -24,6 +26,9 @@ public class MemberController {
 	
 	@Autowired
 	BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	EmailService emailService;
 	
 	@RequestMapping("/memberEnrollEnd.do")
 	public String memberEnrollEnd(Member member, Model model) {
@@ -97,19 +102,38 @@ public class MemberController {
 		
 		return "member/memberView";
 	}
-
+	
+	@RequestMapping("/member/memberLogout.do")
+	public String memberLogout(HttpSession session) {
+		
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/member/gotoIdFind.do")
+	public String gotoIdFind() {
+		return "member/idFind";
+	}
+	
+	@RequestMapping("/member/idFind.do")
+	public String idFindView(HttpServletRequest request, Model model) throws Exception {
+		String email = request.getParameter("emailFind");
+		
+		String msg = emailService.sendEmail(email);
+		String loc = "/";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("loc", loc);
+		
+		return "common/msg";
+	}
+	
+	
+	@RequestMapping("/member/pwFind.do")
+	public String pwFindView() {
+		
+		return "member/pwFind";
+	
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

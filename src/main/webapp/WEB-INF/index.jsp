@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-  <title>SmartEDU - Education Responsive HTML5 Template</title> 
+  <title>Secret Code</title> 
 
     <c:import url="views/common/commonUtil.jsp" />
 	<style>

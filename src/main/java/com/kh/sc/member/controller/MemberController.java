@@ -1,7 +1,5 @@
 package com.kh.sc.member.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kh.sc.member.exception.MemberExcrption;
+import com.kh.sc.member.exception.MemberException;
 import com.kh.sc.member.model.service.MemberService;
 import com.kh.sc.member.model.vo.Member;
 
@@ -58,7 +56,7 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
-	@RequestMapping("memberLogin.do")
+	@RequestMapping("/member/memberLogin.do")
 	public ModelAndView memberLogin(Member member, HttpSession session) {
 		ModelAndView mv = new ModelAndView();
 			System.out.println("화면 전달 확인 : "+member);
@@ -85,7 +83,7 @@ public class MemberController {
 			
 		} catch(Exception e) {
 			
-			throw new MemberExcrption("로그인 시도 중 에러 발생!");
+			throw new MemberException("로그인 시도 중 에러 발생!");
 			
 		}
 		return mv;

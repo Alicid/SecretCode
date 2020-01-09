@@ -11,6 +11,7 @@
 	<typeAliases>
 		<!-- 나중에 SQL에서 사용할 때 직접 내용을 적지 않고 별칭으로도 접근이 가능해진다. -->
 		<typeAlias type="com.kh.sc.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.kh.sc.notice.model.vo.Notice" alias="Notice"/>
 		
 	</typeAliases>
 </configuration>

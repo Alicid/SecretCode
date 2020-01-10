@@ -23,6 +23,13 @@
 </head>
 <body class="host_version">
 <c:import url="../common/header.jsp" />
+
+<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/banner.jpg');">
+      <div class="container text-center">
+         <h1>공지 사항<span class="m_1">Let bygones be bygones.</span></h1>
+      </div>
+</div>
+
 <br />
 <section>
 <div class="mb-2" align="center">

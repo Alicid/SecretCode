@@ -54,7 +54,8 @@
 							<div class="row">
 								<div class="col-md-12 col-sm-12 text-right">
 									<div class="big-tagline">
-										<h2><strong>Secret Code</strong> License Mock Test</h2>
+										<h2><strong>The beginning</strong> is half of the whole.</h2>
+										<p class="lead" style="font-size:17px;">- 시작이 반이다. - </p>
 										<p class="lead">자격증 공부를 위한 실력 향상 프로젝트 Web Site </p>
 											<a href="#" class="hover-btn-new log orange"><span><b>자격증 취득 통계</b></span></a>
 											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -73,7 +74,8 @@
 							<div class="row">
 								<div class="col-md-12 col-sm-12 text-left">
 									<div class="big-tagline">
-										<h2><strong>Secret Code</strong> License Mock Test</h2>
+										<h2><strong>Step by step</strong> goes a long way</h2>
+										<p class="lead" style="font-size:17px;">- 한 걸음 한 걸음 걷는 자가 성공한다. - </p>
 										<p class="lead">자격증 공부를 위한 실력 향상 프로젝트 Web Site </p>
                                         <a href="#" class="hover-btn-new log orange"><span><b>자격증 취득 통계</b></span></a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -92,7 +94,8 @@
 							<div class="row">
 								<div class="col-md-12 col-sm-12 text-center">
 									<div class="big-tagline">
-										<h2><strong>Secret Code</strong> License Mock Test</h2>
+										<h2><strong>No sweat</strong> , no sweet</h2>
+										<p class="lead" style="font-size:17px;">- 땀이 없으면 달콤함도 없다. - </p>
 										<p class="lead">자격증 공부를 위한 실력 향상 프로젝트 Web Site </p>
                                         <a href="#" class="hover-btn-new log orange"><span><b>자격증 취득 통계</b></span></a>
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

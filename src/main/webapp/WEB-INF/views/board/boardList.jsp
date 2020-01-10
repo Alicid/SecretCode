@@ -68,9 +68,16 @@
 </style>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
 </head>
-<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7;">
+<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7; overflow-y: scroll;">
 	<c:import url="../common/header.jsp"/>
-	<br>	<br>	<br>	<br>
+	
+	<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/blog_single.jpg');">
+      <div class="container text-center">
+         <h1>자유 게시판<span class="m_1">Love your neighbor as yourself.</span></h1>
+      </div>
+</div>
+
+	<br>	<br>
     <body class="flex items-center justify-center">
    <div id='root'></div>
 	<div class="container">

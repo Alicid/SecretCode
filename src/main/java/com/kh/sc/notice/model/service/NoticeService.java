@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.sc.common.PageInfo;
 import com.kh.sc.notice.exception.NoticeException;
 import com.kh.sc.notice.model.dao.NoticeDAO;
 import com.kh.sc.notice.model.vo.Notice;
@@ -26,14 +27,10 @@ public class NoticeService {
 	return result;
 }
 
-	public List<Map<String, String>> selectList(int cPage, int numPerPage) {
-	      return ndao.selectList(cPage, numPerPage);
+	public List<Notice> selectList(PageInfo pi) {
+		return ndao.selectList(pi);
 	   }
 
-	   public int selectTotalContents() {
-	      return ndao.selectTotalContents();
-	   }
-	   
 	   public Notice selectOne(int nNo) {
 		   int result = ndao.addReadCount(nNo);
 		   
@@ -60,6 +57,10 @@ public class NoticeService {
 
 	public int deleteNotice(int nNo) {
 		return ndao.deleteNotice(nNo);
+	}
+
+	public int getListCount() {
+		return ndao.getListCount();
 	}
 	
 }

@@ -27,6 +27,13 @@
 </head>
 <body class="host_version">
 <c:import url="../common/header.jsp" />
+
+<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/blog_single.jpg');">
+      <div class="container text-center">
+         <h1>자유 게시판<span class="m_1">In giving advice, seek to help, not to please, your friend.</span></h1>
+      </div>
+</div>
+
 <div id="overviews" class="section wb">
         <div class="container">
             <div class="row"> 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.sc.board.model.vo.Board;
+import com.kh.sc.common.PageInfo;
 import com.kh.sc.common.util.Utils;
 import com.kh.sc.notice.model.service.NoticeService;
 import com.kh.sc.notice.model.vo.Notice;
@@ -32,30 +35,47 @@ public class NoticeController {
 	@Autowired
 	NoticeService ns;
 	
+	@Autowired
+	PageInfo pi;
+	
+	/*
+	 * @RequestMapping("/notice/noticeList.no") public String
+	 * selectNoticeList(@RequestParam(value = "cPage", required = false,
+	 * defaultValue = "1") int cPage, Model model) {
+	 * 
+	 * // 한 페이지당 보여줄 게시글 수 int numPerPage = 10;
+	 * 
+	 * // 페이지 처리된 리스트 가져오기 List<Map<String, String>> list = ns.selectList(cPage,
+	 * numPerPage);
+	 * 
+	 * // 전체 게시글 수 가져오기 int totalContents = ns.selectTotalContents();
+	 * 
+	 * // 페이지 계산 HTML을 추가하기 String pageBar = Utils.getPageBar(totalContents, cPage,
+	 * numPerPage, "noticeList.no");
+	 * 
+	 * System.out.println(pageBar);
+	 * 
+	 * model.addAttribute("list", list).addAttribute("totalContents", totalContents)
+	 * .addAttribute("numPerPage", numPerPage).addAttribute("pageBar", pageBar);
+	 * 
+	 * return "notice/noticeList"; }
+	 */
 	@RequestMapping("/notice/noticeList.no")
-	   public String selectNoticeList(@RequestParam(value = "cPage", required = false, defaultValue = "1") int cPage,
-	         Model model) {
-
-	      // 한 페이지당 보여줄 게시글 수
-	      int numPerPage = 10;
-
-	      // 페이지 처리된 리스트 가져오기
-	      List<Map<String, String>> list = ns.selectList(cPage, numPerPage);
-
-	      // 전체 게시글 수 가져오기
-	      int totalContents = ns.selectTotalContents();
-
-	      // 페이지 계산 HTML을 추가하기
-	      String pageBar = Utils.getPageBar(totalContents, cPage, numPerPage, "noticeList.no");
-
-	      System.out.println(pageBar);
-
-	      model.addAttribute("list", list).addAttribute("totalContents", totalContents)
-	            .addAttribute("numPerPage", numPerPage).addAttribute("pageBar", pageBar);
-
-	      return "notice/noticeList";   
-	   }
-	   
+	public String selectNoticeList(@RequestParam(value="currentPage", required=false,
+			defaultValue="1") int currentPage, Model model) {
+		List<Notice> list = new ArrayList<Notice>();
+		
+		int listCount = ns.getListCount();
+		
+		pi.calcPage(ns.getListCount());
+		System.out.println("총 게시글 수 : "+ns.getListCount());
+		System.out.println("페이지 처리 확인 : " + pi);
+		
+		list = ns.selectList(pi);
+	
+		model.addAttribute("list", list).addAttribute("listCount", listCount);
+		return "notice/noticeList";
+	}
 	   @RequestMapping("/notice/noticeDetail.no")
 	   public String selectOne(@RequestParam("nNo") int nNo, Model model) {
 	      
@@ -98,58 +118,7 @@ public class NoticeController {
 		return "notice/noticeUpdateForm";
 	}
 	
-	@RequestMapping("/insert.tn")
-	@ResponseBody
-	   public String fileUpload(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
-	      
-		String savePath = 
-	            request.getServletContext().getRealPath("/resources/bUpFiles/");
-	      
-	      String renamedFileName = null;
-	      
-	      for(MultipartFile f : upFiles) {
-	         if( !f.isEmpty() ) {
-	            // 파일 이름 재생성해서 저장하기
-	            String originalFileName = f.getOriginalFilename();
-	            String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-	            // sample.jpg --> .jpg
-	            
-	            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-	            
-	            int rndNum = (int)(Math.random()*1000);
-	            
-	            renamedFileName
-	             = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+"."+ext;  
-	            // --> 20191230_154500_1.jpg
-	            
-	            try {
-	               
-	               f.transferTo(new File(savePath + renamedFileName));
-	               
-	            } catch (IllegalStateException e) {
-	               e.printStackTrace();
-	            } catch (IOException e) {
-	               e.printStackTrace();
-	            }
-	         }
-	      }
-	      String uploadPath = "";
-	         InetAddress inet = null;
-             try {
-                inet = InetAddress.getLocalHost();
-             } catch (UnknownHostException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-             }
-     
-       String serverPath = "http://"+  inet.getHostAddress()+":8088/sc/resources/bUpFiles/"; 
-	   
-	     
-	      uploadPath = serverPath + renamedFileName;
-	    		  
-	      return uploadPath;
-	      
-	   }
+	
 	
 	@RequestMapping("/notice/nUpdate.no")
 	public String noticeUpdate(Notice notice, Model model, HttpServletRequest request) {
@@ -176,59 +145,6 @@ public class NoticeController {
 
 		return "common/msg";
 	}
-
-	@RequestMapping("/update.tn")
-	@ResponseBody
-	   public String fileUpload1(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
-	      
-		String savePath = 
-	            request.getServletContext().getRealPath("/resources/bUpFiles/");
-	      
-	      String renamedFileName = null;
-	      
-	      for(MultipartFile f : upFiles) {
-	         if( !f.isEmpty() ) {
-	            // 파일 이름 재생성해서 저장하기
-	            String originalFileName = f.getOriginalFilename();
-	            String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-	            // sample.jpg --> .jpg
-	            
-	            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-	            
-	            int rndNum = (int)(Math.random()*1000);
-	            
-	            renamedFileName
-	             = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+"."+ext;  
-	            // --> 20191230_154500_1.jpg
-	            
-	            try {
-	               
-	               f.transferTo(new File(savePath + renamedFileName));
-	               
-	            } catch (IllegalStateException e) {
-	               e.printStackTrace();
-	            } catch (IOException e) {
-	               e.printStackTrace();
-	            }
-	         }
-	      }
-	      String uploadPath = "";
-	      
-	      InetAddress inet = null;
-          try {
-             inet = InetAddress.getLocalHost();
-          } catch (UnknownHostException e) {
-             // TODO Auto-generated catch block
-             e.printStackTrace();
-          }
-  
-          String serverPath = "http://"+  inet.getHostAddress()+":8088/sc/resources/bUpFiles/"; 
-	     
-	      uploadPath = serverPath + renamedFileName;
-	    		  
-	      return uploadPath;
-	      
-	   }
 	
 	@RequestMapping("/notice/nDelete.no")
 	public String noticeDelete(int nNo, Model model, HttpSession session) {

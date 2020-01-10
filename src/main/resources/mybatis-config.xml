@@ -13,6 +13,7 @@
 		<typeAlias type="com.kh.sc.member.model.vo.Member" alias="Member"/>
 		<typeAlias type="com.kh.sc.board.model.vo.Board" alias="Board"/>
 		<typeAlias type="com.kh.sc.common.PageInfo" alias="PageInfo"/>
+		<typeAlias type="com.kh.sc.notice.model.vo.Notice" alias="Notice"/>
 	</typeAliases>
 </configuration>
 

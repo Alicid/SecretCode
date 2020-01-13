@@ -17,9 +17,6 @@ public class PageInfo implements Serializable{
 	 
 	 public PageInfo(){}
 	 
-	
-	 
-	 
 	public PageInfo(int startPage, int endPage, int maxPage, int currentPage, int limit, int listCount) {
 		super();
 		this.startPage = startPage;
@@ -109,14 +106,17 @@ public class PageInfo implements Serializable{
 		
 	}
 
-
-
-
 	@Override
 	public String toString() {
 		return "PageInfo [startPage=" + startPage + ", endPage=" + endPage + ", maxPage=" + maxPage + ", currentPage="
-				+ currentPage + ", limit=" + limit + ", listCount=" + listCount + "]";
+				+ currentPage + ", limit=" + limit + ", listCount=" + listCount + ", startRow=" + startRow + ", endRow="
+				+ endRow + "]";
 	}
+
+
+
+
+	
 	
 	
 	

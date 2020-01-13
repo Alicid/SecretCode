@@ -23,33 +23,27 @@
 </head>
 <body class="host_version">
 <c:import url="../common/header.jsp" />
-
-<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/banner.jpg');">
-      <div class="container text-center">
-         <h1>공지 사항<span class="m_1">Let thy speech be short, comprehending much in few words.</span></h1>
-      </div>
-</div>
-
 <br />
 <section>
 <div class="mb-2" align="center">
-<form id="insertForm" action="${ pageContext.request.contextPath }/notice/nInsert.no"  method="post"  >
+<form id="updateForm" action="${ pageContext.request.contextPath }/board/bUpdate.do"  method="post"  >
 		<div class="input-group mb-3" style="width:900px;">
 			<br />
-		<input type="hidden" name="uNo"  value="${member.uNo}"/>
+		<input type="hidden" name="uno"  value="${member.uNo}"/>
+		<input type="hidden" name="bno"  value="${board.bno}"/>
   				<input type="text" class="form-control" aria-label="Text input with dropdown button" 
- 				 name="nTitle" id="title" placeholder="제목을 입력하세요.">
+ 				 name="bTitle" id="title" placeholder="제목을 입력하세요." value="${board.bTitle}">
 		</div>
 
 		<div class="editorArea"  style="margin-top:20px;">
-  				<textarea id="summernote" name="nContent"></textarea>
+  				<textarea id="summernote" name="bContent">${board.bContent}</textarea>
 		</div>
 		
 <br /><br />
 
 <div align="center">
-<button type="reset" class="btn btn-primary" onclick="cancelbtn();">취소</button>&nbsp;&nbsp;&nbsp;
-<button type="submit" class="btn btn-primary" onclick="insertbtn();">확인</button>
+<button type="submit" class="btn btn-primary" onclick="deleteBtn();">삭제</button>&nbsp;&nbsp;&nbsp;
+<button type="submit" class="btn btn-primary" onclick="updateBtn();">수정완료</button>
 </div>
 </form>
 				
@@ -60,7 +54,7 @@
 
 <c:import url="../common/footer.jsp" />
 
-<script>
+ <script>
 $(document).ready(function(){
 	
 		$('#summernote').summernote({
@@ -91,7 +85,7 @@ $(document).ready(function(){
   $.ajax({
        data: form_data,
        type: "post",
-       url: '/sc/insert.tn',
+       url: '/sc/update.tn',
     cache : false,
     contentType : false,
        enctype: 'multipart/form-data',
@@ -108,7 +102,7 @@ $(document).ready(function(){
   });
 }
  
-  function insertbtn(){
+  function updateBtn(){
       if($('#title').val() == ""){
          alert("제목을 입력하세요.");
          $('#title').focus();
@@ -116,17 +110,17 @@ $(document).ready(function(){
          alert("내용을 입력해 주세요.");
          $('#summernote').focus();
       } else {
-         $('#insertForm').submit();
+         $('#updateForm').submit();
       }
       event.preventDefault();   
       
    }
    
-   function cancelbtn(){
-      var answer = confirm("게시글 작성을 취소하시겠습니까?");
+   function deleteBtn(){
+      var answer = confirm("게시글을 삭제하시겠습니까?");
       
       if(answer == true){
-    	  location.href = "${pageContext.request.contextPath}/notice/nselectList.no";
+    	  $('#updateForm').attr("action", "${pageContext.request.contextPath}/notice/nDelete.no");
         } 
    }
    

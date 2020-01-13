@@ -157,8 +157,8 @@ a,
 }
 
 .lead {
-    font-size: 18px;
-    line-height: 30px;
+    font-size: 15px;
+    line-height: 25px;
     color: #767676;
     margin: 0;
     padding: 0;
@@ -466,7 +466,7 @@ a img.aligncenter {
 
 
 .top-navbar .bg-light{
-	background: #f8f8f8 !important;
+	background: #F3F3F3 !important;
 }
 
 .top-navbar .navbar-light .navbar-nav .nav-link{
@@ -3455,13 +3455,13 @@ span.m_1 {
 	line-height: 35px;
 }
 .blog-button a.hover-btn-new::before, .blog-button a.hover-btn-new::after {
-    background: #aaf0d1;
+    background: #02876C;
     content: '';
     position: absolute;
     z-index: 1;
 }
 .blog-button a.hover-btn-new::after {
-    background: #333333 !important;
+    background: #ffffff !important;
     height: 100%;
     left: 0;
     top: 0;
@@ -3470,10 +3470,10 @@ span.m_1 {
 .blog-button a.hover-btn-new span {
     position: relative;
     z-index: 2;
-    color: #fff;
+    color: #333333;
 }
 .blog-button a.hover-btn-new:hover span {
-    color: #333333;
+    color: #ffffff;
 }
 .blog-button a.hover-btn-new::before {
     height: 100%;

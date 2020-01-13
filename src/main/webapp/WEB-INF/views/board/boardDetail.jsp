@@ -27,6 +27,13 @@
 </head>
 <body class="host_version">
 <c:import url="../common/header.jsp" />
+
+<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/blog_single.jpg');">
+      <div class="container text-center">
+         <h1>자유 게시판<span class="m_1">In giving advice, seek to help, not to please, your friend.</span></h1>
+      </div>
+</div>
+
 <div id="overviews" class="section wb">
         <div class="container">
             <div class="row"> 
@@ -37,20 +44,20 @@
                     <div class="blog-desc">
                     
 						<div class="title display-5">
-							<h1>[${board.bCategory}]&nbsp;&nbsp;${board.bTitle} </h1>
+							<h1>[${board.bCategory}]&nbsp;&nbsp;${board.bTitle}&nbsp;(${clist.size()})</h1>
 						</div>
 					
 		
 						<div class="post-content">
 							
 							<div class="meta-info-blog">
-								<span><i class="fa fa-calendar fa-lg">${board.bDate}</i> </span>
-								<span><i class="fa fa-comments fa-lg">12 Comments</i> </span>
-								<span><i class="fa fa-pencil fa-lg" aria-hidden="true">${board.writer}</i></span>
-								<span><i class="fa fa-eye fa-lg" aria-hidden="true">${board.bCount}</i></span>
-								 <input type="hidden" class="bno" name="bno" value="${board.bno }"/>
+								<span><i class="fa fa-calendar fa-lg" name="bDate">${board.bDate}</i> </span>
+								<span><i class="fa fa-comments fa-lg" >12 Comments</i> </span>
+								<span><i class="fa fa-pencil fa-lg" aria-hidden="true" name="writer">${board.writer}</i></span>
+								<span><i class="fa fa-eye fa-lg" aria-hidden="true" name="bCount">${board.bCount}</i></span>
+								 <input type="hidden" class="bno" name="bno" value="${board.bno}"/>
 							</div>
-							<br>
+							
 							<div class="blog-desc">
 								
 								<blockquote class="default content">
@@ -60,39 +67,69 @@
 							</div>							
 						</div>
 					</div>
+				<div class="blog-button">
+					<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardSelectList.do"><span>목록<span></a>
+				</div>
+				<c:if test="${member.uNo == board.uno} ">
+				<c:url var="boardUpdate" value="bUpdateForm.do">
+					<c:param name="bno" value="${board.bno}"/>
+				</c:url>
+				
+				<div class="blog-button">
+					<a class="hover-btn-new orange" href="${boardUpdate}"><span>수정</span></a>
+				</div>
+				</c:if>
+				<c:if test="${member.uNo eq board.uno or member.aNo eq 1 or member.aNo eq 2} ">
+				<c:url var="boardDelete" value="boardDelete.do">
+					<c:param name="bno" value="${board.bno}"/>
+				</c:url>
+				
+				<div class="blog-button">
+					<a class="hover-btn-new orange" href="${boardDelete}"><span>삭제<span></a>
+				</div>
+				</c:if>
 				</div>
 				
-					
+				
 					<div class="blog-comments">
-						<h4>Comments (3)</h4>
-						<div id="comment-blog">
-							<ul class="comment-list">
-								<li class="comment">
+					<h4>Comments (${clist.size()})</h4>
+						<c:forEach var="cmt" items="${clist}">
 							
-									<div class="comment-container">
-										<h5 class="comment-author"><a href="#">John Smith</a></h5>
-										<div class="comment-meta">
-											<a href="#" class="comment-date link-style1">February 22, 2015</a>
-											<a class="comment-reply-link link-style3" href="#respond">Reply »</a>
-										</div>
-										
-										<div class="comment-body">
-											<p>Ne omnis saperet docendi nec, eos ea alii molestiae aliquand. Latine fuisset mele, mandamus atrioque eu mea, wi forensib argumentum vim an. Te viderer conceptam sed, mea et delenit fabellas probat.</p>
-										</div>
-									</div>
-								</li>
+							<div id="comment-blog">
+								<ul class="comment-list">
+									<li class="comment" style="margin-left : ${(cmt.cLevel-1) *50}px;">
 							
-							</ul>
-						</div>
+										<div class="comment-container">
+											<h5 class="comment-author">${cmt.writer}</h5>
+											<div class="comment-meta">
+												<a href="#" class="comment-date link-style1">${cmt.cDate}</a>
+												<a class="comment-reply-link link-style3" href="#respond">Reply »</a> <br>
+												<c:if test="${member.uNo eq cmt.uno}"><a class="comment-reply-link link-style3" href="#" onClick="updateReply(this);return false;" style="margin-top: 20px;">Edit »</a></c:if>
+												<c:if test="${member.uNo eq cmt.uno}"><a class="comment-reply-link link-style3" href="#" onClick="deleteReply(this);return false;" style="margin-top: 40px;">Delete »</a></c:if>
+											</div>
+											<div class="comment-body">
+												${cmt.cContent}
+											</div>
+										</div>
+									</li>
+							
+								</ul>
+							</div>
+						</c:forEach>
+						
+						
 					</div>
+				
+					
+					
 					<c:if test="${!empty member }">
 					<div class="comments-form">
 						<h4>댓글 작성</h4>
 						<div class="comment-form-main">
 							<form action="${pageContext.request.contextPath}/comment/insertComment.do">
 								<div class="row">
-										<input type="hidden" name="uno" value="${ member.uNo }"/>
-										<input type="hidden" name="bno" value="${board.bno }" />
+										<input type="hidden" name="uno" value="${ member.uNo}"/>
+										<input type="hidden" name="bno" value="${board.bno}" />
 										<input type="hidden" name="cRef" value="0" />
 										<input type="hidden" name="cLevel" value="1" />
 									<div class="col-md-12">
@@ -124,14 +161,16 @@
 	// 댓글 수정 함수
 	function updateReply(obj){
 		// 현재 위치와 가장 가까운 textarea 가져오기
-		$(obj).parent().parent().next().find('textarea')
-		.removeAttr('readonly');
+		console.log(obj);
+		//$(obj).parent().parent().next().find('textarea')
+	//	.removeAttr('readonly');
 		
 		// 수정 완료 버튼 보여주기
-		$(obj).siblings('.updateConfirm').css('display', 'inline');
+	//	$(obj).siblings('.updateConfirm').css('display', 'inline');
 		
 		// 수정 하기는 숨기기
-		$(obj).css('display', 'none');
+	//	$(obj).css('display', 'none');
+	
 	}
 	
 	// 수정 완료 기능 구현 함수
@@ -197,6 +236,16 @@
 					+ '&refcno='+ refcno
 					+ '&clevel=' + clevel;
 	}
+    $(function(){
+    	var memberAno = '${member.aNo}';
+    	var muno = '${member.uNo}';
+    	var buno = '${board.uno}';
+    	
+    	console.log(memberAno);
+    	console.log(muno);
+    	console.log(buno);
+    	
+    })
     </script>
 </body>
 </html>

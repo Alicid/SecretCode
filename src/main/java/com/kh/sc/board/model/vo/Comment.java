@@ -14,6 +14,7 @@ public class Comment implements Serializable{
 	private Date cDate;
 	private String cStatus;
 	private String writer;
+	
 	public Comment() {
 		super();
 		// TODO Auto-generated constructor stub

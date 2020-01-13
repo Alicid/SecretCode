@@ -1,6 +1,6 @@
 package com.kh.sc.member.model.service;
 
-
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +33,14 @@ public class MemberService {
 	public Member memberView(String userId) {
 		return memberDAO.selectMemberView(userId);
 		
+	}
+
+	public int updateMember(Member member) {
+		return memberDAO.updateMember(member);
+	}
+
+	public int deleteMember(String userId) {
+		return memberDAO.deleteMember(userId);
 	}
 
 }

@@ -14,6 +14,7 @@ public class Board {
 	private String bStatus;
 	private String writer;
 	private int bnum;
+	private int cCount;
 	
 	public Board() {
 		super();
@@ -34,13 +35,9 @@ public class Board {
 
 
 
-	
-
-
-
 
 	public Board(int bno, int btype, int uno, String bCategory, String bTitle, String bContent, Date bDate, int bCount,
-			String bStatus, String writer, int bnum) {
+			String bStatus, String writer, int bnum, int cCount) {
 		super();
 		this.bno = bno;
 		this.btype = btype;
@@ -53,6 +50,7 @@ public class Board {
 		this.bStatus = bStatus;
 		this.writer = writer;
 		this.bnum = bnum;
+		this.cCount = cCount;
 	}
 
 
@@ -212,12 +210,35 @@ public class Board {
 
 
 
+	public int getcCount() {
+		return cCount;
+	}
+
+
+
+
+	public void setcCount(int cCount) {
+		this.cCount = cCount;
+	}
+
+
+
+
 	@Override
 	public String toString() {
 		return "Board [bno=" + bno + ", btype=" + btype + ", uno=" + uno + ", bCategory=" + bCategory + ", bTitle="
 				+ bTitle + ", bContent=" + bContent + ", bDate=" + bDate + ", bCount=" + bCount + ", bStatus=" + bStatus
-				+ ", writer=" + writer + ", bnum=" + bnum + "]";
+				+ ", writer=" + writer + ", bnum=" + bnum + ", cCount=" + cCount + ", getBno()=" + getBno()
+				+ ", getBtype()=" + getBtype() + ", getUno()=" + getUno() + ", getbCategory()=" + getbCategory()
+				+ ", getbTitle()=" + getbTitle() + ", getbContent()=" + getbContent() + ", getbDate()=" + getbDate()
+				+ ", getbCount()=" + getbCount() + ", getbStatus()=" + getbStatus() + ", getWriter()=" + getWriter()
+				+ ", getBnum()=" + getBnum() + ", getcCount()=" + getcCount() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
+
+
+
+
 
 
 

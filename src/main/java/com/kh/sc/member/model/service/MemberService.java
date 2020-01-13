@@ -35,4 +35,12 @@ public class MemberService {
 		
 	}
 
+	public int updateMember(Member member) {
+		return memberDAO.updateMember(member);
+	}
+
+	public int deleteMember(String userId) {
+		return memberDAO.deleteMember(userId);
+	}
+
 }

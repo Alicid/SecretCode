@@ -31,4 +31,12 @@ public class MemberDAO {
 		return sqlSession.selectOne("member-mapper.selectMemberView", userId);
 	}
 
+	public int updateMember(Member member) {
+		return sqlSession.update("member-mapper.updateMember", member);
+	}
+
+	public int deleteMember(String userId) {
+		return sqlSession.delete("member-mapper.deleteMember", userId);
+	}
+
 }

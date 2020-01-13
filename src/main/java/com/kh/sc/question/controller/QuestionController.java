@@ -30,10 +30,9 @@ public class QuestionController {
 			Model model) {
 		List<Question> list = new ArrayList<Question>();
 		
-		pi.calcPage(qs.get);
+		model.addAttribute("list", list);
 		
-		return null;
-			
+		return "question/questList";
 	}
 			
 	

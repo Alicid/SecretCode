@@ -76,10 +76,10 @@ public class BoardController {
 	public String selectOne(@RequestParam("bno") int bno, Model model) {
 	
 		Board b = bs.selectOne(bno);
-		System.out.println(b);
+		//System.out.println(b);
 		List<Comment> list = bs.selectComments(bno);
 		
-		System.out.println(list);
+		System.out.println("댓글 갯수"+list.size());
 		model.addAttribute("board", b).addAttribute("clist", list);
 		
 		return "board/boardDetail";

@@ -70,7 +70,7 @@
 				<div class="blog-button">
 					<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardSelectList.do"><span>목록<span></a>
 				</div>
-				<c:if test="${member.uNo == board.uno} ">
+				<c:if test="${member.uNo == board.uno}">
 				<c:url var="boardUpdate" value="bUpdateForm.do">
 					<c:param name="bno" value="${board.bno}"/>
 				</c:url>
@@ -79,7 +79,7 @@
 					<a class="hover-btn-new orange" href="${boardUpdate}"><span>수정</span></a>
 				</div>
 				</c:if>
-				<c:if test="${member.uNo eq board.uno or member.aNo eq 1 or member.aNo eq 2} ">
+				<c:if test="${member.uNo eq board.uno or member.aNo eq 1 or member.aNo eq 2}">
 				<c:url var="boardDelete" value="boardDelete.do">
 					<c:param name="bno" value="${board.bno}"/>
 				</c:url>

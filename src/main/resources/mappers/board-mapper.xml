@@ -74,10 +74,20 @@
 	
 	<!-- Comment -->
 	<select id="selectComments" parameterType="int" resultMap="commentMap">
-		SELECT * 
+		<if test="cRef ==0">
+		SELECT C.*,M.N_NAME 
 			FROM BOARD_COMMENT C
-			JOIN MEMBER M USING (U_NO)
-			WHERE B_NO = #{bno}
+			JOIN MEMBER M ON (C.U_NO=M.U_NO)
+			WHERE B_NO=#{bno}
+		</if>
+		<if test="cRef !=0">
+		SELECT C.*,M.N_NAME 
+			FROM BOARD_COMMENT C
+			JOIN MEMBER M ON (C.U_NO=M.U_NO)
+			WHERE B_NO=#{bno}
+			START WITH C_LEVEL = 1 
+			CONNECT BY PRIOR C_NO = #{cRef}
+		</if>
 	</select>	
 	
 	 

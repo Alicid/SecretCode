@@ -35,20 +35,17 @@
 	<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER 
 		<set>
-			<if test="userName != null">
+			<if test="nickName != null">
 				N_NAME = #{nickName},
 			</if>
 			<if test="email != null">
 				EMAIL = #{email},
 			</if>
-			<if test="password != null">
-				PASSWORD = #{userPwd},
-			</if>
-			<if test="password != null">
-				PASSWORD = #{userPwd},
+			<if test="userPwd != null">
+				USERPWD = #{userPwd},
 			</if>
 		</set>
-		WHERE USERID = #{userId}
+		WHERE U_NO = #{uNo}
 	</update>
 	
 	<delete id="deleteMember" parameterType="string">

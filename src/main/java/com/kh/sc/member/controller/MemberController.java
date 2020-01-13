@@ -108,12 +108,16 @@ public class MemberController {
 	
 	@RequestMapping("member/memberUpdate.do")
 	public String memberUpdate(Member member, Model model, HttpSession session) {
+		
 		if(member.getUserPwd().length() > 0) {
+			System.out.println("암호화 전 변경한 비밀번호 : " + member.getUserPwd());
 			String encUserPwd = bcryptPasswordEncoder.encode(member.getUserPwd());
 			member.setUserPwd(encUserPwd);
+			System.out.println("암호화 후 비밀번호 : " + encUserPwd);
 		} else {
 			member.setUserPwd(null);
 		}
+		System.out.println(member);
 		int result = memberService.updateMember(member);
 		
 		String msg = "";
@@ -129,6 +133,7 @@ public class MemberController {
 		}
 		model.addAttribute("msg", msg).addAttribute("loc", loc);
 		
+		System.out.println(result);
 		return "common/msg";
 	}
 	@RequestMapping("/member/mypageDelete.do")

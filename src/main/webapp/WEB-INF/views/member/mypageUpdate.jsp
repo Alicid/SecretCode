@@ -359,13 +359,10 @@ body {
       <div class="container">
         <h1 align="center">내 정보 수정</h1>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <form class="form-horizontal" role="form" method="POST" action="/register">
-            <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                 
-                </div>
-            </div>
+        <form class="form-horizontal" role="form" method="POST" action="${pageContext.request.contextPath}/member/memberUpdate.do">
+            
+            <input type="hidden" name="uNo" value="${member.uNo}"/>
+            <input type="hidden" name="userId" value="${member.userId}"/>
             <div class="row">
                 <div class="col-md-3 field-label-responsive">
                     <label for="name">닉네임</label>
@@ -375,7 +372,7 @@ body {
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                             <input type="text" name="nickName" class="form-control" id="nickName"
-                                   placeholder="수정할 닉네임을 입력해주세요." required autofocus>
+                                   value="${member.nickName}"placeholder="수정할 닉네임을 입력해주세요." required autofocus>
                         </div>
                     </div>
                 </div>
@@ -396,7 +393,7 @@ body {
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-at"></i></div>
                             <input type="text" name="email" class="form-control" id="email"
-                                   placeholder="수정할 이메일을 입력해주세요." required autofocus>
+                                   value="${member.email }"placeholder="수정할 이메일을 입력해주세요." required autofocus>
                         </div>
                     </div>
                 </div>
@@ -416,18 +413,12 @@ body {
                     <div class="form-group has-danger">
                         <div class="input-group mb-2 mr-sm-2 mb-sm-0">
                             <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-key"></i></div>
-                            <input type="password" name="userPwd" class="form-control" id="userPwd"
-                                   placeholder="수정할 비밀번호 를 입력해주세요." required>
+                            <input type="password" name="userPwd" class="form-control" id="password_"
+                                   value="" placeholder="수정할 비밀번호를 입력해주세요." required>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-control-feedback">
-                            <span class="text-danger align-middle">
-                                <i class="fa fa-close"> Example Error Message</i>
-                            </span>
-                    </div>
-                </div>
+               
             </div>
             <div class="row">
                 <div class="col-md-3 field-label-responsive">
@@ -439,8 +430,8 @@ body {
                             <div class="input-group-addon" style="width: 2.6rem">
                                 <i class="fa fa-repeat"></i>
                             </div>
-                            <input type="password" name="userPwd" class="form-control"
-                                   id="userPwd" placeholder="수정된 비밀번호를 입력해주세요." required>
+                            <input type="password" name="userPwd2" class="form-control"
+                                   id="password2" value="" placeholder="수정할 비밀번호를 확인해주세요." required>
                         </div>
                     </div>
                 </div>
@@ -453,6 +444,18 @@ body {
             </div>
         </form>
 <c:import url="../common/footer.jsp" />
+<script>
+$(function(){
+			
+			$("#password2").blur(function(){
+				var p1=$("#password_").val(), p2=$("#password2").val();
+				if(p1!=p2){
+					alert("패스워드가 일치하지 않습니다.");
+					$("#password_").focus();
+				}
+			})
+});
+</script>
 </body>
 
 </html>

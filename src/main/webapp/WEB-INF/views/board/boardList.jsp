@@ -68,19 +68,23 @@
 </style>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
 </head>
-<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7;">
+<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7;overflow-y: auto;">
 	<c:import url="../common/header.jsp"/>
 	<br>	<br>	<br>	<br>
-    <body class="flex items-center justify-center">
+    <body class="flex items-center justify-center" style="background: #edf2f7;overflow-y: auto;">
    <div id='root'></div>
 	<div class="container">
 		<div class="blog-button">
-			<a class="hover-btn-new orange" href="#"><span>글 작성<span></a>
-		</div>
-		<div class="blog-button">
-			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardDetail.do"><span>글 상세페이지<span></a>
+			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardInsertView.do"><span>글 작성<span></a>
+			<select name="one" class="dropdown-select">
+      			<option value="">전체</option>
+      			<option value="1">자랑</option>
+      			<option value="2">팁</option>
+      		<option value="3">잡담</option>
+    	</select>
 		</div>
 		
+  	
 		<table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
 			<thead class="text-white">
 			<c:forEach var="board" items="${list }">
@@ -123,7 +127,7 @@
 	</div>
 	<br /><br /><br />
 	<div class="pagingArea" align="center">
-			<c:url var="selectList" value="selectList.do"/>
+			<c:url var="selectList" value="/board/boardSelectList.do"/>
 			
 			<!-- 처음 페이지 버튼 -->
 			<button onclick="location.href='${selectList}?currentPage=1'">

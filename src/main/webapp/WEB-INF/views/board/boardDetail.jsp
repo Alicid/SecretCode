@@ -10,18 +10,23 @@
 <title>Insert title here</title>
 <c:import url="../common/commonUtil.jsp"/>
 <style>
-	.title{
-		border-color: #aaf0d1;
-    	color: #666;
-    	background: #ffffff;
-    	font-size: inherit;
-    	padding : 10px;
-    	border-left : 5px solid #aaf0d1;
-	}
-	.content{
-		height : 500px;
-		overflow : auto;
-	}
+.title{
+      border-color: #aaf0d1;
+       color: #666;
+       background: #ffffff;
+       font-size: inherit;
+       padding : 5px;
+       border-left : 5px solid #aaf0d1;
+       margin:10px;
+   }
+   .content{
+      height : 500px;
+      overflow : auto;
+      margin:10px;
+   }
+   i{
+   	margin-left : 15px;
+   }
 	
 </style>
 </head>
@@ -44,10 +49,10 @@
 						<div class="post-content">
 							
 							<div class="meta-info-blog">
-								<span><i class="fa fa-calendar fa-lg">${board.bDate}</i> </span>
-								<span><i class="fa fa-comments fa-lg">12 Comments</i> </span>
-								<span><i class="fa fa-pencil fa-lg" aria-hidden="true">${board.writer}</i></span>
-								<span><i class="fa fa-eye fa-lg" aria-hidden="true">${board.bCount}</i></span>
+								<span><i class="fa fa-calendar fa-lg" name="bDate">${board.bDate}</i> </span>
+								<span><i class="fa fa-comments fa-lg" >12 Comments</i> </span>
+								<span><i class="fa fa-pencil fa-lg" aria-hidden="true" name="writer">${board.writer}</i></span>
+								<span><i class="fa fa-eye fa-lg" aria-hidden="true" name="bCount">${board.bCount}</i></span>
 								 <input type="hidden" class="bno" name="bno" value="${board.bno }"/>
 							</div>
 							
@@ -60,6 +65,21 @@
 							</div>							
 						</div>
 					</div>
+				<div class="blog-button">
+					<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardSelectList.do"><span>목록<span></a>
+				</div>
+				<c:url var="boardUpdate" value="bUpdateForm.do">
+					<c:param name="bno" value="${board.bno} "/>
+				</c:url>
+				<div class="blog-button">
+					<a class="hover-btn-new orange" href="${boardUpdate}"><span>수정<span></a>
+				</div>
+				<c:url var="boardDelete" value="boardDelete.do">
+					<c:param name="bno" value="${board.bno} "/>
+				</c:url>
+				<div class="blog-button">
+					<a class="hover-btn-new orange" href="${boardDelete}"><span>삭제<span></a>
+				</div>
 				</div>
 				
 					

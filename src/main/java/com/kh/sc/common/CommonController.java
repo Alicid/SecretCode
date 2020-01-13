@@ -21,4 +21,5 @@ public class CommonController {
 		return "common/pageMove";
 	}
 	
+	
 }

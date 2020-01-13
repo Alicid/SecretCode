@@ -32,14 +32,31 @@ public class BoardDAO {
 		
 		return sql.selectOne("board-mapper.selectOneBoard",bno);
 	}
-
+	
+	public int insertBoard(Board board) {
+		
+		return sql.insert("board-mapper.insertBoard",board);
+	}
+	
 	public int addReadCount(int bno) {
 		return sql.update("board-mapper.addReadCount",bno);
 	}
 
+	public int updateBoard(Board board) {
+		// TODO Auto-generated method stub
+		return sql.update("board-mapper.updateBoard",board);
+	}
+	
+	public int deleteBoard(int bno) {
+		return sql.update("board-mapper.deleteBoard",bno);
+	}
+	
+	/*--------------------------------------------------------*/
 	public int insertComment(Comment cmt) {
 		return sql.insert("board-mapper.insertComment",cmt);
 	}
+
+
 	
 	
 

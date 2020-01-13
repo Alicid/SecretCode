@@ -10,6 +10,7 @@ import com.kh.sc.board.model.dao.BoardDAO;
 import com.kh.sc.board.model.vo.Board;
 import com.kh.sc.board.model.vo.Comment;
 import com.kh.sc.common.PageInfo;
+import com.kh.sc.common.exception.CustomException;
 
 
 @Service
@@ -32,7 +33,22 @@ public class BoardService {
 		bdao.addReadCount(bno);
 		return bdao.selectOne(bno);
 	}
-
+	
+	public int insertBoard(Board board) {
+		int result = 0;
+		
+		result = bdao.insertBoard(board);
+		if(result<1) throw new CustomException("게시글 추가 중 에러 발생");
+		
+		return result;
+	}
+	public int updateBoard(Board board) {
+		
+		return bdao.updateBoard(board);
+	}
+	
+	/*-----------------------------------------------*/
+	
 	public int insertComment(Comment cmt) {
 		
 		return bdao.insertComment(cmt);
@@ -42,5 +58,13 @@ public class BoardService {
 
 		return null;
 	}
+
+	public int deleteBoard(int bno) {
+		return bdao.deleteBoard(bno);
+	}
+
+	
+
+
 
 }

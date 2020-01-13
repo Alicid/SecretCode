@@ -26,17 +26,17 @@
 <br />
 <section>
 <div class="mb-2" align="center">
-<form id="updateForm" action="${ pageContext.request.contextPath }/notice/nUpdate.no"  method="post"  >
+<form id="updateForm" action="${ pageContext.request.contextPath }/board/bUpdate.do"  method="post"  >
 		<div class="input-group mb-3" style="width:900px;">
 			<br />
-		<input type="hidden" name="uNo"  value="${member.uNo}"/>
-		<input type="hidden" name="nNo"  value="${notice.nNo}"/>
+		<input type="hidden" name="uno"  value="${member.uNo}"/>
+		<input type="hidden" name="bno"  value="${board.bno}"/>
   				<input type="text" class="form-control" aria-label="Text input with dropdown button" 
- 				 name="nTitle" id="title" placeholder="제목을 입력하세요." value="${notice.nTitle}">
+ 				 name="bTitle" id="title" placeholder="제목을 입력하세요." value="${board.bTitle}">
 		</div>
 
 		<div class="editorArea"  style="margin-top:20px;">
-  				<textarea id="summernote" name="nContent">${notice.nContent}</textarea>
+  				<textarea id="summernote" name="bContent">${board.bContent}</textarea>
 		</div>
 		
 <br /><br />

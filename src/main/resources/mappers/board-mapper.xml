@@ -23,15 +23,18 @@
 	</select>
 
 	<select id="selectBoard" parameterType="PageInfo" resultMap="boardMap">
-		<![CDATA[ SELECT * FROM 
-					(SELECT B.*, ROWNUM RNUM 
-     				 FROM(SELECT BD.*,M.N_NAME 
-     				 	  FROM (SELECT ROWNUM RM, BDD.* FROM BOARD BDD WHERE B_STATUS='N') BD 
-     				 	  JOIN MEMBER M ON (BD.U_NO=M.U_NO)
-          				  WHERE B_STATUS='N' 
-          				  ORDER BY B_ENROLLDATE DESC) B 
-     				WHERE ROWNUM <= #{endRow})BO 
-			WHERE RNUM > #{startRow}
+		<![CDATA[  SELECT * FROM 
+		 (SELECT B.*, ROWNUM RNUM 
+                  FROM(SELECT BD.*,M.N_NAME 
+                      	 FROM (SELECT ROWNUM RM, BDD.* ,C_COUNT
+                       			FROM BOARD BDD 
+                       			 LEFT JOIN (SELECT B_NO,COUNT(*) C_COUNT FROM BOARD_COMMENT GROUP BY B_NO) C ON (BDD.B_NO = C.B_NO)
+                      			 WHERE B_STATUS='N') BD 
+                       JOIN MEMBER M ON (BD.U_NO=M.U_NO)
+                        WHERE B_STATUS='N' 
+                        ORDER BY B_ENROLLDATE DESC) B 
+                 WHERE ROWNUM <= #{endRow})
+         WHERE RNUM >#{startRow}
 			]]>
 	</select>
 	<select id="selectOneBoard" parameterType="int" resultMap = "boardMap">
@@ -40,10 +43,19 @@
 		JOIN MEMBER M ON (B.U_NO = M.U_NO)  
 		WHERE B_NO = #{bno}
 	</select>
-	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD VALUES(SEQ_B_NO.NEXTVAL,
+								 1, 1, '자랑', 
+								 #{bTitle}, #{bContent},
+								  DEFAULT, DEFAULT, DEFAULT)
+	</insert>
 	<update id="addReadCount" parameterType="int">
-		UPDATE BOARD SET B_COUNT=B_COUNT+1 WHERE B_NO=#{bno}
+		UPDATE BOARD SET B_COUNT=B_COUNT+1 WHERE B_NO= #{bno}
 	</update>
-	
-	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD SET B_TITLE = #{bTitle},B_CONTENT=#{bContent} WHERE B_NO = #{bno}
+	</update>
+	<update id="deleteBoard" parameterType="int">
+		UPDATE BOARD SET B_STATUS = 'Y' WHERE B_NO = #{bno}
+	</update>
 </mapper>

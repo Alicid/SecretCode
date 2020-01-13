@@ -80,7 +80,7 @@
 						</form>
 					</div>
 					<div class="tab-pane" id="Registration">
-						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return fn_enroll_validate();">
+						<form role="form" class="form-horizontal" action="memberEnrollEnd.do" method="post" onsubmit="return validate();">
 							<div class="form-group">
 								<div class="col-sm-12">
 									<input type="text" class="form-control" name="userId" id="userIdEn" placeholder="아이디를 입력하세요" required>

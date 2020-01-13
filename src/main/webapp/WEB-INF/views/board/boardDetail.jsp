@@ -79,7 +79,7 @@
 					<a class="hover-btn-new orange" href="${boardUpdate}"><span>수정</span></a>
 				</div>
 				</c:if>
-				<c:if test="${member.uNo eq board.uno or member.aNo eq 1 or member.aNo eq 2} ">
+				<c:if test="${((member.uNo eq board.uno) or ((member.aNo eq 1) or (member.aNo eq 2)))}">
 				<c:url var="boardDelete" value="boardDelete.do">
 					<c:param name="bno" value="${board.bno}"/>
 				</c:url>

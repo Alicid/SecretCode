@@ -100,7 +100,7 @@ public class MemberController {
 		
 		model.addAttribute("member", member);
 		
-		return "member/memberView";
+		return "member/mypage";
 	}
 	
 	@RequestMapping("/member/memberLogout.do")

@@ -87,7 +87,8 @@
 		<div class="blog-button">
 			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardDetail.do"><span>글 상세페이지<span></a>
 		</div>
-		
+		<br />
+		<p style="margin-bottom:-2%;"><strong>총 ${ listCount }건의 게시물이 있습니다.</strong></p>
 		<table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
 			<thead class="text-white">
 			<c:forEach var="board" items="${list }">
@@ -131,7 +132,6 @@
 	<br /><br /><br />
 	<div class="pagingArea" align="center">
 			<c:url var="selectList" value="selectList.do"/>
-			
 			<!-- 처음 페이지 버튼 -->
 			<button onclick="location.href='${selectList}?currentPage=1'">
 				&lt;&lt;

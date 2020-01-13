@@ -17,10 +17,10 @@
    </resultMap>
 
 <select id="getListCount" resultType="int">
-		SELECT COUNT(*) FROM NOTICE
+		SELECT COUNT(*) FROM NOTICE WHERE N_STATUS = 'N'
 	</select>
 	
-   <select id="selectNotice" parameterType="Notice" resultMap="noticeResult">
+   <select id="selectNotice" parameterType="PageInfo" resultMap="noticeResult">
    <![CDATA[ SELECT * FROM 
                (SELECT N.*, ROWNUM RNUM 
                   FROM(SELECT BD.*,M.N_NAME 

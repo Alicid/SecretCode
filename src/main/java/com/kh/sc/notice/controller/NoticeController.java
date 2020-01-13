@@ -35,8 +35,7 @@ public class NoticeController {
 	@Autowired
 	NoticeService ns;
 	
-	@Autowired
-	PageInfo pi;
+
 	
 	/*
 	 * @RequestMapping("/notice/noticeList.no") public String
@@ -62,8 +61,13 @@ public class NoticeController {
 	 */
 	@RequestMapping("/notice/noticeList.no")
 	public String selectNoticeList(@RequestParam(value="currentPage", required=false,
-			defaultValue="1") int currentPage, Model model) {
+			defaultValue="0") int currentPage, Model model) {
+		System.out.println("현재 페이지 : "+currentPage);
 		List<Notice> list = new ArrayList<Notice>();
+		PageInfo pi = new PageInfo();
+		//PageInfo pi = new PageInfo();
+		System.out.println("처리전 pi"+pi);
+		if(currentPage!=0) pi.setCurrentPage(currentPage);
 		
 		int listCount = ns.getListCount();
 		
@@ -73,7 +77,7 @@ public class NoticeController {
 		
 		list = ns.selectList(pi);
 	
-		model.addAttribute("list", list).addAttribute("listCount", listCount);
+		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi);
 		return "notice/noticeList";
 	}
 	   @RequestMapping("/notice/noticeDetail.no")

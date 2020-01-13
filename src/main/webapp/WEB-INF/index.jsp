@@ -418,12 +418,12 @@
 			            }
 		        	});
 		     	}
-		     //console.log(userId);
+		    console.log(userId);
 			});
 		});
 		
 		function validate(){
-			var userId = $("#userId");
+			var userId = $("#userIdEn");
 			if(userId.val().trim().length<4){
 				alert("아이디는 최소 4자리이상이어야 합니다.");
 				userId.focus();

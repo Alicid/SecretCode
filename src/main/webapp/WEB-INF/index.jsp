@@ -367,7 +367,9 @@
 		});
 		
 		$(function(){
-			
+			$(".guide.error").hide();
+        	$(".guide.ok").hide();
+        	$(".guide.invalid").hide();
 			$("#Password2").blur(function(){
 				var p1=$("#Password").val(), p2=$("#Password2").val();
 				if(p1!=p2){
@@ -379,7 +381,7 @@
 			/* 아이디 중복검사 이벤트 추가 */
 			$("#userIdEn").on("keyup", function(){
 		        var userId = $("#userIdEn").val();
-		       	//console.log(userId);
+		       	console.log(userId);
 		        if(userId.length<4) {
 		        	$(".guide.error").hide();
 		        	$(".guide.ok").hide();
@@ -393,7 +395,7 @@
 			            data : {userId:userId},
 			            dataType: "json",
 			            success : function(data){
-			                console.log(data);
+			                console.log(data.isUsable);
 			                // if(data=="true") //stream 방식
 			                if(data.isUsable==true){ //viewName 방식
 			                    $(".guide.error").hide();
@@ -420,7 +422,7 @@
 		});
 		
 		function validate(){
-			var userId = $("#userId");
+			var userId = $("#userIdEn").val();
 			if(userId.val().trim().length<4){
 				alert("아이디는 최소 4자리이상이어야 합니다.");
 				userId.focus();

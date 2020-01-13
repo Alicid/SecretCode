@@ -20,45 +20,58 @@ public class BoardController {
 	@Autowired
 	BoardService bs;
 	
-	@Autowired
-	PageInfo pi;
 	
 	@RequestMapping("/board/boardSelectList.do")
 	public String selectBoardList(
 			@RequestParam(value="currentPage",
 			required=false,
-			defaultValue="1") int currentPage,
+			defaultValue="0") int currentPage,
 			Model model) {
 		List<Board> list = new ArrayList<Board>();
+		
+		PageInfo pi = new PageInfo();
+		if(currentPage !=0)pi.setCurrentPage(currentPage);
 		
 		pi.calcPage(bs.getListCount());
 		System.out.println("총 게시글 수 : "+bs.getListCount());
 		System.out.println("페이지 처리 확인 : " + pi);
 		
 		list = bs.selectList(pi);
+		System.out.println(list);
 	
-		model.addAttribute("list", list);
+		
+		model.addAttribute("list", list).addAttribute("pi", pi);
 		return "board/boardList";
 	}
 	@RequestMapping("/board/boardInsert.do")
-	public String insertBoard() {
-	
+	public String insertBoard(Board board,@RequestParam int uNo, Model model) {
+		int result = 0;
+		System.out.println(board);
+		System.out.println(uNo);
+		board.setUno(uNo);
+		result = bs.insertBoard(board);
 		
-		return "board/boardList";
+		String msg = "";
+		String loc = "/board/boardSelectList.do";
+
+		if (result > 0) {
+			msg = "게시글 작성 성공";
+		} else {
+			msg = " 게시글 작성 실패";
+		}
+
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+
+		return "common/msg";
 	}
 	
 	@RequestMapping("/board/boardInsertView.do")
 	public String insertBoardView() {
 		
-		
 		return "board/boardInsertForm";
 	}
 	
-	@RequestMapping("/board/boardDetail.do")
-	public String boardDetail() {
-		
-		return "board/boardDetail";
-	}
+	
 	@RequestMapping("/board/selectOne.do")
 	public String selectOne(@RequestParam("bno") int bno, Model model) {
 	
@@ -66,13 +79,58 @@ public class BoardController {
 		System.out.println(b);
 		List<Comment> list = bs.selectComments(bno);
 		
-		
-		model.addAttribute("board", b);
+		System.out.println(list);
+		model.addAttribute("board", b).addAttribute("clist", list);
 		
 		return "board/boardDetail";
 	}
 	
-	/*---------------------------------------------------------------------------------*/
+	@RequestMapping("/board/bUpdateForm.do")
+	public String bUpdateForm(@RequestParam int bno, Model model) {
+		System.out.println(bno);
+		model.addAttribute("board", bs.selectOne(bno));
+		return "board/boardUpdateForm";
+	}
+	
+	@RequestMapping("/board/bUpdate.do")
+	public String boardUpdate(Board board, Model model) {
+		System.out.println(board);
+		int result = bs.updateBoard(board);
+		int bno = board.getBno();
+		String msg = "";
+		String loc = "/board/selectOne.do?bno=" + bno;
+
+		if (result > 0) {
+			msg = "게시글 수정 성공";
+		} else {
+			msg = " 게시글 수정 실패";
+		}
+
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+
+		return "common/msg";
+	}
+	
+	@RequestMapping("/board/boardDelete.do")
+	public String boardDelete(@RequestParam int bno,Model model) {
+		int result = bs.deleteBoard(bno);
+		
+		String msg = "";
+		String loc = "/board/boardSelectList.do";
+
+		if (result > 0) {
+			msg = "게시글 삭제 성공!";
+
+		} else {
+			msg = "게시글 삭제 실패";
+		}
+
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		
+		return "common/msg";
+	}
+	
+	/*--------------------------------------댓글 관련 메소드-------------------------------------------*/
 	@RequestMapping("/comment/insertComment.do")
 	public String insertComment(Comment cmt,Model model) {
 		System.out.println(cmt);
@@ -81,7 +139,7 @@ public class BoardController {
 		
 		String loc = "/board/selectOne.do?bno="+cmt.getBno();
 		
-		System.out.println(loc);
+		//System.out.println(loc);
 		model.addAttribute("loc", loc);
 		
 		return "common/pageMove";

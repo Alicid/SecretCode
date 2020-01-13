@@ -16,23 +16,38 @@
 		<result column="B_STATUS" property="bStatus"/>
 		<result column="RM" property="bnum"/>
 		<result column="N_NAME" property="writer"/>
+		<result column="C_COUNT" property="cCount"/>
 	</resultMap>
-
+	
+	<resultMap id="commentMap" type="Comment">
+		<result column="C_NO" property="cno"/>
+		<result column="B_NO" property="bno"/>
+		<result column="U_NO" property="uno"/>
+		<result column="C_NO2" property="cRef"/>
+		<result column="C_CONTENT" property="cContent"/>
+		<result column="C_LEVEL" property="cLevel"/>
+		<result column="C_ENROLLDATE" property="cDate"/>
+		<result column="C_STATUS" property="cStatus"/>
+		<result column="N_NAME" property="writer"/>
+	</resultMap>
 	<select id="getListCount" resultType="int">
 		SELECT COUNT(*) FROM BOARD
 	</select>
 
 	<select id="selectBoard" parameterType="PageInfo" resultMap="boardMap">
 		<![CDATA[ SELECT * FROM 
-					(SELECT B.*, ROWNUM RNUM 
-     				 FROM(SELECT BD.*,M.N_NAME 
-     				 	  FROM (SELECT ROWNUM RM, BDD.* FROM BOARD BDD WHERE B_STATUS='N') BD 
-     				 	  JOIN MEMBER M ON (BD.U_NO=M.U_NO)
-          				  WHERE B_STATUS='N' 
-          				  ORDER BY B_ENROLLDATE DESC) B 
-     				WHERE ROWNUM <= #{endRow})BO 
-			WHERE RNUM > #{startRow}
-			]]>
+		 (SELECT B.*, ROWNUM RNUM 
+                  FROM(SELECT BD.*,M.N_NAME 
+                      	 FROM (SELECT ROWNUM RM, BDD.* ,C_COUNT
+                       			FROM BOARD BDD 
+                       			 LEFT JOIN (SELECT B_NO,COUNT(*) C_COUNT FROM BOARD_COMMENT GROUP BY B_NO) C ON (BDD.B_NO = C.B_NO)
+                      			 WHERE B_STATUS='N') BD 
+                       JOIN MEMBER M ON (BD.U_NO=M.U_NO)
+                        WHERE B_STATUS='N' 
+                        ORDER BY B_ENROLLDATE DESC) B 
+                 WHERE ROWNUM <= #{endRow})
+         WHERE RNUM >#{startRow}
+         ]]>
 	</select>
 	<select id="selectOneBoard" parameterType="int" resultMap = "boardMap">
 		SELECT B.*,M.N_NAME 
@@ -40,10 +55,43 @@
 		JOIN MEMBER M ON (B.U_NO = M.U_NO)  
 		WHERE B_NO = #{bno}
 	</select>
-	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO BOARD VALUES(SEQ_B_NO.NEXTVAL,
+								 1, #{uno}, '자랑', 
+								 #{bTitle}, #{bContent},
+								  DEFAULT, DEFAULT, DEFAULT)
+	</insert>
 	<update id="addReadCount" parameterType="int">
-		UPDATE BOARD SET B_COUNT=B_COUNT+1 WHERE B_NO=#{bno}
+		UPDATE BOARD SET B_COUNT=B_COUNT+1 WHERE B_NO= #{bno}
+	</update>
+	<update id="updateBoard" parameterType="Board">
+		UPDATE BOARD SET B_TITLE = #{bTitle},B_CONTENT=#{bContent} WHERE B_NO = #{bno}
+	</update>
+	<update id="deleteBoard" parameterType="int">
+		UPDATE BOARD SET B_STATUS = 'Y' WHERE B_NO = #{bno}
 	</update>
 	
+	
+	<!-- Comment -->
+	<select id="selectComments" parameterType="int" resultMap="commentMap">
+		SELECT * 
+			FROM BOARD_COMMENT C
+			JOIN MEMBER M USING (U_NO)
+			WHERE B_NO = #{bno}
+	</select>	
+	
+	 
+	<insert id="insertComment" parameterType="Comment">
+		INSERT INTO BOARD_COMMENT 
+		VALUES(SEQ_C_NO.NEXTVAL, 
+			   #{bno}, 
+			   #{uno}, 
+			   <if test="cRef !=0">#{cRef},</if>
+			   <if test="cRef ==0">NULL,</if>    
+			   #{cContent},
+			    #{cLevel},
+			     DEFAULT,
+			      DEFAULT)
+	</insert>
 	
 </mapper>

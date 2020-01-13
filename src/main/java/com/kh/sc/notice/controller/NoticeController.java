@@ -68,7 +68,7 @@ public class NoticeController {
 	
 	@RequestMapping("/notice/nInsert.no")
 	public String nInsertNotice(Notice notice, Model model) {
-		
+		System.out.println(notice);
 	int result = 0;
 
 	result = ns.insertNotice(notice);
@@ -98,58 +98,7 @@ public class NoticeController {
 		return "notice/noticeUpdateForm";
 	}
 	
-	@RequestMapping("/insert.tn")
-	@ResponseBody
-	   public String fileUpload(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
-	      
-		String savePath = 
-	            request.getServletContext().getRealPath("/resources/bUpFiles/");
-	      
-	      String renamedFileName = null;
-	      
-	      for(MultipartFile f : upFiles) {
-	         if( !f.isEmpty() ) {
-	            // 파일 이름 재생성해서 저장하기
-	            String originalFileName = f.getOriginalFilename();
-	            String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-	            // sample.jpg --> .jpg
-	            
-	            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-	            
-	            int rndNum = (int)(Math.random()*1000);
-	            
-	            renamedFileName
-	             = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+"."+ext;  
-	            // --> 20191230_154500_1.jpg
-	            
-	            try {
-	               
-	               f.transferTo(new File(savePath + renamedFileName));
-	               
-	            } catch (IllegalStateException e) {
-	               e.printStackTrace();
-	            } catch (IOException e) {
-	               e.printStackTrace();
-	            }
-	         }
-	      }
-	      String uploadPath = "";
-	         InetAddress inet = null;
-             try {
-                inet = InetAddress.getLocalHost();
-             } catch (UnknownHostException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-             }
-     
-       String serverPath = "http://"+  inet.getHostAddress()+":8088/sc/resources/bUpFiles/"; 
-	   
-	     
-	      uploadPath = serverPath + renamedFileName;
-	    		  
-	      return uploadPath;
-	      
-	   }
+
 	
 	@RequestMapping("/notice/nUpdate.no")
 	public String noticeUpdate(Notice notice, Model model, HttpServletRequest request) {
@@ -177,58 +126,7 @@ public class NoticeController {
 		return "common/msg";
 	}
 
-	@RequestMapping("/update.tn")
-	@ResponseBody
-	   public String fileUpload1(@RequestParam(value = "file", required = false)MultipartFile[] upFiles, HttpServletRequest request) {
-	      
-		String savePath = 
-	            request.getServletContext().getRealPath("/resources/bUpFiles/");
-	      
-	      String renamedFileName = null;
-	      
-	      for(MultipartFile f : upFiles) {
-	         if( !f.isEmpty() ) {
-	            // 파일 이름 재생성해서 저장하기
-	            String originalFileName = f.getOriginalFilename();
-	            String ext = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-	            // sample.jpg --> .jpg
-	            
-	            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
-	            
-	            int rndNum = (int)(Math.random()*1000);
-	            
-	            renamedFileName
-	             = sdf.format(new Date(System.currentTimeMillis()))+"_"+rndNum+"."+ext;  
-	            // --> 20191230_154500_1.jpg
-	            
-	            try {
-	               
-	               f.transferTo(new File(savePath + renamedFileName));
-	               
-	            } catch (IllegalStateException e) {
-	               e.printStackTrace();
-	            } catch (IOException e) {
-	               e.printStackTrace();
-	            }
-	         }
-	      }
-	      String uploadPath = "";
-	      
-	      InetAddress inet = null;
-          try {
-             inet = InetAddress.getLocalHost();
-          } catch (UnknownHostException e) {
-             // TODO Auto-generated catch block
-             e.printStackTrace();
-          }
-  
-          String serverPath = "http://"+  inet.getHostAddress()+":8088/sc/resources/bUpFiles/"; 
-	     
-	      uploadPath = serverPath + renamedFileName;
-	    		  
-	      return uploadPath;
-	      
-	   }
+
 	
 	@RequestMapping("/notice/nDelete.no")
 	public String noticeDelete(int nNo, Model model, HttpSession session) {

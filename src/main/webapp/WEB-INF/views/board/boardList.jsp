@@ -68,19 +68,25 @@
 </style>
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
 </head>
-<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7;">
+<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7;overflow-y: auto;">
 	<c:import url="../common/header.jsp"/>
 	<br>	<br>	<br>	<br>
-    <body class="flex items-center justify-center">
+    <body class="flex items-center justify-center" style="background: #edf2f7;overflow-y: auto;">
    <div id='root'></div>
 	<div class="container">
 		<div class="blog-button">
-			<a class="hover-btn-new orange" href="#"><span>글 작성<span></a>
-		</div>
-		<div class="blog-button">
-			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardDetail.do"><span>글 상세페이지<span></a>
+		<c:if test="${!empty member}">
+			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardInsertView.do"><span>글 작성<span></a>
+		</c:if>
+			<select name="one" class="dropdown-select">
+      			<option value="">전체</option>
+      			<option value="1">자랑</option>
+      			<option value="2">팁</option>
+      		<option value="3">잡담</option>
+    	</select>
 		</div>
 		
+  	
 		<table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
 			<thead class="text-white">
 			<c:forEach var="board" items="${list }">
@@ -101,7 +107,7 @@
 				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
 					<td class="border-grey-light border  p-3">${board.bnum }</td>
 					<td class="border-grey-light border  p-3 truncate">${board.bCategory }</td>
-					<td class="border-grey-light border  p-3 truncate">${board.bTitle }</td>
+					<td class="border-grey-light border  p-3 truncate">${board.bTitle }&nbsp;<c:if test="${board.cCount ne 0}"><b>(${board.cCount})</b></c:if></td>
 					<td class="border-grey-light border  p-3 truncate">${board.writer }</td>
 					<td class="border-grey-light border  p-3 truncate">${board.bDate }</td>
 					<td class="border-grey-light border  p-3 truncate">${board.bCount }</td>
@@ -110,7 +116,7 @@
 			</c:forEach>
 			</tbody>
 		</table>
-			<div class="widget-search">
+			<div class="widget-search" style="margin : auto;">
 						<div class="site-search-area">
 							<form method="get" id="site-searchform" action="#">
 								<div>
@@ -123,7 +129,7 @@
 	</div>
 	<br /><br /><br />
 	<div class="pagingArea" align="center">
-			<c:url var="selectList" value="selectList.do"/>
+			<c:url var="selectList" value="/board/boardSelectList.do"/>
 			
 			<!-- 처음 페이지 버튼 -->
 			<button onclick="location.href='${selectList}?currentPage=1'">

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tresult-mapper">
+
+<resultMap id="tResultResult" type="tResult">
+      <result column="T_NO" property="tNo"/>
+      <result column="T_YEAR" property="tYear"/>
+      <result column="T_ROUND" property="tRound"/>
+      <result column="T_CANDIDATE" property="tCandidate"/>
+      <result column="T_EXAMINEE" property="tExaminee"/>
+   </resultMap>
+
+   <select id="selectTresult" parameterType="tResult" resultMap="tResultResult">
+   	SELECT TO_CHAR(T_CANDIDATE) C, TO_CHAR(T_EXAMINEE) E FROM T_RESULT
+	WHERE T_YEAR = #{years}
+	ORDER BY T_ROUND
+   </select>   
+   
+
+</mapper>

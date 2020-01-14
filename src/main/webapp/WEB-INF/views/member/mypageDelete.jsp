@@ -423,5 +423,17 @@ body {
        </div> 
        
 <c:import url="../common/footer.jsp" />
+
+<script>
+function password() {
+	var result = window.confirm("정말 탈퇴하시겠습니까?");
+	
+	if(result) {
+		location.href=$("#userPwd");
+	}
+}
+
+</script>
+
 </body>
 </html>

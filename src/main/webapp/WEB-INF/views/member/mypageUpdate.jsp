@@ -10,15 +10,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <meta name="description">
     <title>My Page</title>
     
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    
+ 
     
     
     
@@ -340,7 +338,8 @@ body {
 }
 #sidebar{
 	margin-top : 0%;
-	position : absolute;
+	position : absolute
+	;
 	z-index : 0;
 }
 </style>
@@ -443,6 +442,11 @@ body {
                 </div>
             </div>
         </form>
+        </div>
+        </div>
+        </main>
+        </div>
+        &nbsp;&nbsp;&nbsp;&nbsp;
 <c:import url="../common/footer.jsp" />
 <script>
 $(function(){

@@ -145,5 +145,48 @@ public class BoardController {
 		return "common/pageMove";
 	}
 	
+	@RequestMapping("/comment/updateComment.do")
+	public String updateComment(Comment cmt,Model model) {
+		System.out.println(cmt);
+		
+		int result = bs.updateComment(cmt);
+		
+		String loc = "/board/selectOne.do?bno="+cmt.getBno();
+		
+		model.addAttribute("loc", loc);
+		
+		return "common/pageMove";
+	}
+	
+	@RequestMapping("/comment/deleteComment.do")
+	public String deleteComment(@RequestParam int cno,@RequestParam int bno,Model model) {
+		System.out.println("일반 삭제");
+		System.out.println("cno :"+cno);
+		System.out.println("bno :"+bno);
+		
+		int result = bs.deleteComment(cno);
+				
+		String loc = "/board/selectOne.do?bno="+bno;
+		
+		model.addAttribute("loc", loc);
+		
+		return "common/pageMove";
+	}
+
+	@RequestMapping("/comment/deleteCommentbyAdmin.do")
+	public String deleteCommentbyAdmin(@RequestParam int cno,@RequestParam int bno,Model model) {
+		System.out.println("관리자 삭제");
+		System.out.println("cno :"+cno);
+		System.out.println("bno :"+bno);
+	
+		int result = bs.deleteCommentbyAdmin(cno);
+				
+		String loc = "/board/selectOne.do?bno="+bno;
+		
+		model.addAttribute("loc", loc);
+		
+		return "common/pageMove";
+	}
+	
 	
 }

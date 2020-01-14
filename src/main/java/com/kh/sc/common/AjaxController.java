@@ -33,7 +33,7 @@ public class AjaxController {
 		boolean isUsable = memberService.checkIdDuplicate(userId)== 0? true:false;
 		Map map = new HashMap();
 		map.put("isUsable",isUsable);
-		System.out.println(map);
+		//System.out.println(map);
 		return map;
 	}
 	

@@ -98,12 +98,12 @@
 			<thead class="text-white">
 			<c:forEach var="board" items="${list }">
 				<tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 tablehead">
-					<th class="p-3 text-left t1">번호</th>
-					<th class="p-3 text-left t2">글유형</th>
-					<th class="p-3 text-left t3">제목</th>
-					<th class="p-3 text-left t4">작성자</th>
-					<th class="p-3 text-left t5">작성일</th>
-					<th class="p-3 text-left t6">조회수</th>
+					<th class="w-24 p-3 text-center t1">번호</th>
+					<th class="w-24 p-3 text-center t2">글유형</th>
+					<th class="p-3 text-center t3" >제목</th>
+					<th class="w-24 p-3 text-center t4">작성자</th>
+					<th class="w-24 p-3 text-center t5">작성일</th>
+					<th class="w-24 p-3 text-center t6">조회수</th>
 				
 				</tr>
 			</c:forEach>
@@ -112,9 +112,9 @@
 			
 			<c:forEach var="board" items="${list }">
 				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
-					<td class="border-grey-light border  p-3">${board.bnum }</td>
-					<td class="border-grey-light border  p-3 truncate">${board.bCategory }</td>
-					<td class="border-grey-light border  p-3 truncate">${board.bTitle }&nbsp;<c:if test="${board.cCount ne 0}"><b>(${board.cCount})</b></c:if></td>
+					<td class="border-grey-light border  p-3 text-center">${board.bnum }</td>
+					<td class="border-grey-light border  p-3 truncate text-center">${board.bCategory }</td>
+					<td class="border-grey-light border  p-3 truncate" style="padding-left: 50px;">${board.bTitle }&nbsp;<c:if test="${board.cCount ne 0}"><b>(${board.cCount})</b></c:if></td>
 					<td class="border-grey-light border  p-3 truncate">${board.writer }</td>
 					<td class="border-grey-light border  p-3 truncate">${board.bDate }</td>
 					<td class="border-grey-light border  p-3 truncate">${board.bCount }</td>

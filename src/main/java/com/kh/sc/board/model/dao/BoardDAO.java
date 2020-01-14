@@ -60,6 +60,19 @@ public class BoardDAO {
 		return sql.selectList("board-mapper.selectComments",bno);
 	}
 
+	public int updateComment(Comment cmt) {
+		return sql.update("board-mapper.updateComment",cmt);
+	}
+	
+	public int deleteComment(int cno) {
+		return sql.update("board-mapper.deleteComment",cno);
+	}
+
+	public int deleteCommentbyAdmin(int cno) {
+		return sql.update("board-mapper.deleteCommentbyAdmin",cno);
+	}
+
+
 	
 	
 

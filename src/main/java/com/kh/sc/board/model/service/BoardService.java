@@ -61,6 +61,20 @@ public class BoardService {
 
 		return bdao.selectComments(bno);
 	}
+	
+	public int updateComment(Comment cmt) {
+		return bdao.updateComment(cmt);
+	}
+
+	public int deleteComment(int cno) {
+		
+		return bdao.deleteComment(cno);
+	}
+
+	public int deleteCommentbyAdmin(int cno) {
+		return bdao.deleteCommentbyAdmin(cno);
+	}
+
 
 
 	

@@ -67,7 +67,7 @@
 							</div>							
 						</div>
 					</div>
-				<div class="blog-button">
+				<div class="blog-button" style="width : 80px; display : inline-block;">
 					<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardSelectList.do"><span>목록<span></a>
 				</div>
 				<c:if test="${member.uNo == board.uno}">
@@ -75,7 +75,7 @@
 					<c:param name="bno" value="${board.bno}"/>
 				</c:url>
 				
-				<div class="blog-button">
+				<div class="blog-button" style="width : 80px; display : inline-block;">
 					<a class="hover-btn-new orange" href="${boardUpdate}"><span>수정</span></a>
 				</div>
 				</c:if>
@@ -84,7 +84,7 @@
 					<c:param name="bno" value="${board.bno}"/>
 				</c:url>
 				
-				<div class="blog-button">
+				<div class="blog-button" style="width : 80px; display : inline-block;">
 					<a class="hover-btn-new orange" href="${boardDelete}"><span>삭제<span></a>
 				</div>
 				</c:if>
@@ -96,20 +96,27 @@
 						<c:forEach var="cmt" items="${clist}">
 							
 							<div id="comment-blog">
+							
 								<ul class="comment-list">
-									<li class="comment" style="margin-left : ${(cmt.cLevel-1) *50}px;">
+								
+									<li class="comment" style="margin-left : ${(cmt.cLevel-1) *50-50}px;">
 							
 										<div class="comment-container">
+										<c:if test="${cmt.cLevel ne 1}">[${cmt.writer2}]</c:if>
 											<h5 class="comment-author">${cmt.writer}</h5>
 											<div class="comment-meta">
 												<a href="#" class="comment-date link-style1">${cmt.cDate}</a>
-												<a class="comment-reply-link link-style3" href="#respond">Reply »</a> <br>
+												<a class="comment-reply-link link-style3" href="#" onClick="reComment(this);return false;">Reply »</a> <br>
 												<c:if test="${member.uNo eq cmt.uno}"><a class="comment-reply-link link-style3" href="#" onClick="updateReply(this);return false;" style="margin-top: 20px;">Edit »</a></c:if>
-												<c:if test="${member.uNo eq cmt.uno}"><a class="comment-reply-link link-style3" href="#" onClick="deleteReply(this);return false;" style="margin-top: 40px;">Delete »</a></c:if>
+												<c:if test="${member.uNo eq cmt.uno or member.aNo eq 1 or member.aNo eq 2}"><a class="comment-reply-link link-style3" href="#" onClick="deleteReply(this);return false;" style="margin-top: 40px;">Delete »</a></c:if>
 											</div>
 											<div class="comment-body">
-												${cmt.cContent}
+												<c:if test="${cmt.cLevel ne 1}"><i class="fa fa-reply fa-rotate-180" aria-hidden="true" style="margin-right: 10px;"></i></c:if>${cmt.cContent}
 											</div>
+											<input type="hidden" class="cno"  name="uno" value="${cmt.cno}" />
+										      <input type="hidden" class="uno"  name="uno" value="${member.uNo}" />
+											  <input type="hidden" class="cRef"  name="cRef" value="${cmt.cno}" />
+											  <input type="hidden" class="cLevel"  name="cLevel" value="${cmt.cLevel}" />
 										</div>
 									</li>
 							
@@ -126,7 +133,7 @@
 					<div class="comments-form">
 						<h4>댓글 작성</h4>
 						<div class="comment-form-main">
-							<form action="${pageContext.request.contextPath}/comment/insertComment.do">
+							<form action="${pageContext.request.contextPath}/comment/insertComment.do" onsubmit="return insertComment();">
 								<div class="row">
 										<input type="hidden" name="uno" value="${ member.uNo}"/>
 										<input type="hidden" name="bno" value="${board.bno}" />
@@ -134,13 +141,14 @@
 										<input type="hidden" name="cLevel" value="1" />
 									<div class="col-md-12">
 										<div class="form-group">
-											<textarea class="form-control" name="cContent" placeholder="댓글을 입력해 주세요" id="commenter-message" cols="30" rows="2"></textarea>
+											<textarea class="form-control" name="cContent" placeholder="댓글을 입력해 주세요" id="commenter-message" class="cContent" cols="30" rows="2"></textarea>
 										</div>
 									</div>
 									<div class="col-md-12 post-btn">
 										<button class="hover-btn-new orange"><span>댓글 작성</span></button>
 									</div>
 								</div>
+								 
 							</form>
 						</div>
 					</div>
@@ -161,9 +169,40 @@
 	// 댓글 수정 함수
 	function updateReply(obj){
 		// 현재 위치와 가장 가까운 textarea 가져오기
-		console.log(obj);
-		//$(obj).parent().parent().next().find('textarea')
-	//	.removeAttr('readonly');
+		//console.log(obj);
+		var cno = $(obj).parent().parent().parent().find('.cno').val();
+		var comment_cLevel = $(obj).parent().parent().parent().find('.cLevel').val();
+		var commentbody = $(obj).parent().parent().parent();
+		var comment_cRef = $(obj).parent().parent().parent().find('.cRef').val();
+		var comment = $(obj).parent().parent().find(".comment-body:not(.fa-reply)").text();
+		console.log(commentbody);
+		console.log(comment_cRef);
+		console.log(comment);
+		console.log(comment_cLevel);
+		$(obj).css('display','none');
+		commentbody.empty();
+		var html = 	
+			"<div class='comment-form-main'style='margin-left: 100px;'>"
+			+ '<form action="${pageContext.request.contextPath}/comment/updateComment.do" onsubmit="return insertComment();">'
+			+ '<div class="row">'
+			+ '<input type="hidden" name="cno" value="'+cno+'"/>'
+			+ '<input type="hidden" name="uno" value="${ member.uNo}"/>'
+			+ '<input type="hidden" name="bno" value="${board.bno}" />'
+			+ "<input type='hidden' name='cRef' value='"+comment_cRef+"'/>"
+			+ '<input type="hidden" name="cLevel" value="'+comment_cLevel+'"/>'
+			+ '<div class="col-md-12">'
+			+ '<div class="form-group">'
+			+ '<textarea class="form-control" name="cContent" placeholder='+comment+' id="commenter-message" class="cContent" cols="30" rows="2"></textarea>'
+			+ '</div>'
+			+ '</div>'
+			+ '<div class="col-md-12 post-btn">'
+			+ '<button class="hover-btn-new orange"><span>댓글 작성</span></button>'
+			+ '</div>'
+			+ '</div>'	 
+			+ '</form>'
+			+ '</div>';
+			
+			commentbody.append(html);
 		
 		// 수정 완료 버튼 보여주기
 	//	$(obj).siblings('.updateConfirm').css('display', 'inline');
@@ -189,31 +228,56 @@
 	}
 	
 	function deleteReply(obj){
+		var memberAno= ${member.aNo};
+		var $bno = $('.bno').val();
+		var $cno = $(obj).parent().parent().parent().find('.cno').val();
+		console.log($bno);
+		console.log($cno);
+		if(memberAno==1||memberAno==2){
+			location.href="${pageContext.request.contextPath}/comment/deleteCommentbyAdmin.do?bno="+$bno+"&cno="+$cno;
+		}else{
+			location.href="${pageContext.request.contextPath}/comment/deleteComment.do?bno="+$bno+"&cno="+$cno;
+		}
 		
-		var cno = $(obj).siblings('input').val();
-		
-		location.href="/myWeb/delete.co?cno="+cno+"&bno="+bno;
 	}
 	
 	// 대댓글 기능 구현 함수
 	function reComment(obj){
 		
 		// 추가 완료 기능 버튼 보이게 하기
-		$(obj).siblings('.insertConfirm').css('display','inline');
+	//	$(obj).siblings('.insertConfirm').css('display','inline');
+		console.log($(obj).parent().parent().parent());
+		var comment_li = $(obj).parent().parent().parent();
+		console.log($(obj).parent().parent().find());
+		var comment_cRef = $(obj).parent().parent().parent().find('.cRef').val();
+		console.log(comment_cRef);
 		
 		// 현재 버튼은 숨기기
 		$(obj).css('display','none');
 		
 		// 내용 입력 공간 만들기
-		//$(obj).parent('table').append(htmlCode);
 		var htmlCode = 
-			'<tr class="comment"> <td></td>'
-			+ '<td colspan="3" style="background:transparent;">'
-			+'<textarea class="reply-content" style="background:palegreen;"'
-			+' cols="100" rows="3"> </textarea>'
-			+'</td></tr>'
+			"<div class='comment-form-main'style='margin-left: 100px;'>"
+				+ '<form action="${pageContext.request.contextPath}/comment/insertComment.do" onsubmit="return insertComment();">'
+				+ '<div class="row">'
+				+ '<input type="hidden" name="uno" value="${ member.uNo}"/>'
+				+ '<input type="hidden" name="bno" value="${board.bno}" />'
+				+ "<input type='hidden' name='cRef' value="+comment_cRef+" />"
+				+ '<input type="hidden" name="cLevel" value="1" />'
+				+ '<div class="col-md-12">'
+				+ '<div class="form-group">'
+				+ '<textarea class="form-control" name="cContent" placeholder="댓글을 입력해 주세요" id="commenter-message" class="cContent" cols="30" rows="2"></textarea>'
+				+ '</div>'
+				+ '</div>'
+				+ '<div class="col-md-12 post-btn">'
+				+ '<button class="hover-btn-new orange"><span>댓글 작성</span></button>'
+				+ '</div>'
+				+ '</div>'	 
+				+ '</form>'
+				+ '</div>';
 			
-			$(obj).parents('table').append(htmlCode);
+				comment_li.append(htmlCode);
+	
 	}
     
     function reConfirm(obj){
@@ -245,7 +309,31 @@
     	console.log(muno);
     	console.log(buno);
     	
+    	
     })
+    
+    function insertComment(){
+    	var cContent = $('.cContent').val().length;
+    	
+    	//console.log(cContent);
+    	if (cContent==0){
+    		alert('댓글을 입력해주세요');
+    		
+    		return false;
+    	}
+    	
+    	return true;
+    }
+    
+    function deleteReplybyAdmin(obj){
+    	var $bno = $('.bno').val();
+		var $cno = $(obj).parent().parent().find('.cno').val();
+		
+		console.log($bno);
+		console.log($cno);
+		
+    	location.href="${pageContext.request.contextPath}/comment/deleteCommentbyAdmin.do?bno="+$bno+"&cno="+$cno;
+    }
     </script>
 </body>
 </html>

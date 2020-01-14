@@ -28,7 +28,8 @@
 		<result column="C_LEVEL" property="cLevel"/>
 		<result column="C_ENROLLDATE" property="cDate"/>
 		<result column="C_STATUS" property="cStatus"/>
-		<result column="N_NAME" property="writer"/>
+		<result column="WRITER" property="writer"/>
+		<result column="WRITER2" property="writer2"/>
 	</resultMap>
 	<select id="getListCount" resultType="int">
 		SELECT COUNT(*) FROM BOARD
@@ -40,7 +41,7 @@
                   FROM(SELECT BD.*,M.N_NAME 
                       	 FROM (SELECT ROWNUM RM, BDD.* ,C_COUNT
                        			FROM BOARD BDD 
-                       			 LEFT JOIN (SELECT B_NO,COUNT(*) C_COUNT FROM BOARD_COMMENT GROUP BY B_NO) C ON (BDD.B_NO = C.B_NO)
+                       			 LEFT JOIN (SELECT B_NO,COUNT(*) C_COUNT FROM BOARD_COMMENT WHERE C_STATUS='N' GROUP BY B_NO) C ON (BDD.B_NO = C.B_NO)
                       			 WHERE B_STATUS='N') BD 
                        JOIN MEMBER M ON (BD.U_NO=M.U_NO)
                         WHERE B_STATUS='N' 
@@ -74,20 +75,14 @@
 	
 	<!-- Comment -->
 	<select id="selectComments" parameterType="int" resultMap="commentMap">
-		<if test="cRef ==0">
-		SELECT C.*,M.N_NAME 
+		SELECT BC.*,CM.WRITER, (SELECT N_NAME FROM MEMBER M2, board_comment B2 WHERE b2.u_no = M2.U_NO AND b2.c_no = BC.C_NO2) WRITER2
+			FROM BOARD_COMMENT BC
+			JOIN (SELECT C.C_NO,M.N_NAME WRITER
 			FROM BOARD_COMMENT C
-			JOIN MEMBER M ON (C.U_NO=M.U_NO)
-			WHERE B_NO=#{bno}
-		</if>
-		<if test="cRef !=0">
-		SELECT C.*,M.N_NAME 
-			FROM BOARD_COMMENT C
-			JOIN MEMBER M ON (C.U_NO=M.U_NO)
-			WHERE B_NO=#{bno}
-			START WITH C_LEVEL = 1 
-			CONNECT BY PRIOR C_NO = #{cRef}
-		</if>
+			JOIN MEMBER M ON (C.U_NO=M.U_NO)) CM ON (BC.C_NO = CM.C_NO)
+			WHERE BC.B_NO = #{bno} AND C_STATUS='N'
+			START WITH BC.C_LEVEL = 1
+			CONNECT BY PRIOR BC.C_NO = BC.C_NO2
 	</select>	
 	
 	 
@@ -99,9 +94,19 @@
 			   <if test="cRef !=0">#{cRef},</if>
 			   <if test="cRef ==0">NULL,</if>    
 			   #{cContent},
-			    #{cLevel},
+			   <if test="cRef !=0">2,</if>
+			   <if test="cRef ==0">1,</if>
 			     DEFAULT,
 			      DEFAULT)
 	</insert>
+	<update id="updateComment" parameterType="Comment">
+		UPDATE BOARD_COMMENT SET C_CONTENT = #{cContent} WHERE C_NO= #{cno}
+	</update>
+	<update id="deleteComment" parameterType="int">
+		UPDATE BOARD_COMMENT SET C_STATUS = 'Y' WHERE C_NO = #{cno}
+	</update>
 	
+	<update id="deleteCommentbyAdmin" parameterType="int">
+		<![CDATA[ UPDATE BOARD_COMMENT SET C_CONTENT = '<span style="color : #808080;">관리자에 의해 삭제된 댓글입니다.</span>' WHERE C_NO = #{cno} ]]>
+	</update>
 </mapper>

@@ -37,7 +37,7 @@ public class BoardController {
 		System.out.println("페이지 처리 확인 : " + pi);
 		
 		list = bs.selectList(pi);
-		System.out.println(list);
+		//System.out.println(list);
 	
 		
 		model.addAttribute("list", list).addAttribute("pi", pi);
@@ -78,8 +78,8 @@ public class BoardController {
 		Board b = bs.selectOne(bno);
 		//System.out.println(b);
 		List<Comment> list = bs.selectComments(bno);
-		
-		System.out.println("댓글 갯수"+list.size());
+		//System.out.println(list);
+		//System.out.println("댓글 갯수"+list.size());
 		model.addAttribute("board", b).addAttribute("clist", list);
 		
 		return "board/boardDetail";
@@ -140,6 +140,49 @@ public class BoardController {
 		String loc = "/board/selectOne.do?bno="+cmt.getBno();
 		
 		//System.out.println(loc);
+		model.addAttribute("loc", loc);
+		
+		return "common/pageMove";
+	}
+	
+	@RequestMapping("/comment/updateComment.do")
+	public String updateComment(Comment cmt,Model model) {
+		System.out.println(cmt);
+		
+		int result = bs.updateComment(cmt);
+		
+		String loc = "/board/selectOne.do?bno="+cmt.getBno();
+		
+		model.addAttribute("loc", loc);
+		
+		return "common/pageMove";
+	}
+	
+	@RequestMapping("/comment/deleteComment.do")
+	public String deleteComment(@RequestParam int cno,@RequestParam int bno,Model model) {
+		System.out.println("일반 삭제");
+		System.out.println("cno :"+cno);
+		System.out.println("bno :"+bno);
+		
+		int result = bs.deleteComment(cno);
+				
+		String loc = "/board/selectOne.do?bno="+bno;
+		
+		model.addAttribute("loc", loc);
+		
+		return "common/pageMove";
+	}
+
+	@RequestMapping("/comment/deleteCommentbyAdmin.do")
+	public String deleteCommentbyAdmin(@RequestParam int cno,@RequestParam int bno,Model model) {
+		System.out.println("관리자 삭제");
+		System.out.println("cno :"+cno);
+		System.out.println("bno :"+bno);
+	
+		int result = bs.deleteCommentbyAdmin(cno);
+				
+		String loc = "/board/selectOne.do?bno="+bno;
+		
 		model.addAttribute("loc", loc);
 		
 		return "common/pageMove";

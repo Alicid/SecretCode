@@ -14,7 +14,7 @@ public class Comment implements Serializable{
 	private Date cDate;
 	private String cStatus;
 	private String writer;
-	
+	private String writer2;
 	public Comment() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -32,8 +32,12 @@ public class Comment implements Serializable{
 
 
 
+	
+
+
+
 	public Comment(int cno, int bno, int uno, int cRef, String cContent, int cLevel, Date cDate, String cStatus,
-			String writer) {
+			String writer, String writer2) {
 		super();
 		this.cno = cno;
 		this.bno = bno;
@@ -44,6 +48,7 @@ public class Comment implements Serializable{
 		this.cDate = cDate;
 		this.cStatus = cStatus;
 		this.writer = writer;
+		this.writer2 = writer2;
 	}
 
 
@@ -156,11 +161,28 @@ public class Comment implements Serializable{
 
 
 
+	public String getWriter2() {
+		return writer2;
+	}
+
+
+
+	public void setWriter2(String writer2) {
+		this.writer2 = writer2;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Comment [cno=" + cno + ", bno=" + bno + ", uno=" + uno + ", cRef=" + cRef + ", cContent=" + cContent
-				+ ", cLevel=" + cLevel + ", cDate=" + cDate + ", cStatus=" + cStatus + ", writer=" + writer + "]";
+				+ ", cLevel=" + cLevel + ", cDate=" + cDate + ", cStatus=" + cStatus + ", writer=" + writer
+				+ ", writer2=" + writer2 + "]";
 	}
+
+
+
+	
 
 
 

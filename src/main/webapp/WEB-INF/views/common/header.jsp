@@ -8,7 +8,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 150px;">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="${pageContext.request.contextPath}">
-					<img src="${pageContext.request.contextPath }/resources/images/KakaoTalk_20200109_175813400.png" style=" width:500px;  height:120px;" alt="" />
+					<img src="${pageContext.request.contextPath }/resources/images/scLogo.png" style=" width:500px;  height:120px;" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="icon-bar"></span>

@@ -32,24 +32,20 @@
 		WHERE USERID = #{userId}
 	</select>
 	
-	<update id="updateMember" parameterType="Member">
+		<update id="updateMember" parameterType="Member">
 		UPDATE MEMBER 
 		<set>
-			<if test="userName != null">
-				USERNAME = #{userName},
-			</if>
-			<if test="age > 0">
-				AGE = #{age},
+			<if test="nickName != null">
+				N_NAME = #{nickName},
 			</if>
 			<if test="email != null">
 				EMAIL = #{email},
 			</if>
-			<if test="password != null">
-				PASSWORD = #{password},
+			<if test="userPwd != null">
+				USERPWD = #{userPwd},
 			</if>
-			ADDRESS = #{address}
 		</set>
-		WHERE USERID = #{userId}
+		WHERE U_NO = #{uNo}
 	</update>
 	
 	<delete id="deleteMember" parameterType="string">

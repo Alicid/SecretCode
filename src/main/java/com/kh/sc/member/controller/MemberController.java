@@ -110,7 +110,96 @@ public class MemberController {
 		
 		return "redirect:/";
 	}
+	@RequestMapping("member/memberUpdate.do")
+	public String memberUpdate(Member member, Model model, HttpSession session) {
+		
+		if(member.getUserPwd().length() > 0) {
+			System.out.println("암호화 전 변경한 비밀번호 : " + member.getUserPwd());
+			String encUserPwd = bcryptPasswordEncoder.encode(member.getUserPwd());
+			member.setUserPwd(encUserPwd);
+			System.out.println("암호화 후 비밀번호 : " + encUserPwd);
+		} else {
+			member.setUserPwd(null);
+		}
+		System.out.println(member);
+		int result = memberService.updateMember(member);
+		
+		String msg = "";
+		String loc = "";
+		
+		if(result > 0) {
+			msg = "수정 완료";
+			loc="/";
+			session.setAttribute("member", member);
+		} else {
+			msg = "수정 실패";
+			loc = "/";
+		}
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		
+		System.out.println(result);
+		return "common/msg";
+	}
+	@RequestMapping("/member/mypageDelete.do")
+	public String memberDelete(@RequestParam String userPwd, HttpSession session,Model model) {
+		
+		Member m = (Member)session.getAttribute("member");
+		int result = memberService.deleteMember(m.getUserId());
+		
+		String msg = "";
+		String loc = "/";
+		
+		if(m != null && bcryptPasswordEncoder.matches(userPwd, m.getUserPwd())) {
+			msg="탈퇴 완료";
+			loc="/";
+			session.invalidate();
+		} else {
+			msg="비밀번호가 틀렸습니다!";
+			loc="/member/mypageDeleteView.do";
+		}
+		
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		
+		return "common/msg";
+	}
 	
+	@RequestMapping("/member/mypageUpdate.do")
+	public String memberUpdate_confirm(@RequestParam String userPwd, HttpSession session,Model model) {
+		System.out.println(userPwd);
+		Member m = (Member) session.getAttribute("member");
+		System.out.println(m);
+		String msg = "";
+		String loc = "/";
+		if(m != null && bcryptPasswordEncoder.matches(userPwd, m.getUserPwd())) {
+			msg="내 정보 수정 창으로 이동!";
+			loc="/member/mypageUpdateView.do";
+		}else {
+			msg="비밀번호가 틀렸습니다!";
+			loc="/member/mypage.do";
+		}
+		model.addAttribute("msg", msg);
+		model.addAttribute("loc", loc);
+		
+		
+		return "common/msg";
+	}
+	
+	@RequestMapping("/member/mypageUpdateView.do")
+	public String meberUpdateView() {
+		
+		return "/member/mypageUpdate";
+	}
+	
+	@RequestMapping("/member/mypage.do")
+	public String memberUpdateMenu() {
+		
+		return "/member/mypage";
+	}
+	
+	@RequestMapping("member/mypageDeleteView.do")
+	public String memberDeleteView() {
+		return "/member/mypageDelete";
+	}
 	@RequestMapping("/member/gotoIdFind.do")
 	public String gotoIdFind() {
 		return "member/idFind";

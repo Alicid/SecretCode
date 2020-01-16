@@ -16,17 +16,18 @@
 		div#userId-container span.guide {display:none;font-size: 12px;position:absolute; top:12px; right:10px;}
 		div#userId-container span.ok{color:green;}
 		div#userId-container span.error, span.invalid{color:red;}
+		
 	</style>
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js" integrity="sha256-8zyeSXm+yTvzUN1VgAOinFgaVFEFTyYzWShOy9w7WoQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js" integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css" integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+    <script src="${pageContext.request.contextPath }/js/Chart.bundle.js" integrity="sha256-8zyeSXm+yTvzUN1VgAOinFgaVFEFTyYzWShOy9w7WoQ=" crossorigin="anonymous"></script>
+    <script src="${pageContext.request.contextPath }/js/Chart.bundle.min.js"  integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/Chart.css" integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
+    <script src="${pageContext.request.contextPath }/js/Chart.js"  integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <script src="${pageContext.request.contextPath }/js/Chart.min.js"integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
     
 </head>
 <body class="host_version"> 
@@ -55,7 +56,7 @@
 		</ol>
 		<div class="carousel-inner" role="listbox">
 			<div class="carousel-item active">
-				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/images/slider-01.jpg');">
+				<div id="home" class="first-section" style="background-image:url('${pageContext.request.contextPath }/images/KakaoTalk_20200115_192243213.jpg');">
 					<div class="dtab">
 						<div class="container">
 							<div class="row">
@@ -133,12 +134,23 @@
             <div class="section-title row text-center">
                 <div class="col-md-8 offset-md-2">
                     <h3>자격증 취득 통계</h3>
-                    <p class="lead">정보처리 산업기사를 매년, 매회차 응시자와 합격자의 비율을 보시면서 회원님이 응시하신 회차안에 꼭! 합격자 수에 회원님의 이름이 포함 됐으면 좋겠습니다.</p>
+                    <p class="lead">정보처리 산업기사를 매년, 매회차 응시자와 합격자의 비율을 보시면서 회원님이 응시하신 회차 합격자 수안에 꼭! 회원님의 이름이 포함 됐으면 좋겠습니다.</p>
                 </div>
             </div><!-- end title -->
-        <button onclick="fn_stat(2019);">2019년</button><button onclick="fn_stat(2018);">2018년</button>
+            
+        <div class="dropdown" style="margin-top:-3%;">
+		  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		    시험 년도 선택
+		  </button>
+		  <div class="examYears dropdown-menu" aria-labelledby="dropdownMenuButton">
+		  <!-- ajax를 통해 a tag 삽입할 예정 -->
+		  </div>
+		</div> 
+		<br />
         <canvas id="myChart" class="chartjs-render-monitor" width="400" height="200"></canvas>
-        
+      
+        <br />
+        <br />
             <div class="row align-items-center">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="message-box">
@@ -153,15 +165,15 @@
                 </div><!-- end col -->
 				
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <div class="post-media wow fadeIn">
-                        <img src="${pageContext.request.contextPath }/images/about_02.jpg" alt="" class="img-fluid img-rounded">
+                    <div class="post-media wow fadeIn publicData">
+                    
                     </div><!-- end media -->
                 </div><!-- end col -->
 			</div>
 			<div class="row align-items-center">
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="post-media wow fadeIn">
-                        <img src="${pageContext.request.contextPath }/images/about_03.jpg" alt="" class="img-fluid img-rounded">
+                        <img src="${pageContext.request.contextPath }/images/about_03.jpg" alt="" class="img-fluid img-rounded" scrolling="no">
                     </div><!-- end media -->
                 </div><!-- end col -->
 				
@@ -368,9 +380,12 @@
         </div><!-- end container -->
     </div><!-- end section -->
 
+		<c:set var="now" value="<%=new java.util.Date()%>" />
+		<c:set var="sysYear"><fmt:formatDate value="${now}" pattern="yyyy" /></c:set> 
 <c:import url="views/common/footer.jsp" />
 
 	<script>
+	
 		timeline(document.querySelectorAll('.timeline'), {
 			forceVerticalMode: 700,
 			mode: 'horizontal',
@@ -448,6 +463,29 @@
 			return true;
 		}
 		
+		$(function() {
+			
+		fn_stat(<c:out value="${sysYear}" />-2);
+		
+		$.ajax({
+			url : '${pageContext.request.contextPath}/tResult/selectYears.re',
+			dataType : 'json',
+			success : function(data){
+				console.log(data);
+				
+				var yearsDiv = $('.examYears');
+				
+				for(var i in data){
+					var aTag = $(' <a class="dropdown-item" onclick="fn_stat(' + data[i] + ');">' + data[i] + '</a>');
+					
+					yearsDiv.append(aTag);
+				}
+			}, error : function(data){
+				
+			}
+		});
+		});
+		var	myChart;
 		function fn_stat(years){
 			$.ajax({
 				url:'${pageContext.request.contextPath}/tResult/selectList.re',
@@ -457,13 +495,17 @@
 				success: function(data){
 					console.log(data);
 					
+					if(myChart != null){
+						myChart.destroy();
+					}
+					
 					var ctx = document.getElementById('myChart').getContext('2d');
-					var myChart = new Chart(ctx, {
+					myChart = new Chart(ctx, {
 					    type: 'bar',
 					    data: {
-					        labels: ['응시자', '합격자', '응시자', '합격자', '응시자', '합격자'],
+					        labels: ['필기 접수자', '필기 응시자', '필기 합격자', '필기 합격률(%)', '실기 접수자', '실기 응시자', '실기 합격자', '실기 합격률(%)', '년도 종합 합격'],
 					        datasets: [{
-					            label: '# of Votes',
+					            label: '결과',
 					            data: data,
 					            backgroundColor: [
 					                'rgba(255, 99, 132, 0.2)',
@@ -473,7 +515,8 @@
 					                'rgba(255, 99, 132, 0.2)',
 					                'rgba(54, 162, 235, 0.2)',
 					                'rgba(255, 99, 132, 0.2)',
-					                'rgba(54, 162, 235, 0.2)'
+					                'rgba(54, 162, 235, 0.2)',
+					                'rgba(255, 99, 132, 0.2)'
 					            ],
 					            borderColor: [
 					                'rgba(255, 99, 132, 1)',
@@ -483,9 +526,10 @@
 					                'rgba(255, 99, 132, 1)',
 					                'rgba(54, 162, 235, 1)',
 					                'rgba(255, 99, 132, 1)',
-					                'rgba(54, 162, 235, 1)'
+					                'rgba(54, 162, 235, 1)',
+					                'rgba(255, 99, 132, 1)'
 					            ],
-					            borderWidth: 1
+					            borderWidth: 3
 					        }]
 					    },
 					    options: {
@@ -502,7 +546,7 @@
 				}
 		})
 		};
-	
+		
 	</script>
 </body>
 </html>

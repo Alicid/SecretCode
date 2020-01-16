@@ -95,11 +95,11 @@
          <thead class="text-white">
          <c:forEach var="notice" items="${list }">
             <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 tablehead " >
-               <th class="p-3 text-left t1 th-co">번호</th>
+               <th class="p-3 text-left t1 text-center th-co">번호</th>
                <th class="p-3 text-left t3 th-co">제목</th>
                <th class="p-3 text-left t4 text-center th-co">작성자</th>
                <th class="p-3 text-left t5 text-center th-co" >작성일</th>
-               <th class="p-3 text-left t6 th-co">조회수</th>
+               <th class="p-3 text-left t6 text-center th-co">조회수</th>
             </tr>
          </c:forEach>
          </thead>
@@ -107,11 +107,11 @@
          
          <c:forEach var="notice" items="${list }">
             <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 lead">
-               <td class="border-grey-light border p-3">${notice.nnum }</td>
+               <td class="border-grey-light border p-3 text-center">${notice.nnum }</td>
                <td class="border-grey-light border p-3  truncate">${notice.nTitle }</td>
                <td class="border-grey-light border p-3 text-center  truncate">${notice.writer }</td>
                <td class="border-grey-light border p-3  text-center  truncate">${notice.nEnrolldate }</td>
-               <td class="border-grey-light border p-3 truncate">${notice.nCount }</td>
+               <td class="border-grey-light border p-3 text-center truncate">${notice.nCount }</td>
                <input type="hidden" name="nNo" value="${notice.nNo}"/>               
             </tr>
          </c:forEach>

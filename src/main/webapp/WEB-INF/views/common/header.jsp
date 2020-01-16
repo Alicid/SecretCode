@@ -8,7 +8,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 150px;">
 			<div class="container-fluid">
 				<a class="navbar-brand" href="${pageContext.request.contextPath}">
-					<img src="${pageContext.request.contextPath }/resources/images/KakaoTalk_20200109_175813400.png" style=" width:500px;  height:120px;" alt="" />
+					<img src="${pageContext.request.contextPath }/resources/images/로고2.png" style=" width:500px;  height:120px;" alt="" />
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-host" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="icon-bar"></span>
@@ -31,7 +31,7 @@
                     </c:if>
                     <c:if test="${!empty member}">
                         <ul class="nav navbar-nav navbar-right">
-                       <li class="nav navbar-nav navbar-right" style="margin-top:2.8%;">
+                       <li class="nav navbar-nav navbar-right" style="margin-top:3%;">
                        <span>
                        		<a href="${pageContext.request.contextPath}/member/memberView.do?userId=${member.userId}" title="내정보보기"><strong>${member.nickName}</strong></a> 님, 안녕하세요
                        	</span>

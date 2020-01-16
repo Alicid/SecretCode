@@ -76,7 +76,7 @@
 										취소
                                     </button>
                                     <a class="for-pwd" href="${pageContext.request.contextPath}/member/gotoIdFind.do">아이디를 잊으셨나요?</a>
-									<a class="for-pwd" href="${pageContext.request.contextPath}/member/pwFind.do">비밀번호를 잊으셨나요?</a>
+									<a class="for-pwd" href="${pageContext.request.contextPath}/member/gotoPwFind.do">비밀번호를 잊으셨나요?</a>
 								</div>
 							</div>
 						</form>

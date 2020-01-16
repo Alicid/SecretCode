@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.sc.member.email.RandomNumber;
 import com.kh.sc.member.email.model.service.EmailService;
 import com.kh.sc.member.exception.MemberException;
 import com.kh.sc.member.model.service.MemberService;
@@ -219,10 +220,49 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("/member/pwFind.do")
-	public String pwFindView() {
-		
+	@RequestMapping("/member/gotoPwFind.do")
+	public String gotoPwFind() {
 		return "member/pwFind";
-	
 	}
+	
+	@RequestMapping("/member/pwFind.do")
+	public String pwFindView(HttpServletRequest request, Model model) throws Exception {
+		String pwFind1 = request.getParameter("pwFind1");
+		String pwFind2 = request.getParameter("pwFind2");
+		System.out.println(pwFind1);
+		System.out.println(pwFind2);
+		Member m = new Member();
+		m.setUserId(pwFind1);
+		m.setEmail(pwFind2);
+		int result = emailService.userConfirm(m);
+		String msg = "";
+		String loc = "";
+		if(result ==0) {
+			msg = "존재하지 않는 회원입니다";
+			loc = "/member/gotoPwFind.do";
+		} else {
+
+			RandomNumber rn = new RandomNumber();
+			String originPw = rn.getKey(10, true);
+			String bcryptPwd = bcryptPasswordEncoder.encode(originPw);
+			m.setUserPwd(bcryptPwd);
+			
+			int resetResult=memberService.resetPw(m);
+			if(resetResult>0){
+				msg = emailService.sendEmail(pwFind2,originPw);
+			}else {
+				msg = "비밀번호 변경에 실패했습니다. 계속 안되면 관리자에게 문의해주세요.";
+			}
+			loc = "/";
+		}
+	
+		
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("loc", loc);
+		
+		return "common/msg";
+	}
+	
+
 }

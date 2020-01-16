@@ -43,6 +43,12 @@
               <span>내 통계</span>
             </a>
           </li>
+          <li class="sidebar-dropdown">
+            <a href="${pageContext.request.contextPath}/admin/adminQuestion.do">
+              <i class="fa fa-chart-line"></i>
+              <span>문제 등록</span>
+            </a>
+          </li>
         </ul>
       </div>
      </div>

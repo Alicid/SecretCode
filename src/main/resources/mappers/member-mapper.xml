@@ -60,6 +60,12 @@
 	<select id="checkEmail" parameterType="string" resultType="string">
 		SELECT USERID FROM MEMBER WHERE EMAIL=#{email}
 	</select>
+	<select id="userConfirm" parameterType="Member" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE USERID = #{userId} AND EMAIL = #{email}
+	</select>
+	<update id="updatePw" parameterType="Member">
+		UPDATE MEMBER SET USERPWD = #{userPwd} WHERE USERID = #{userId} AND EMAIL = #{email}
+	</update>
 	
 	
 </mapper>

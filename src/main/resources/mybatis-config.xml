@@ -15,6 +15,8 @@
 		<typeAlias type="com.kh.sc.board.model.vo.Comment" alias="Comment"/>
 		<typeAlias type="com.kh.sc.common.PageInfo" alias="PageInfo"/>
 		<typeAlias type="com.kh.sc.notice.model.vo.Notice" alias="Notice"/>
+		<typeAlias type="com.kh.sc.Question.model.vo.Questions" alias="Questions"/>
+		<typeAlias type="com.kh.sc.Question.model.vo.Answer" alias="Answer"/>
 	</typeAliases>
 </configuration>
 

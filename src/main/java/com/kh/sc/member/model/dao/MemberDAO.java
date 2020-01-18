@@ -39,4 +39,9 @@ public class MemberDAO {
 		return sqlSession.delete("member-mapper.deleteMember", userId);
 	}
 
+	public int resetPw(Member m) {
+		return sqlSession.update("member-mapper.updatePw",m);
+	}
+	
+	
 }

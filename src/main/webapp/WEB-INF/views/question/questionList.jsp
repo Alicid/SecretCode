@@ -7,9 +7,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지사항</title>
+<title>시험문제 목록</title>
 <link href="https://unpkg.com/tailwindcss@1.0.4/dist/tailwind.min.css" rel="stylesheet">
-  <c:import url="../common/commonUtil.jsp" /> 
+ 
+ <c:import url="../common/commonUtil.jsp" /> 
   
   <style>
   html,
@@ -68,51 +69,52 @@
     button{
     	background-color:#ECECED;
     }
+       
 </style>
    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
 </head>
 <body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7; overflow-y: scroll;">
    <c:import url="../common/header.jsp"/>
 
-<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/banner.jpg');">
+<div class="all-title-box">
       <div class="container text-center">
-         <h1>공지 사항<span class="m_1">Whatever you do, make it pay.</span></h1>
+         <h1 class="container text-center" style="color:#02876C">시험 문제 관리</h1>
       </div>
 </div>
-   <br>   <br> 
+ 
     <body class="flex items-center justify-center"  style="overflow-y: scroll;" >
-   
+   <!--<c:import url="../member/myPageMenu.jsp"/>-->
    <div id='root'></div>
    <div class="container">
    <c:if test="${!empty member and member.aNo eq 1}">
       <div class="blog-button">
-         <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/notice/nInsertForm.no"><span><b>글쓰기</b><span></a>
+         <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/question/qInsert.qo"><span><b>글쓰기</b><span></a>
       </div>
       </c:if>
       <br />
       <p class="lead"><strong>총 ${ listCount }건의 게시물이 있습니다.</strong></p>
-      <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5">
+      <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" style="table-layout:fixed;">
          <thead class="text-white">
-         <c:forEach var="notice" items="${list }">
+         <c:forEach var="q" items="${list }">
             <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 tablehead " >
-               <th class="p-3 text-left t1 text-center th-co">번호</th>
-               <th class="p-3 text-left t3 th-co">제목</th>
-               <th class="p-3 text-left t4 text-center th-co">작성자</th>
-               <th class="p-3 text-left t5 text-center th-co" >작성일</th>
-               <th class="p-3 text-left t6 text-center th-co">조회수</th>
+               <th class="p-3 text-left t1 th-co">번호</th>
+               <th class="p-3 text-left t3 th-co">단원명</th>
+               <th class="p-3 text-left t4 text-center th-co">문제</th>
+               <th class="p-3 text-left t5 text-center th-co" >출제자</th>
+               <th class="p-3 text-left t6 th-co">난이도</th>
             </tr>
          </c:forEach>
          </thead>
          <tbody class="flex-1 sm:flex-none">
          
-         <c:forEach var="notice" items="${list }">
+         <c:forEach var="q" items="${list }">
             <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 lead">
-               <td class="border-grey-light border p-3 text-center">${notice.nnum }</td>
-               <td class="border-grey-light border p-3  truncate">${notice.nTitle }</td>
-               <td class="border-grey-light border p-3 text-center  truncate">${notice.writer }</td>
-               <td class="border-grey-light border p-3  text-center  truncate">${notice.nEnrolldate }</td>
-               <td class="border-grey-light border p-3 text-center truncate">${notice.nCount }</td>
-               <input type="hidden" name="nNo" value="${notice.nNo}"/>               
+               <td class="border-grey-light border p-3">${q.qnum}</td>
+               <td class="border-grey-light border p-3  truncate">${q.qTitle}</td>
+               <td class="border-grey-light border p-3 text-left  truncate">${q.qContent}</td>
+               <td class="border-grey-light border p-3  text-center  truncate">${q.qWriter}</td>
+               <td class="border-grey-light border p-3 truncate">${q.qLevel}</td>
+               <input type="hidden" name="qno" value="${q.qNo}"/>               
             </tr>
          </c:forEach>
          </tbody>
@@ -130,10 +132,10 @@
    </div>
    <br /><br /><br />
    <div class="pagingArea pagination d-flex justify-content-center" >
-         <c:url var="noticeList" value="/notice/noticeList.no"/>
+         <c:url var="questionList" value="/question/questionList.qo"/>
          
          <!-- 처음 페이지 버튼 -->
-         <button class="page-link" onclick="location.href='${noticeList}?currentPage=1'">
+         <button class="page-link" onclick="location.href='${questionList}?currentPage=1'">
             &lt;&lt;
          </button>
          
@@ -142,7 +144,7 @@
             <button class="page-link" disabled>&lt;</button>
          </c:if>
          <c:if test="${ pi.currentPage gt 1 }">
-            <button class="page-link" onclick="location.href='${noticeList}?currentPage=${pi.currentPage - 1}'">
+            <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.currentPage - 1}'">
                &lt;
             </button>
          </c:if>
@@ -155,7 +157,7 @@
                </button>
             </c:if>
             <c:if test="${p ne pi.currentPage}">
-               <button class="page-link"  onclick="location.href='${noticeList}?currentPage=${p}'">${p}</button>
+               <button class="page-link"  onclick="location.href='${questionList}?currentPage=${p}'">${p}</button>
             </c:if>
          </c:forEach>
          
@@ -165,13 +167,14 @@
             <button class="page-link" disabled>&gt;</button>
          </c:if>
          <c:if test="${ pi.currentPage lt pi.maxPage}">
-            <button class="page-link" onclick="location.href='${noticeList}?currentPage=${pi.currentPage + 1}'">
+            <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.currentPage + 1}'">
                &gt;
             </button>
+            
          </c:if>
          
          <!-- 마지막 페이지 버튼 -->
-         <button class="page-link" onclick="location.href='${noticeList}?currentPage=${pi.maxPage}'">
+         <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.maxPage}'">
             &gt;&gt;
          </button>
          </div>
@@ -186,8 +189,8 @@
       }).mouseleave(function(){
          $(this).css('background','white');
       }).click(function(){
-          var nNo = $(this).find('input').val();
-          location.href="${pageContext.request.contextPath}/notice/noticeDetail.no?nNo="+nNo;
+          var qNo = $(this).find('input').val();
+          location.href="${pageContext.request.contextPath}/question/questionDetail.qo?qNo="+qNo;
       });
    });
    

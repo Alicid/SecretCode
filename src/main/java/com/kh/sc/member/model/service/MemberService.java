@@ -43,4 +43,10 @@ public class MemberService {
 		return memberDAO.deleteMember(userId);
 	}
 
+	public int resetPw(Member m) {
+		return memberDAO.resetPw(m);
+	}
+
+	
+
 }

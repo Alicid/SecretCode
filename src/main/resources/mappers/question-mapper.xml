@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="question-mapper">
+
+	<resultMap id="questionResult" type="Question">
+		<result column="Q_NO" property="qNo"/>
+		<result column="QU_PKNO" property="quPkNo"/>
+		<result column="U_NO" property="uNo"/>
+		<result column="Q_CONTENT" property="qContent"/>
+		<result column="Q_LEVEL" property="qLevel"/>
+		<result column="Q_SCORE" property="qScore"/>
+		<result column="RM" property="qnum"/>
+		<result column="QU_NAME" property="qTitle"/>
+		<result column="N_NAME" property="qWriter"/>
+	</resultMap>
+		
+
+		<select id="selectQuestion" parameterType="PageInfo" resultMap="questionResult">
+		<![CDATA[ SELECT * FROM 
+               (SELECT N.*, ROWNUM RNUM 
+                  FROM(SELECT BD.*
+                       FROM (SELECT ROWNUM RM, Q.*,M.N_NAME,QU.QU_NAME FROM QUESTION Q 
+                       JOIN MEMBER M ON (Q.U_NO=M.U_NO)
+                       JOIN Q_UNIT QU ON (Q.QU_PKNO=QU.QU_PKNO)
+                       WHERE Q.QU_PKNO=1) BD 
+                        ) N 
+                 WHERE ROWNUM <= #{endRow})NO 
+         WHERE RNUM > #{startRow}]]>
+		</select>
+		
+		<select  id="getListCount" resultType="int">
+			SELECT COUNT(*) FROM QUESTION WHERE QU_PKNO=1
+		</select>
+		
+		<select id="selectDetail" parameterType="int" resultMap="questionResult">
+			 SELECT Q.*,M.N_NAME,QU.QU_NAME
+			FROM QUESTION Q 
+			JOIN MEMBER M ON (Q.U_NO = M.U_NO) 
+            JOIN Q_UNIT QU ON (Q.QU_PKNO = QU.QU_PKNO)
+			WHERE Q_NO = #{qNo}
+		</select>
+		
+
+	
+	</mapper>

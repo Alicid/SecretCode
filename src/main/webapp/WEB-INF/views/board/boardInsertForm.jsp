@@ -24,25 +24,19 @@
 <body class="host_version">
 <c:import url="../common/header.jsp" />
 
-<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/banner.jpg');">
-      <div class="container text-center">
-         <h1>공지 사항<span class="m_1">Let thy speech be short, comprehending much in few words.</span></h1>
-      </div>
-</div>
-
 <br />
 <section>
 <div class="mb-2" align="center">
-<form id="insertForm" action="${ pageContext.request.contextPath }/notice/nInsert.no"  method="post"  >
+<form id="insertForm" action="${ pageContext.request.contextPath }/board/boardInsert.do"  method="post"  >
 		<div class="input-group mb-3" style="width:900px;">
 			<br />
 		<input type="hidden" name="uNo"  value="${member.uNo}"/>
   				<input type="text" class="form-control" aria-label="Text input with dropdown button" 
- 				 name="nTitle" id="title" placeholder="제목을 입력하세요.">
+ 				 name="bTitle" id="title" placeholder="제목을 입력하세요.">
 		</div>
 
 		<div class="editorArea"  style="margin-top:20px;">
-  				<textarea id="summernote" name="nContent"></textarea>
+  				<textarea id="summernote" name="bContent"></textarea>
 		</div>
 		
 <br /><br />
@@ -126,7 +120,7 @@ $(document).ready(function(){
       var answer = confirm("게시글 작성을 취소하시겠습니까?");
       
       if(answer == true){
-    	  location.href = "${pageContext.request.contextPath}/notice/nselectList.no";
+    	  location.href = "${pageContext.request.contextPath}/board/boardSelectList.do";
         } 
    }
    

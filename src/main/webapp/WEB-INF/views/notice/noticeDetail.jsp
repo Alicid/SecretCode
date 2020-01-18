@@ -6,75 +6,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>공지사항 상세 게시글</title>
-    
-    <c:import url="../common/commonUtil.jsp" />
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-   
-    <style>
-        #btnup{
-            background: #02876C;
-            border:#02876C;
-        }
-        #btnde{
-            background: #02876C;
-            border:#02876C;
-        }
-        #btnli{
-            background: #02876C;
-            border:#02876C;
-        }
-        
-    </style>
-
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<c:import url="../common/commonUtil.jsp"/>
+<style>
+	.title{
+		border-color: #aaf0d1;
+    	color: #666;
+    	background: #ffffff;
+    	font-size: inherit;
+    	padding : 5px;
+    	border-left : 5px solid #aaf0d1;
+    	margin:10px;
+	}
+	.content{
+		height : 500px;
+		overflow : auto;
+		margin:10px;
+	}
+	
+	i{
+		margin-left:15px;
+	}
+	
+</style>
 </head>
 <body class="host_version">
-
 <c:import url="../common/header.jsp" />
 
-    <c:url var="noticeDetail" value="noticeDetail.no">
-               <c:param name="noticeDetail" value="${notice.nNo }" />
-</c:url>
+<div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/banner.jpg');">
+      <div class="container text-center">
+         <h1>공지 사항<span class="m_1">Asking costs nothing.</span></h1>
+      </div>
+</div>
 
-<br><br>
-    <div class="row">
-        <div class="col-xs-2 col-md-2"></div>
-        <div class="col-xs-8 col-md-8">
-            <h1 class="text-center" style="color: #02876C;">게시글 보기</h1>
-            <hr>
-            <p>&nbsp;</p>
-            <div class="table table-responsive" style="overflow-x:hidden;">
-                <table class="table">
-                    <tr>
-                        <th class="success" style="background: #02876C; color: snow;" >글번호</th>
-                        <td>${notice.nNo}</td>
-                        <th class="success" style="background: #02876C; color: snow;">조회수</th>
-                        <td>${notice.nCount}</td>
-                    </tr>
-
-
-                    <tr>
-                        <th class="success" style="background: #02876C; color: snow;">작성자</th>
-                        <td>관리자</td>
-                        <th class="success" style="background: #02876C; color: snow;">작성일</th>
-                        <td>${notice.nEnrolldate}</td>
-                    </tr>
-
-                    <tr>
-                        <th class="success" style="background: #02876C; color: snow;">제목</th>
-                        <td colspan="3">${notice.nTitle}</td>
-                    </tr>
-
-                    <tr>
-                        <th class="success" style="background: #02876C; color: snow;">글 내용</th>
-                        <td colspan="3">${notice.nContent}</td>
-                    </tr>
-
-                    <tr align="center">
-                        <td colspan="5" class="text-center">
-                        <c:if test="${!empty member and member.uNo eq notice.uNo}">
+<div id="overviews" class="section wb">
+        <div class="container">
+            <div class="row"> 
+					<br />
+                <div class="col-lg-12 blog-post-single">
+                    <div class="blog-item">
+                    <div class="blog-desc">
+						<div class="title display-5">
+							<h1>${notice.nTitle}</h1>
+						</div>
+						<div class="post-content">
+							<div class="meta-info-blog">
+								<span><i class="fa fa-calendar fa-lg">${notice.nEnrolldate}</i> </span>
+								<span><i class="fa fa-pencil fa-lg" aria-hidden="true">${notice.writer}</i></span>
+								<span><i class="fa fa-eye fa-lg" aria-hidden="true">${notice.nCount}</i></span>
+								 <input type="hidden" class="nNo" name="nNo" value="${notice.nNo}"/>
+							</div>
+							<div class="blog-desc">
+								<blockquote class="default content">
+									${notice.nContent} 
+								</blockquote>
+							</div>							
+						</div>
+					</div>
+					<div align="center">
+              <c:if test="${!empty member and member.uNo eq notice.uNo}">
 			            <c:url var="noticeUpdate" value="nUpdateForm.no">
 			               <c:param name="nNo" value="${notice.nNo}" />
 			            </c:url>
@@ -82,14 +73,12 @@
 			         	</c:if>
                             <input type="button" id="btnli" class="btn btn-primary" value="목록"
                                 onclick="location.href='${pageContext.request.contextPath}/notice/noticeList.no'">
-                        </td>
-                    </tr>
-            </table>
-            </div>
-
-        </div>
-    </div>
-    
+					</div>
+				</div>	
+              </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
     <c:import url="../common/footer.jsp" />
     
 </body>

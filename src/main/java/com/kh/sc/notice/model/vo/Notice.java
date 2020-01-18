@@ -12,13 +12,16 @@ public class Notice implements Serializable {
 	private Date nEnrolldate;
 	private int nCount;
 	private String nStatus;
+	private String writer;
+	private int nnum;
 	
 	public Notice() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	public Notice(int nNo, int uNo, String nTitle, String nContent, Date nEnrolldate, int nCount, String nStatus) {
+	
+	public Notice(int nNo, int uNo, String nTitle, String nContent, Date nEnrolldate, int nCount, String nStatus,
+			String writer, int nnum) {
 		super();
 		this.nNo = nNo;
 		this.uNo = uNo;
@@ -27,6 +30,8 @@ public class Notice implements Serializable {
 		this.nEnrolldate = nEnrolldate;
 		this.nCount = nCount;
 		this.nStatus = nStatus;
+		this.writer = writer;
+		this.nnum = nnum;
 	}
 
 	public int getnNo() {
@@ -85,11 +90,28 @@ public class Notice implements Serializable {
 		this.nStatus = nStatus;
 	}
 
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+
+	public int getNnum() {
+		return nnum;
+	}
+
+	public void setNnum(int nnum) {
+		this.nnum = nnum;
+	}
+
 	@Override
 	public String toString() {
 		return "Notice [nNo=" + nNo + ", uNo=" + uNo + ", nTitle=" + nTitle + ", nContent=" + nContent
-				+ ", nEnrolldate=" + nEnrolldate + ", nCount=" + nCount + ", nStatus=" + nStatus + "]";
+				+ ", nEnrolldate=" + nEnrolldate + ", nCount=" + nCount + ", nStatus=" + nStatus + ", writer=" + writer
+				+ ", nnum=" + nnum + "]";
 	}
-	
-	
+
+
 }

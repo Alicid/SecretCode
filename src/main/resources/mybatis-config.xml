@@ -16,7 +16,7 @@
 		<typeAlias type="com.kh.sc.common.PageInfo" alias="PageInfo"/>
 		<typeAlias type="com.kh.sc.notice.model.vo.Notice" alias="Notice"/>
 		<typeAlias type="com.kh.sc.tResult.model.vo.tResult" alias="tResult" />
-		<typeAlias type="com.kh.sc.question.model.vo.Question" alias="Question" />
+		<typeAlias type="com.kh.sc.admin.model.vo.Question" alias="Question" />
 	</typeAliases>
 </configuration>
 

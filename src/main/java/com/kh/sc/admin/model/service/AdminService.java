@@ -1,4 +1,4 @@
-package com.kh.sc.question.model.service;
+package com.kh.sc.admin.model.service;
 
 import java.util.List;
 
@@ -7,14 +7,14 @@ import org.springframework.stereotype.Service;
 
 import com.kh.sc.common.PageInfo;
 import com.kh.sc.question.exception.QuestionException;
-import com.kh.sc.question.model.dao.QuestionDAO;
-import com.kh.sc.question.model.vo.Question;
+import com.kh.sc.admin.model.dao.AdminDAO;
+import com.kh.sc.admin.model.vo.Question;
 
 @Service
-public class QuestionService {
+public class AdminService {
 	
 	@Autowired
-	QuestionDAO qdao;
+	AdminDAO qdao;
 	
 	/*
 	 * public int insertQuestion(Question question) { int result = 0;

@@ -1,4 +1,4 @@
-package com.kh.sc.question.model.dao;
+package com.kh.sc.admin.model.dao;
 
 import java.util.List;
 
@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.sc.common.PageInfo;
-import com.kh.sc.question.model.vo.Question;
+import com.kh.sc.admin.model.vo.Question;
 
 @Repository("qdao")
-public class QuestionDAO {
+public class AdminDAO {
 	
 	@Autowired
 	SqlSessionTemplate sqlSession;

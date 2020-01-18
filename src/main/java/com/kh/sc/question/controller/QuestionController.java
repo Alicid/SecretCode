@@ -13,45 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.sc.common.PageInfo;
-import com.kh.sc.question.model.service.QuestionService;
-import com.kh.sc.question.model.vo.Question;
+
 
 @Controller
 public class QuestionController {
 	
-	@Autowired
-	QuestionService qs;
 	
-	@RequestMapping("/question/questionList.qo")
-	public String selectquestionList(@RequestParam(value="currentPage", required=false, defaultValue="0") 
-			int currentPage, Model model) {
-				
-		List<Question> list = new ArrayList<Question>();
-		PageInfo pi = new PageInfo();
-		
-		if(currentPage!=0) pi.setCurrentPage(currentPage);
-		
-		int listCount = qs.getListCount();
-		pi.calcPage(qs.getListCount());
-		
-		list = qs.selectList(pi);
-		
-		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi);
-		
-		return "question/questionList";
-		
-	}
 	
-	@RequestMapping("/question/questionDetail.qo")
-	public String selectOne(@RequestParam("qNo") int qNo, Model model) {
-		
-		Question q = qs.selectOne(qNo);
-		System.out.println(q);
-		model.addAttribute("question", q);
-		
-		return "question/questionDetail";
-		
-	}
+
 	
 	
 	/*

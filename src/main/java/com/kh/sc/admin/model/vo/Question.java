@@ -1,4 +1,4 @@
-package com.kh.sc.question.model.vo;
+package com.kh.sc.admin.model.vo;
 
 import java.io.Serializable;
 

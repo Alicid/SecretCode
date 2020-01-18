@@ -144,28 +144,4 @@ public class AjaxController {
 	      return uploadPath;
 	      
 	   }
-	
-	@RequestMapping("/common/crawling.do")
-	public Map<String, String> crawling() throws Exception{
-		
-		String url = "https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query=%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EC%82%B0%EC%97%85%EA%B8%B0%EC%82%AC";
-		//String url = "http://www.edupure.net/v/l0/n0401.asp?lcode=2";
-		System.out.println("===========================");
-		System.out.println("url: " + url);
-		String selector = "div.list_bx";
-		//String selector = "table.board1";
-		Document doc = Jsoup.connect(url).get();
-		
-		Elements element = doc.select(selector);
-		 Map<String,String> map = new HashMap();
-		 String newElement = element.html();
-		map.put("crawl", newElement);
-		
-		
-		System.out.println(element);
-		System.out.println("=================");
-		System.out.println(element.outerHtml());
-		return map;
-		}
-	
 }

@@ -60,13 +60,15 @@ public class NoticeController {
 	 * return "notice/noticeList"; }
 	 */
 	@RequestMapping("/notice/noticeList.no")
-	public String selectNoticeList(@RequestParam(value="currentPage", required=false,
-			defaultValue="0") int currentPage, Model model) {
+	public String selectNoticeList(@RequestParam(value="currentPage", required=false, defaultValue="0") int currentPage, Model model) {
+		
 		System.out.println("현재 페이지 : "+currentPage);
+		
 		List<Notice> list = new ArrayList<Notice>();
 		PageInfo pi = new PageInfo();
-		//PageInfo pi = new PageInfo();
+		
 		System.out.println("처리전 pi"+pi);
+		
 		if(currentPage!=0) pi.setCurrentPage(currentPage);
 		
 		int listCount = ns.getListCount();

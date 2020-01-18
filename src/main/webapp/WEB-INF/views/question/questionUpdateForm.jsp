@@ -18,7 +18,7 @@
 <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.js"></script>
-<title>공지 사항 작성</title>
+<title>시험 문제 작성</title>
 
 </head>
 <body class="host_version">
@@ -26,31 +26,31 @@
 
 <div class="all-title-box" style="background-image:url('${pageContext.request.contextPath }/images/banner.jpg');">
       <div class="container text-center">
-         <h1>공지 사항<span class="m_1">Let thy speech be short, comprehending much in few words.</span></h1>
+         <h1>시험 문제 수정<span class="m_1">Let bygones be bygones.</span></h1>
       </div>
 </div>
 
 <br />
 <section>
 <div class="mb-2" align="center">
-<form id="insertForm" action="${ pageContext.request.contextPath }/notice/nInsert.no"  method="post"  >
+<form id="updateForm" action="${ pageContext.request.contextPath }/question/qUpdate.qo"  method="post"  >
 		<div class="input-group mb-3" style="width:900px;">
 			<br />
-			
 		<input type="hidden" name="uNo"  value="${member.uNo}"/>
+		<input type="hidden" name="qNo"  value="${question.qNo}"/>
   				<input type="text" class="form-control" aria-label="Text input with dropdown button" 
- 				 name="nTitle" id="title" placeholder="제목을 입력하세요.">
+ 				 name="nTitle" id="title" placeholder="제목을 입력하세요." value="${notice.nTitle}">
 		</div>
-		
+
 		<div class="editorArea"  style="margin-top:20px;">
-  				<textarea id="summernote" name="nContent"></textarea>
+  				<textarea id="summernote" name="nContent">${question.qContent}</textarea>
 		</div>
 		
 <br /><br />
 
 <div align="center">
-<button type="reset" class="btn btn-primary" onclick="cancelbtn();">취소</button>&nbsp;&nbsp;&nbsp;
-<button type="submit" class="btn btn-primary" onclick="insertbtn();">확인</button>
+<button type="submit" class="btn btn-primary" onclick="deleteBtn();">삭제</button>&nbsp;&nbsp;&nbsp;
+<button type="submit" class="btn btn-primary" onclick="updateBtn();">수정완료</button>
 </div>
 </form>
 				
@@ -61,7 +61,7 @@
 
 <c:import url="../common/footer.jsp" />
 
-<script>
+ <script>
 $(document).ready(function(){
 	
 		$('#summernote').summernote({
@@ -92,7 +92,7 @@ $(document).ready(function(){
   $.ajax({
        data: form_data,
        type: "post",
-       url: '/sc/insert.tn',
+       url: '/sc/update.tn',
     cache : false,
     contentType : false,
        enctype: 'multipart/form-data',
@@ -109,7 +109,7 @@ $(document).ready(function(){
   });
 }
  
-  function insertbtn(){
+  function updateBtn(){
       if($('#title').val() == ""){
          alert("제목을 입력하세요.");
          $('#title').focus();
@@ -117,17 +117,17 @@ $(document).ready(function(){
          alert("내용을 입력해 주세요.");
          $('#summernote').focus();
       } else {
-         $('#insertForm').submit();
+         $('#updateForm').submit();
       }
       event.preventDefault();   
       
    }
    
-   function cancelbtn(){
-      var answer = confirm("게시글 작성을 취소하시겠습니까?");
+   function deleteBtn(){
+      var answer = confirm("게시글을 삭제하시겠습니까?");
       
       if(answer == true){
-    	  location.href = "${pageContext.request.contextPath}/notice/nselectList.no";
+    	  $('#updateForm').attr("action", "${pageContext.request.contextPath}/notice/nDelete.no");
         } 
    }
    

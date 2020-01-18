@@ -43,6 +43,16 @@
               <span>내 통계</span>
             </a>
           </li>
+          
+          <c:if test="${!empty member && member.aNo == 1 }">
+          <li class="sidebar-dropdown">
+            <a href="${pageContext.request.contextPath}/question/questionList.qo">
+              <i class="fa fa-folder"></i>
+              <span>관리자 페이지</span>
+            </a>
+          </li>
+          </c:if>
+          
         </ul>
       </div>
      </div>

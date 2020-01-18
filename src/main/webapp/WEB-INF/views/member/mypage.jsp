@@ -354,7 +354,7 @@ body {
 <body>
 <c:import url="../common/header.jsp" />
 <div class="page-wrapper chiller-theme toggled">
-
+	<input type="hidden" name="uNo" value="${member.uNo }"/>
 	<c:import url="myPageMenu.jsp" />
  <main class="page-content">
     <div class="container-fluid">

@@ -96,9 +96,9 @@ public class MemberController {
 	
 	@RequestMapping("/member/memberView.do")
 	public String memberView(@RequestParam String userId, Model model) {
-		Member member = memberService.memberView(userId);
+		//Member member = memberService.memberView(userId);
 		
-		model.addAttribute("member", member);
+		//model.addAttribute("member", member);
 		
 		return "member/mypage";
 	}

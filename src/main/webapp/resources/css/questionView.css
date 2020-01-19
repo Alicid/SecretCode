@@ -384,3 +384,21 @@ li {
   left: 50%;
   transform: translate(-50%, 5%);
 }
+
+  .result tbody {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+ .result tbody td,.result tbody tr {
+    border-bottom: 1px solid #444444;
+    padding: 4px;
+  }
+  
+  #score{
+  	display : inline-block;
+  	position : absolute;
+  	bottom : 161px;
+  	right : 145px;
+  	font-size : 52px;
+  }

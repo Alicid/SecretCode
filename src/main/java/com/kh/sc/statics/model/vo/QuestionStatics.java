@@ -1,4 +1,4 @@
-package com.kh.sc.member.model.vo;
+package com.kh.sc.statics.model.vo;
 
 import java.sql.Date;
 

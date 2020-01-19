@@ -38,7 +38,7 @@
             <div id="id-9"></div>
           </div>
           <div id="main-header">
-            <div id="main-title"><h1>${category.cn}</h1><h6>${category.un}</h6><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
+            <div id="main-title"><h1 id="main-title2">${category.cn}</h1><h6 id="main-title3">${category.un}</h6><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
             <div id="main-title-paper"><p><b>Paper 1 (Non-Calculator)</b></p><input type="hidden" id="unitNum" value="${category.unum}"/></div>
             <div id="foundation"><p><b>${mode}</b></p></div>
           </div>
@@ -173,7 +173,12 @@
 	          	      	//console.log(answer);
 	          	        }
 	          	    });
-	            	  var isAnswer = "Q"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            	  if(num<11){
+	            		  var isAnswer = "Q"+"0"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            	  }else{
+	            		  var isAnswer = "Q"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            	  }
+	            	 
 	            	  //var 
 	            	  var a;
 	            	  var curScore=0;
@@ -221,10 +226,11 @@
 	            	  if(num==21){
 	            		  alert('문제풀이 종료!');
 	            		  
-	            		 var category = $('#main-title').text();
+	            		 var category = $('#main-title2').text();
+	            		 var categoryRange = $('#main-title3').text();
 	            		 var mode = $('#foundation').text();
 	            		 
-	            		
+	            		 sessionStorage.setItem('range',categoryRange);
 	            		  sessionStorage.setItem('category',category);
 	            		  sessionStorage.setItem('mode',mode);
 	            		  

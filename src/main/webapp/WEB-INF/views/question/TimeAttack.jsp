@@ -219,9 +219,9 @@
 	            		  
 	            	 }
 	            	 // console.log( sessionStorage.getItem("totalScore"));
-	            	  if(num==20){
-	            		  $('#next_btn').html("Finish");
-	            	  }
+	            	 // if(num==20){
+	            	//	  $('#next_btn').html("Finish");
+	            	 // }
 	            	 // if($("input[type='checkbox']").filter(':checked').size()==0)
 	            	  
 	            	  
@@ -261,11 +261,11 @@
        		  
         		 var category = $('#main-title').text();
         		 var mode = $('#foundation').text();
-        		 
+        		 var categoryNum = $('#categoryNum').val();
         		
         		  sessionStorage.setItem('category',category);
         		  sessionStorage.setItem('mode',mode);
-        		  
+        		  sessionStorage.setItem('categoryNum',categoryNum);
         		 
         		 // console.log('채점결과');
         		  

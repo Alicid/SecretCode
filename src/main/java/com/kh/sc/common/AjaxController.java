@@ -7,14 +7,17 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.sc.member.model.service.MemberService;
+import com.kh.sc.question.model.service.QuestionService;
+import com.kh.sc.question.model.vo.Questions;
 
 // Ajax기능 전용 컨트롤러
 @RestController
@@ -29,6 +34,9 @@ public class AjaxController {
 
 	@Autowired
 	MemberService memberService;
+	
+	@Autowired
+	QuestionService qs;
 	
 	@RequestMapping("/member/checkIdDuplicate.do")
 	public  Map<String, Object> idDupCheck(@RequestParam String userId) {
@@ -167,5 +175,49 @@ public class AjaxController {
 		System.out.println(element.outerHtml());
 		return map;
 		}
+	@RequestMapping("/question/selectOneQuestion.do")
+	public Map<String,Questions> selectOneQuestion(@RequestParam int categoryNum , @RequestParam String unitNum) {
+		//System.out.println("문제 출제 전 카테고리 번호 받음 확인 : "+ categoryNum);
+		//System.out.println("단원번호 확인 : " + unitNum);
+		int unum = Integer.parseInt(unitNum);
+		Map<String,Questions> map = new HashMap();
+		Map<String,Integer> cMap = new HashMap();
+		
+		cMap.put("categoryNum", categoryNum);
+		if(unum==0) {
+			cMap.put("unitNum", null);
+		}else {
+			cMap.put("unitNum", unum);
+		}
+		
+		Questions qus = new Questions();
+		//System.out.println("종목번호, 단원번호 확인 : "+cMap);
+		//System.out.println("문제 출제합니다.");
+		
+		qus = qs.selectOneQuestion(cMap);
+		map.put("question", qus);
+		//System.out.println(map);
+		return map;
+	}
 	
+	@RequestMapping("/question/questionResult.do")
+	public Map<String,Object> goResultPage(@RequestBody  HashMap<String, Object> map,HttpSession session) {
+		System.out.println("시험결과 : "+map);
+		System.out.println(map.get("Q1"));
+		System.out.println(map.get("totalScore"));
+		session.setAttribute("result", map);
+		return map;
+	}
+	
+	
+	@RequestMapping("/question/selectUnit.do")
+	public Map<String,Object> selectUnit(@RequestParam int category) {
+		System.out.println("단원 확인용"+category);
+		Map<String,Object> map = new HashMap();
+		List<HashMap<String,String>> list =qs.selectUnitNum(category);
+		System.out.println(list);
+		map.put("unit", list);
+		
+		return map;
+	}
 }

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.sc.common.PageInfo;
-import com.kh.sc.question.exception.QuestionException;
+
 import com.kh.sc.admin.model.dao.AdminDAO;
 import com.kh.sc.admin.model.vo.Question;
 

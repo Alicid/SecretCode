@@ -20,7 +20,7 @@
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}">Home</a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/notice/noticeList.no"><b>공지 사항</b></a></li>
 						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/board/boardSelectList.do"><b>자유 게시판</b></a></li>
-						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/question/questionSelectList.do"><b>문제 풀이</b></a></li>
+						<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/question/getCategory.do"><b>문제 풀이</b></a></li>
 					</ul>
                     <c:if test="${empty member}">
                     <div class="modal-header tit-up">

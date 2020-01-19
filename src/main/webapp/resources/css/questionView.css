@@ -1,0 +1,386 @@
+@charset "UTF-8";
+       * {
+  font-family: 'Arial', sans-serif;
+}
+
+
+
+h4 {
+  margin-left: 0px;
+  margin-top: 0px;
+  margin-bottom: -10px;
+}
+
+ul {
+  list-style-type: disc;
+  
+}
+
+li {
+  font-family: 'Calibri', sans-serif;
+  font-size: 13px;
+  margin: -5px 0 4px -19px;
+  text-indent: -9px;
+  list-style-position: inherit;
+}
+
+#a-three {
+  position: relative;
+  width: 793px;
+  height: 1126px;
+  border: 1px solid black;
+  top: -4%;
+  left: 50%;
+  transform: translate(-50%, 5%);
+  margin : 10px;
+}
+
+#header-container {
+  position: relative;
+  width: 570px;
+  height: 411px;
+  top: 72px;
+  left: 118px;
+  border: 2px solid black;
+  border-radius: 12px;
+}
+
+#write-name {
+  font-size: 13px;
+  position: relative;
+  left: 23px;
+}
+
+#surname {
+  position: relative;
+  width: 317px;
+  height: 38px;
+  top: -10px;
+  left: 22px;
+  border: 2px solid black;
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+#other-names {
+  position: relative;
+  width: 203px;
+  height: 38px;
+  top: -48px;
+  right: -337px;
+  border: 2px solid black;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.float-top-left {
+  padding: 10px;
+  font-size: 11px;
+  float: left;
+}
+
+#id-numbers {
+  
+}
+
+#edexcel {
+  position: absolute;
+  width: 190px;
+  height: 34px;
+  top: 95px;
+  left: 35px;
+}
+
+#id-1 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 26px;
+  border: 2px solid black;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#id-2 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 58px;
+  border: 2px solid black;
+}
+
+#id-3 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 90px;
+  border: 2px solid black;
+}
+
+#id-4 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 122px;
+  border: 2px solid black;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#id-5 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 188px;
+  border: 2px solid black;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#id-6 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 220px;
+  border: 2px solid black;
+}
+
+#id-7 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 252px;
+  border: 2px solid black;
+}
+
+#id-8 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 284px;
+  border: 2px solid black;
+}
+
+#id-9 {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  top: 94px;
+  right: 316px;
+  border: 2px solid black;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#main-title {
+  margin: 19px 0 0 8px;
+  font-size: 20px;
+}
+
+#main-title-paper {
+  margin: 10px 0 0 8px;
+  font-size: 20px;
+}
+
+#foundation {
+  position: absolute;
+  font-size: 20px;
+  bottom: -15px;
+  right: 10px;
+}
+
+#main-header {
+  position: absolute;
+  width: 521px;
+  height: 128px;
+  top: 143px;
+  left: 22px;
+  border: 2px solid black;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+#date {
+  position: absolute;
+  width: 377px;
+  height: 50px;
+  top: 269px;
+  left: 22px;
+  border: 2px solid black;
+  border-bottom-left-radius: 15px;
+}
+
+#date-time {
+  margin: 0px 0 0 10px;
+}
+
+#reference {
+  position: absolute;
+  width: 146px;
+  height: 50px;
+  top: 269px;
+  right: 23px;
+  border: 2px solid black;
+  border-bottom-right-radius: 15px;
+}
+
+#p-ref {
+  font-size: 10px;
+  margin: 5px 0 0 10px;
+}
+
+#n-ref {
+  margin: 2px 0 0 10px;
+  font-size: 26px;
+  font-weight: bold;
+  margin-top : -14px;
+}
+
+#must-have {
+  position: absolute;
+  width: 438px;
+  height: 67px;
+  bottom: 11px;
+  left: 22px;
+  border: 2px solid black;
+  border-radius: 15px;
+}
+
+#must-p {
+  margin: 5px 0 0 5px;
+  font-size: 11px;
+}
+
+#marks {
+  position: absolute;
+  width: 72px;
+  height: 67px;
+  bottom: 11px;
+  right: 23px;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+#marks-p {
+  font-size: 12px;
+  margin: 4px 0 0 4px;
+}
+
+#instructions {
+  position: absolute;
+  width: 570px;
+  height: 151px;
+  top: 5%;
+  left: 136px;
+}
+
+#information {
+  position: absolute;
+  width: 570px;
+  height: 120px;
+  top: 39%;
+  left: 136px;
+}
+
+#advice {
+  position: absolute;
+  width: 570px;
+  height: 102px;
+  top: 70%;
+  left: 136px;
+}
+
+#barcode {
+  position: absolute;
+  width: 276px;
+  height: 53px;
+  bottom: 87px;
+  left: 257px;
+}
+
+#barcode-pic {
+  width: 276px;
+  height: 53px;
+}
+
+#hole1 {
+  position: absolute;
+  width: 35px;
+  height: auto;
+  top: 396px;
+  left: 35px;
+}
+
+#hole2 {
+  position: absolute;
+  width: 35px;
+  height: auto;
+  bottom: 396px;
+  left: 35px;
+}
+
+#no-calc {
+  position: absolute;
+  width: 80px;
+  height: auto;
+  top: 550px;
+  right: 100px;
+}
+
+#pearson {
+  position: absolute;
+  width: 143px;
+  height: auto;
+  bottom: 57px;
+  right: 58px;
+}
+
+#code {
+  position: absolute;
+  font-size: 20px;
+  bottom: 90px;
+  left: 60px;
+}
+
+#code-bottom {
+  position: absolute;
+  font-size: 10px;
+  bottom: 64px;
+  left: 60px;
+}
+.exam_btn{
+   
+    position : relative;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 75%;
+    border : 1px solid black;
+    margin-left: 40%;
+    margin-right: 50%;
+    margin-bottom: 50px;
+    width: 150px;
+}
+.exam_btn :hover{
+    background-color: mediumaquamarine;
+    border : 1px dashed black;
+}
+.exam_btn p {
+    margin : 0;
+}
+.test-border{
+  position: absolute;
+  width: 792px;
+  height: 450px;
+  border: 1px solid black;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, 5%);
+}

@@ -15,8 +15,34 @@
 		<result column="QU_NAME" property="qTitle"/>
 		<result column="N_NAME" property="qWriter"/>
 	</resultMap>
-		
+	
+	<resultMap type="String" id="selectMap"> 
+	<result column="QC_NO" property="studentNo"/>
+	<result column="QC_NAME" property="studentNo"/>  
+	</resultMap>
 
+	<resultMap id="oneQuestion" type="Questions"> 
+		
+		<result property="qno" column="Q_NO"/>
+		<result property="quPkno" column="QU_PKNO"/>
+		<result property="qContent" column="Q_CONTENT"/>
+		<result property="qLevel" column="Q_LEVEL"/>
+		<result property="qScore" column="Q_SCORE"/>
+		<result property="uno" column="U_NO"/>
+		<collection property="answer" column="Q_NO" ofType="Answer" javaType="java.util.ArrayList">
+			<result property="cno" column="C_NO"/>
+			<result property="qancontent" column="QAN_CONTENT"/>
+			<result property="qstatus" column="Q_STATUS"/>
+		</collection>
+	</resultMap>
+
+	<resultMap id="qUnit" type="java.util.HashMap">
+		<result property="cn" column="CN"/>
+		<result property="un" column="UN"/>
+		<result property="unum" column="UNUM"/>
+	</resultMap>
+	
+	
 		<select id="selectQuestion" parameterType="PageInfo" resultMap="questionResult">
 		<![CDATA[ SELECT * FROM 
                (SELECT N.*, ROWNUM RNUM 
@@ -42,6 +68,93 @@
 			WHERE Q_NO = #{qNo}
 		</select>
 		
+		
+		<select id="selectCategoryList" resultType="hashmap">
+			SELECT QC_NO cnum ,QC_NAME name FROM Q_CATEGORY
+		</select>
+	
+		<select id="selectCategoryName" parameterType="hashmap" resultMap="qUnit">
+			SELECT C.QC_NAME CN,U.QU_NAME UN,U.QU_NO UNUM FROM Q_CATEGORY C JOIN Q_UNIT U ON (C.QC_NO=U.QC_NO) WHERE C.QC_NO = #{categoryNum} 
+				<if test="unit!=0">
+					AND QU_NO=#{unit}
+				</if>
+				<if test="unit==0">
+					AND QU_NO=1
+				</if>
+		
+	</select>
+	
+	<select id="">
+		SELECT QU_NO,QU_NAME FROM Q_UNIT WHERE QC_NO=1 AND QU_NO=4
+	</select>
+	
+	<select  id="selectQuestionNum" parameterType="hashMap" resultType="int">
+				SELECT Q_NO 
+						 FROM (SELECT * 
+					 		   FROM QUESTION 
+					 		   <if test="unitNum==null">
+					 		    <![CDATA[WHERE QU_PKNO = (SELECT* 
+					 		    						  FROM (SELECT QU_NO 
+					 		    						  		FROM Q_UNIT 
+					 		    						  		WHERE QC_NO=#{categoryNum} 
+					 		    						  		ORDER BY DBMS_RANDOM.RANDOM) 
+					 		    						  WHERE ROWNUM <2)]]>
+					 		   </if>
+					 		   <if test="unitNum!=null">
+					 		     WHERE QU_PKNO = (SELECT QU_PKNO 
+					 	   					FROM Q_UNIT 
+					 	   					WHERE QC_NO =#{categoryNum} AND QU_NO=#{unitNum})
+					 		   </if>
+					     ORDER BY DBMS_RANDOM.RANDOM) 
+				  		<![CDATA[ WHERE ROWNUM <2]]>
+	</select>
+	<!-- SELECT * FROM QUESTION WHERE Q_NO = 1 AND QU_PKNO= 1 -->
+	<select id="selectOneQuestion" parameterType="Questions" resultMap="oneQuestion">
+		
+		<![CDATA[SELECT Q.*, A.* 
+				 FROM QUESTION Q, (SELECT * 
+				 				   FROM(SELECT * 
+					  				    FROM( SELECT * 
+							 				  FROM C_ANSWER 
+											  WHERE Q_NO = #{qno} AND Q_STATUS='N' 
+											  ORDER BY DBMS_RANDOM.RANDOM)
+					 				    WHERE ROWNUM < 4
+										UNION
+										SELECT * 
+										FROM( SELECT * 
+											  FROM C_ANSWER 
+							  				  WHERE Q_NO = #{qno} AND Q_STATUS='Y' 
+											  ORDER BY DBMS_RANDOM.RANDOM)
+										WHERE ROWNUM < 2)
+								   ORDER BY DBMS_RANDOM.RANDOM) A
+				 WHERE Q.Q_NO = #{qno} 
 
+		]]>
+	</select>
+	
+	<select id="selectUnitNum" parameterType="int" resultType="HashMap">
+		SELECT QU_NO,QU_NAME FROM Q_UNIT WHERE QC_NO=#{category}
+	</select>
+	
+	
+	
+	<select id="getAnswerList" parameterType="int" resultType="Answer">
+		<![CDATA[SELECT * 
+				 FROM(
+					  SELECT * 
+					  FROM( SELECT * 
+							FROM C_ANSWER 
+							WHERE Q_NO = #{qno} AND Q_STATUS='N' 
+							ORDER BY DBMS_RANDOM.RANDOM)
+					  WHERE ROWNUM < 4
+				UNION
+					SELECT * 
+					FROM( SELECT * 
+							FROM C_ANSWER 
+							WHERE Q_NO = #{qno} AND Q_STATUS='Y' 
+							ORDER BY DBMS_RANDOM.RANDOM)
+					WHERE ROWNUM < 2)
+				ORDER BY DBMS_RANDOM.RANDOM]]>
+	</select>
 	
 	</mapper>

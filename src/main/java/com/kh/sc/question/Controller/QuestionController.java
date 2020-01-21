@@ -117,7 +117,7 @@ public class QuestionController {
 		rmap.put("category", map.get("category"));
 		rmap.put("range", map.get("range"));
 		int result = ss.insertResult(list);
-		System.out.println("인서트 결과 "+result);
+		//System.out.println("인서트 결과 "+result);
 		//m.getuNo();
 		System.out.println("정렬 확인 : "+tmap);
 		System.out.println("결과들 확인 : " +rmap);
@@ -131,29 +131,42 @@ public class QuestionController {
 	public String timeAttackResult(HttpSession session,Model model) {
 		Map<String,Object> highScore = new HashMap();
 		Map<String,String> map = (Map<String, String>) session.getAttribute("result");
-		System.out.println("화면 전달 확인 : "+map);
+		System.out.println("타임어택 화면 전달 확인 : "+map);
 		//System.out.println(map.get("Q1"));
 		Member m = (Member) session.getAttribute("member");
 		int count=0;
 		int answer = 0;
+		int score = 0;
 		Iterator<Map.Entry<String, String>> entries = map.entrySet().iterator();
 		while(entries.hasNext()) {
 			Entry<String,String> entry = (Entry<String,String>)entries.next();
 			if(entry.getKey().contains("Q")) {
 				if(!entry.getValue().equals("0")) {
 					answer++;
+					score += Integer.parseInt(entry.getValue());
 				}
 				count++;
+				
 			}
 		}
 		
 		System.out.println("카테고리 번호 확인"+map.get("categoryNum"));
 		
 		double answerRate = ((answer*100.0)/100.0)/((count*100.0)/100.0);
-		System.out.println("맞춘문제 : "+answer);
-		System.out.println("푼 문제"+count);
-		System.out.println("정답률 : "+answerRate);
+		//System.out.println("맞춘문제 : "+answer);
+		//System.out.println("푼 문제"+count);
+		//System.out.println("정답률 : "+answerRate);
+		//System.out.println("총점수 : " + score);
 		
+		highScore.put("range", map.get("range"));
+		highScore.put("mode", map.get("mode"));
+		highScore.put("category", map.get("category"));
+		highScore.put("categoryNum", map.get("categoryNum"));
+		highScore.put("unitNum", map.get("unitNum"));
+		highScore.put("score", score);
+		highScore.put("uno", m.getuNo());
+		highScore.put("correct",map.get("correct"));
+		highScore.put("totalScore",map.get("totalScore"));
 //		int correct = Integer.parseInt(map.get("correct"));
 //		int total = Integer.parseInt(map.get("totalScore"));
 //		double correctRate = correct/total;
@@ -162,10 +175,12 @@ public class QuestionController {
 //		System.out.println("정답률 확인2 : " + correctRate2);
 //		highScore.put("uno",m.getuNo());
 //		highScore.put("score", correctRate2);
-		//int result = ss.insertHighScore(highScore);
+		//System.out.println("DB 입력전 확인 : "+highScore);
+		int result = ss.insertHighScore(highScore);
 		
 		
-		model.addAttribute("result", map);
+		
+		model.addAttribute("result", highScore);
 		
 		
 		return "question/timeAttackResult";

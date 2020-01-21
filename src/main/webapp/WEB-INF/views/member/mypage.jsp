@@ -351,7 +351,7 @@ body {
 <c:import url="../common/commonUtil.jsp"/>
 </head>
 
-<body>
+<body class="host_version">
 <c:import url="../common/header.jsp" />
 <div class="page-wrapper chiller-theme toggled">
 

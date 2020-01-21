@@ -90,7 +90,7 @@
 					</div>
 				</li>
 				
-					<div align="center">
+					
               <c:if test="${!empty member and (member.aNo eq 1 or member.aNo eq 2)}">
 			            <c:url var="questionUpdate" value="qUpdateForm.qo">
 			               <c:param name="qNo" value="${question.qNo}" />

@@ -89,7 +89,7 @@
 </style>
  <c:import url="../common/commonUtil.jsp"/>
 </head>
-<body>
+<body class="host_version">
 
 <div>
 <c:import url="../common/header.jsp" />
@@ -106,6 +106,13 @@
        </c:forEach>  
     </select>
 </span>
+<c:if test="${empty member}">
+<input type="hidden" id="member"  value="0"/>
+</c:if>
+<c:if test="${!empty member}">
+<input type="hidden" id="member"  value="${member.nickName}"/>
+</c:if>
+
 <br />
 <div>
 문제풀이 모드
@@ -170,12 +177,19 @@ $('#ccc').change(function(){
 function comfirm(){
 	var $category = $("#ccc");
 	var $unit=$('#unit');
-	
+	var $member=$('#member');
+	//var member = ${member.nickName};
+	console.log($member.val());
 	if($category.val()==0){
 		alert("카테고리를 선택해주세요.");
 		$category.focus();
 		return false;
 	}
+	if($member.val()==0){
+		alert('로그인을 하셔야 이용가능합니다.');
+		return false;
+	}
+	
 	
 	return true;
 }

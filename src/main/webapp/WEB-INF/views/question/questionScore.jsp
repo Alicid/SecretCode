@@ -67,7 +67,7 @@
       <div style="display: table-cell;">
       <table class="result">
       <c:forEach var="result" items="${result}" varStatus="status"  begin="0" end="9">
-			<tr> <td>${status.count}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
+			<tr> <td><c:if test="${result.value ne 0}"><img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 57px;"></c:if><c:if test="${result.value eq 0}"><img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 57px;"></c:if>${status.count}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
       </c:forEach>
       </table>
       </div>
@@ -75,7 +75,7 @@
       <table class="result">
       <c:forEach var="result" items="${result}" varStatus="status"  begin="10">
       <c:set var="num" value="${status.count+10}"/>
-			<tr><td>${num}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
+			<tr><td><c:if test="${result.value ne 0}"><img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 0px;"></c:if><c:if test="${result.value eq 0}"><img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 0px;"></c:if>${num}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
       </c:forEach>
       </table>
      </div>

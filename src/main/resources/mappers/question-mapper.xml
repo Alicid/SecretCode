@@ -68,6 +68,15 @@
 			WHERE Q_NO = #{qNo}
 		</select>
 		
+		<select id="selectCorrectAnswerList">
+			
+		</select>
+		
+		
+		<select id="selectinCorrectAnswerList">
+			
+		</select>
+		
 		
 		<select id="selectCategoryList" resultType="hashmap">
 			SELECT QC_NO cnum ,QC_NAME name FROM Q_CATEGORY
@@ -156,5 +165,8 @@
 					WHERE ROWNUM < 2)
 				ORDER BY DBMS_RANDOM.RANDOM]]>
 	</select>
+	
+
+	
 	
 	</mapper>

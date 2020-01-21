@@ -9,7 +9,7 @@
 	</insert>
 	
 	<insert id="insertHighScore" parameterType="hashmap">
-		INSERT INTO Q_RANKING VALUES(SEQ_C_NO.NEXTVAL,#{uno},#{score},SYSDATE)
+		INSERT INTO Q_RANKING VALUES (SEQ_QR_NO.NEXTVAL,#{categoryNum},#{unitNum},#{uno},#{score},DEFAULT)
 	</insert>	
 	
 	<!-- 

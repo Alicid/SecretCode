@@ -1,4 +1,4 @@
-package com.kh.sc.question.exception;
+package com.kh.sc.admin.exception;
 
 public class QuestionException extends RuntimeException{
 	

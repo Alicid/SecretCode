@@ -1,5 +1,6 @@
 package com.kh.sc.admin.model.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.sc.common.PageInfo;
 import com.kh.sc.admin.model.vo.Question;
+import com.kh.sc.admin.model.vo.Qunit;
 
 @Repository("qdao")
 public class AdminDAO {
@@ -40,5 +42,15 @@ public class AdminDAO {
 //	public int deleteQuestion(int qNo) {
 //		return sqlSession.update("question-mapper.deleteNotice", qNo);
 //	}
+
+
+	public List<HashMap<String, String>> selectQunit() {
+		return sqlSession.selectList("qunit-mapper.selectQunit");
+	}
+
+
+	public List<HashMap<String, String>> selectCategoryList() {
+		return sqlSession.selectList("question-mapper.selectCategoryList");
+	}
 
 }

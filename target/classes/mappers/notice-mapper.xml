@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice-mapper">
+
+<resultMap id="noticeResult" type="Notice">
+      <result column="N_NO" property="nNo"/>
+      <result column="U_NO" property="uNo"/>
+      <result column="N_TITLE" property="nTitle"/>
+      <result column="N_CONTENT" property="nContent"/>
+      <result column="N_ENROLLDATE" property="nEnrolldate"/>
+      <result column="N_COUNT" property="nCount"/>
+      <result column="N_STATUS" property="nStatus"/>
+      <result column="RM" property="nnum"/>
+      <result column="N_NAME" property="writer"/>
+   </resultMap>
+
+<select id="getListCount" resultType="int">
+		SELECT COUNT(*) FROM NOTICE WHERE N_STATUS = 'N'
+	</select>
+	
+   <select id="selectNotice" parameterType="PageInfo" resultMap="noticeResult">
+   <![CDATA[ SELECT * FROM 
+               (SELECT N.*, ROWNUM RNUM 
+                  FROM(SELECT BD.*,M.N_NAME 
+                       FROM (SELECT ROWNUM RM, BDD.* FROM NOTICE BDD WHERE N_STATUS='N') BD 
+                       JOIN MEMBER M ON (BD.U_NO=M.U_NO)
+                        WHERE N_STATUS='N' 
+                        ORDER BY N_ENROLLDATE DESC) N 
+                 WHERE ROWNUM <= #{endRow})NO 
+         WHERE RNUM > #{startRow}
+         ]]>
+   </select>   
+   
+   <insert id="insertNotice" parameterType="Notice">
+      INSERT INTO NOTICE 
+      VALUES(SEQ_N_NO.NEXTVAL, #{uNo},
+       #{nTitle},#{nContent},
+      DEFAULT, DEFAULT, DEFAULT)
+   </insert>
+   
+   <select id="noticeDetail" parameterType="Notice" resultMap="noticeResult">
+      SELECT N.*,M.N_NAME 
+		FROM NOTICE N 
+		JOIN MEMBER M ON (N.U_NO = M.U_NO)  
+		WHERE N_NO = #{nNo}
+   </select>
+   
+    <update id="addReadCount" parameterType="Notice">
+      UPDATE NOTICE SET N_COUNT = N_COUNT + 1 WHERE N_NO = #{nNo}
+   </update>
+ 
+   <update id="updateNotice" parameterType="Notice">
+      UPDATE NOTICE 
+      SET N_TITLE = #{nTitle},
+         N_CONTENT = #{nContent}
+      WHERE N_NO = #{nNo}
+   </update>
+   
+   <update id="deleteNotice" parameterType="Notice">
+      UPDATE NOTICE 
+      SET N_STATUS = 'Y'
+      WHERE N_NO = #{nNo}
+   </update>
+
+</mapper>

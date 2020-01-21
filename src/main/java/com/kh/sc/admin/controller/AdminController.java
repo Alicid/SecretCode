@@ -1,6 +1,7 @@
 package com.kh.sc.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.sc.admin.model.service.AdminService;
 import com.kh.sc.admin.model.vo.Question;
+import com.kh.sc.admin.model.vo.Qunit;
 import com.kh.sc.common.PageInfo;
 
 
@@ -38,6 +41,7 @@ public class AdminController {
 				
 		List<Question> list = new ArrayList<Question>();
 		PageInfo pi = new PageInfo();
+		List<HashMap<String,String>> qcList = qs.selectCategoryList();
 		
 		if(currentPage!=0) pi.setCurrentPage(currentPage);
 		
@@ -46,7 +50,7 @@ public class AdminController {
 		
 		list = qs.selectList(pi);
 		
-		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi);
+		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi).addAttribute("category", qcList);
 		
 		return "admin/questionList";
 		
@@ -62,4 +66,14 @@ public class AdminController {
 		return "admin/questionDetail";
 		
 	}
+	
+	@RequestMapping("/question/qExcelUpload.qo")
+	public String questionExcelUploadForm() {
+		
+		return "admin/adminQuestionExcelUploadForm";
+	}
+	
+
+	
+	
 }

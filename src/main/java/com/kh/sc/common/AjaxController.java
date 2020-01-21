@@ -17,6 +17,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.sc.admin.model.service.AdminService;
 import com.kh.sc.member.model.service.MemberService;
 import com.kh.sc.question.model.service.QuestionService;
 import com.kh.sc.question.model.vo.Questions;
@@ -37,6 +39,9 @@ public class AjaxController {
 	
 	@Autowired
 	QuestionService qs;
+	
+	@Autowired
+	AdminService as;
 	
 	@RequestMapping("/member/checkIdDuplicate.do")
 	public  Map<String, Object> idDupCheck(@RequestParam String userId) {
@@ -175,6 +180,17 @@ public class AjaxController {
 		System.out.println(element.outerHtml());
 		return map;
 		}
+	@RequestMapping("/admin/selectQunit.qo")
+	public  Map<String, List> selectQunit(@RequestParam(value = "category", required = false)  int category ,Model model) {
+		System.out.println("카테고리 확인 : " + category);
+		Map<String,List> map = new HashMap();
+		System.out.println("단원 리스트 확인 : "+as.selectQunit());
+		List<HashMap<String,String>> quList = as.selectQunit();
+		
+	map.put("unit", quList);
+		
+		return map;
+	}
 	@RequestMapping("/question/selectOneQuestion.do")
 	public Map<String,Questions> selectOneQuestion(@RequestParam int categoryNum , @RequestParam String unitNum) {
 		//System.out.println("문제 출제 전 카테고리 번호 받음 확인 : "+ categoryNum);
@@ -220,4 +236,5 @@ public class AjaxController {
 		
 		return map;
 	}
+
 }

@@ -347,6 +347,8 @@ body {
 	position : absolute;
 	z-index : 0;
 }
+
+
 </style>
 <c:import url="../common/commonUtil.jsp"/>
 </head>
@@ -379,6 +381,7 @@ body {
        </main>
        </div> 
        <c:import url="../common/footer.jsp" />
+
 </body>
 
 </html>

@@ -68,6 +68,8 @@
 			WHERE Q_NO = #{qNo}
 		</select>
 		
+	
+		
 		<select id="selectCorrectAnswerList">
 			
 		</select>
@@ -92,11 +94,11 @@
 				</if>
 		
 	</select>
-	
+	<!-- 
 	<select id="">
 		SELECT QU_NO,QU_NAME FROM Q_UNIT WHERE QC_NO=1 AND QU_NO=4
 	</select>
-	
+	 -->
 	<select  id="selectQuestionNum" parameterType="hashMap" resultType="int">
 				SELECT Q_NO 
 						 FROM (SELECT * 
@@ -146,7 +148,7 @@
 	</select>
 	
 	
-	
+	<!--  
 	<select id="getAnswerList" parameterType="int" resultType="Answer">
 		<![CDATA[SELECT * 
 				 FROM(
@@ -164,9 +166,9 @@
 							ORDER BY DBMS_RANDOM.RANDOM)
 					WHERE ROWNUM < 2)
 				ORDER BY DBMS_RANDOM.RANDOM]]>
-	</select>
+	</select>-->
 	
-
+	
 	
 	
 	</mapper>

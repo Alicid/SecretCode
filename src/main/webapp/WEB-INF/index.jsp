@@ -533,8 +533,22 @@ nav > div a.nav-item.nav-link:focus
 				type : 'get',
 				dataType : 'json',
 				success : function(data){
+					console.log(data);
+					console.log(data.test);
 					var examPlan = JSON.parse(data.test).response.body.items.item;
 					console.log(examPlan);
+					
+					/* 객체 요소 탐색 기법
+					var e0 = [];
+					for(var i in examPlan[0]) {
+						console.log(i);
+						console.log(examPlan[0][i]);
+						if(i == 'examstartdt') continue;
+						e0.push(examPlan[0][i]);
+					}
+					
+					console.log(e0);
+					*/
 					
 					var e01 = examPlan[0].description;
 					var e02 = examPlan[0].examenddt;
@@ -614,7 +628,6 @@ nav > div a.nav-item.nav-link:focus
 				console.log('연도 가져오는거 확인');
 				console.log(data);
 				
-			
 				var yearsDiv = $('.examYears');
 				
 				for(var i in data){

@@ -60,6 +60,7 @@ public class AdminController {
 				
 		List<Question> list = new ArrayList<Question>();
 		PageInfo pi = new PageInfo();
+		List<HashMap<String,String>> qcList = qs.selectCategoryList();
 		
 		if(currentPage!=0) pi.setCurrentPage(currentPage);
 		
@@ -68,7 +69,7 @@ public class AdminController {
 		
 		list = qs.selectList(pi);
 		
-		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi);
+		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi).addAttribute("category", qcList);
 		
 		return "admin/questionList2";
 		
@@ -130,7 +131,7 @@ public class AdminController {
 				try {
 					er.getXLSXExcel(savePath + "/" + renamedFileName);
 				}catch (Exception e) {
-					throw new QuestionException("파일양식 미준수");
+					//throw new QuestionException("파일양식 미준수");
 				}finally {
 					dir.delete();
 				}

@@ -1,5 +1,6 @@
 package com.kh.sc.admin.model.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import com.kh.sc.common.PageInfo;
 
 import com.kh.sc.admin.model.dao.AdminDAO;
 import com.kh.sc.admin.model.vo.Question;
+import com.kh.sc.admin.model.vo.Qunit;
 
 @Service
 public class AdminService {
@@ -60,6 +62,14 @@ public class AdminService {
 //	public int deleteQuestion(int qNo) {
 //		return qdao.deleteQuestion(qNo);
 //	}
+
+	public List<HashMap<String, String>> selectQunit() {
+		return qdao.selectQunit();
+	}
+
+	public List<HashMap<String, String>> selectCategoryList() {
+		return qdao.selectCategoryList();
+	}
 	
 	
 

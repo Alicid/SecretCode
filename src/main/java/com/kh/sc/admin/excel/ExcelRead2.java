@@ -104,41 +104,41 @@ public class ExcelRead2 {
 				//셀의 수 
 				Question qus = new Question();
 				int cells=row.getPhysicalNumberOfCells(); 
-				if(rowindex==12) {
-						for(columnindex=0;columnindex<=cells;columnindex++){
-						
-						//셀값을 읽는다 
-						XSSFCell cell=row.getCell(columnindex); 
-						String value=""; 
-						//셀이 빈값일경우를 위한 널체크 
-						if(cell==null){
-							continue; 
-						}else{
-							//타입별로 내용 읽기 
-							switch (cell.getCellType()){
-							case XSSFCell.CELL_TYPE_FORMULA: 
-								value=cell.getCellFormula(); 
-								break; 
-							case XSSFCell.CELL_TYPE_NUMERIC: 
-								value=cell.getNumericCellValue()+"";
-								break; 
-							case XSSFCell.CELL_TYPE_STRING:
-								value=cell.getStringCellValue()+"";
-								break;
-							case XSSFCell.CELL_TYPE_BLANK:
-								value=cell.getBooleanCellValue()+""; 
-								break; 
-							case XSSFCell.CELL_TYPE_ERROR: 
-								value=cell.getErrorCellValue()+""; 
-								break; } 
-						} 
-						System.out.println(columnindex+"번 셀 내용 :"+value);
-						if(columnindex==2) cNum= Integer.parseInt(value);
-					}// 한 칸 끝
-				}
+//				if(rowindex==12) {
+//						for(columnindex=0;columnindex<=cells;columnindex++){
+//						
+//						//셀값을 읽는다 
+//						XSSFCell cell=row.getCell(columnindex); 
+//						String value=""; 
+//						//셀이 빈값일경우를 위한 널체크 
+//						if(cell==null){
+//							continue; 
+//						}else{
+//							//타입별로 내용 읽기 
+//							switch (cell.getCellType()){
+//							case XSSFCell.CELL_TYPE_FORMULA: 
+//								value=cell.getCellFormula(); 
+//								break; 
+//							case XSSFCell.CELL_TYPE_NUMERIC: 
+//								value=cell.getNumericCellValue()+"";
+//								break; 
+//							case XSSFCell.CELL_TYPE_STRING:
+//								value=cell.getStringCellValue()+"";
+//								break;
+//							case XSSFCell.CELL_TYPE_BLANK:
+//								value=cell.getBooleanCellValue()+""; 
+//								break; 
+//							case XSSFCell.CELL_TYPE_ERROR: 
+//								value=cell.getErrorCellValue()+""; 
+//								break; } 
+//						} 
+//						System.out.println(columnindex+"번 셀 내용 :"+value);
+//						if(columnindex==2) cNum= Integer.parseInt(value);
+//					}// 한 칸 끝
+//				}
 				
 				
-				if(rowindex>13) {
+				if(rowindex<13) {
 					for(columnindex=0;columnindex<=cells;columnindex++){
 						
 						//셀값을 읽는다 

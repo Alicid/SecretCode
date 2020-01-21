@@ -70,6 +70,86 @@
     	background-color:#ECECED;
     }
        
+       .big {
+  font-size: 1.2em;
+}
+
+.small {
+  font-size: .7em;
+}
+
+.square {
+  width: .7em;
+  height: .7em;
+  margin: .5em;
+  display: inline-block;
+}
+
+/* Custom dropdown */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px; /* demo only */
+}
+
+.custom-dropdown select {
+  background-color: #1abc9c;
+  color: #fff;
+  font-size: inherit;
+  padding: .5em;
+  padding-right: 2.5em;	
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.custom-dropdown::after { /*  Custom dropdown arrow */
+  content: "\25BC";
+  height: 1em;
+  font-size: .625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -.5em;
+}
+
+.custom-dropdown::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.custom-dropdown select[disabled] {
+  color: rgba(0,0,0,.3);
+}
+
+.custom-dropdown select[disabled]::after {
+  color: rgba(0,0,0,.1);
+}
+
+.custom-dropdown::before {
+  background-color: rgba(0,0,0,.15);
+}
+
+.custom-dropdown::after {
+  color: rgba(0,0,0,.4);
+}
+.inline-block{
+	display:inline-block;
+}
 </style>
    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
 </head>
@@ -85,13 +165,46 @@
     <body class="flex items-center justify-center"  style="overflow-y: scroll;" >
    <!--<c:import url="../member/myPageMenu.jsp"/>-->
    <div id='root'></div>
-   <div class="container">
+   <div class="container"> 
    <c:if test="${!empty member and member.aNo eq 1}">
       <div class="blog-button">
-         <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/question/qInsert.qo"><span><b>글쓰기</b><span></a>
+         <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/question/qInsert.qo"><span><b>문제 작성</b><span></a>
+         <a class="hover-btn-new orange lead" data-toggle="modal" data-target="#staticBackdrop"><span><b>Excel 문제파일 업로드</b><span></a>
       </div>
-      </c:if>
+         </c:if>
+         <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="staticBackdropLabel">Excel 파일 업로드</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		       <form id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" 
+                                action= "${pageContext.request.contextPath}/excelUp.do">
+			    <div class="contents">
+			        <div>첨부파일은 한개만 등록 가능합니다.</div>
+			 
+			        <dl class="vm_name">
+			                <dt class="down w90">첨부 파일</dt>
+			                <dd><input id="excelFile" type="file" name="excelFile" /></dd>
+			        </dl>        
+			    </div>
+		      <div class="modal-footer">
+		        <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-dismiss="modal">Close</button>
+		        <button type="button" id="addExcelImpoartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"  onclick="check()"><span>추가</span></button>
+				</div>
+				</form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		</div>
+      
       <br />
+      <div class="container" style="width:70%;">
       <p class="lead"><strong>총 ${ listCount }건의 게시물이 있습니다.</strong></p>
       <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" style="table-layout:fixed;">
          <thead class="text-white">
@@ -121,15 +234,34 @@
       </table>
          <div class="widget-search">
                   <div class="site-search-area">
-                     <form method="get" id="site-searchform" action="#">
-                        <div>
-                           <input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
+						                  
+						<form action="${pageContext.request.contextPath}/question/questionSelectList.do" method="GET" id="site-searchform" style="text-align: center;" onsubmit="return comfirm();">
+						
+						<span class="custom-dropdown big">
+						    <select name="category" id="ccc"> 
+						    			<option value="0">-----카테고리-----</option>
+						    	<c:forEach var="cate" items="${category}" varStatus="status"> 
+						        		<option name="category2" value="${cate.CNUM}">${cate.NAME} </option>
+						       </c:forEach>  
+						    </select>
+						</span>
+						<br />
+						
+						<span class="custom-dropdown big">
+							<select name="unit" id="unit">
+								<option value="0">-----단원 선택-----</option>
+							</select>
+						</span>
+						
+							<br />
+							<div>
+							<input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
                            <input id="searchsubmit" value="Search" type="submit">
-                        </div>
-                     </form>
-                  </div>
-         </div>
-   </div>
+							</div>
+						</form>	
+						</div>
+                      </div> 
+      				</div>
    <br /><br /><br />
    <div class="pagingArea pagination d-flex justify-content-center" >
          <c:url var="questionList" value="/question/questionList.qo"/>
@@ -180,10 +312,39 @@
          </div>
    <br /><br /><br />
    
-   <c:import url="../common/footer.jsp"/>
+   
+   
    <script>
+   var $unit = $('#unit');
+   $('#ccc').change(function(){
+		var category = $('#ccc').val();
+		console.log(category);
+		$.ajax({
+			url : '${pageContext.request.contextPath}/admin/selectQunit.qo',
+			data : {category:category},
+			dataType : 'json',
+			success : function(data){
+				console.log('단원 가져오는거 확인');
+				console.log(data);
+				console.log(data.unit[0]);
+				console.log(data.unit[0].QUNO);
+				console.log(data.unit[0].QUNAME);
+				
+				 $unit.empty();
+				 
+				for(var i in data.unit){
+					var uOption = $(' <option value="' + data.unit[i].QUNO + '">' + data.unit[i].QUNAME + '</a>');
+					
+					$unit.append(uOption);
+				}
+			}, error : function(data){
+			}
+		});//ajax 끝
+	});
+   
    $(function(){
-      $('td').parent().mouseenter(function(){
+     
+	   $('td').parent().mouseenter(function(){
          //console.log("확인!");
          $(this).css('background','#ECECED');
       }).mouseleave(function(){
@@ -202,11 +363,9 @@
 	         $(this).css('background','white');
 	      })
 	   });
-   
-   
    </script>
-</body>
+   
 
-
 </body>
+<c:import url="../common/footer.jsp"/>
 </html>

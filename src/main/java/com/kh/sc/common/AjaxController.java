@@ -96,10 +96,11 @@ public class AjaxController {
              e.printStackTrace();
           }
           //System.out.println(request.getServerPort());
-    String serverPath = "http://"+  inet.getHostAddress()+":"+request.getServerPort()+"/sc/resources/bUpFiles/"; 
+    String serverPath = "http://192.168.20.79:"+request.getServerPort()+"/sc/resources/bUpFiles/"; 
 	   		//System.out.println(serverPath);
 	     
 	      uploadPath = serverPath + renamedFileName;
+	     System.out.println(serverPath);
 	    System.out.println(uploadPath);
 	      return uploadPath;
 	      
@@ -150,7 +151,7 @@ public class AjaxController {
        }
        
        
-       String serverPath = "http://"+  inet.getHostAddress()+":8088/sc/resources/bUpFiles/"; 
+       String serverPath = "http://192.168.20.79:8088"+"/sc/resources/bUpFiles/"; 
 	     
 	      uploadPath = serverPath + renamedFileName;
 	    		  

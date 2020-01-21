@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -33,6 +34,7 @@ import com.kh.sc.admin.exception.QuestionException;
 import com.kh.sc.admin.model.service.AdminService;
 import com.kh.sc.admin.model.vo.Question;
 import com.kh.sc.common.PageInfo;
+import com.kh.sc.member.model.vo.Member;
 import com.kh.sc.admin.excel.*;
 
 
@@ -89,8 +91,11 @@ public class AdminController {
 	@RequestMapping("/excelUp.do")
 	public String excelUpload(@RequestParam(value="excelFile", required=false) MultipartFile[] excelFile,
 			HttpServletRequest request,
-			Model model) {
+			Model model,
+			HttpSession session) {
 		ExcelRead2 er = new ExcelRead2();
+		Member m = (Member) session.getAttribute("member");
+		int uno = m.getuNo();
 		String msg = "";
 		String loc = "";
 		
@@ -129,7 +134,7 @@ public class AdminController {
 				}
 				
 				try {
-					er.getXLSXExcel(savePath + "/" + renamedFileName);
+					er.getXLSXExcel(savePath + "/" + renamedFileName,uno);
 				}catch (Exception e) {
 					//throw new QuestionException("파일양식 미준수");
 				}finally {

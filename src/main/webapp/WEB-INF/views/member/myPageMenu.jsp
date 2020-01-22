@@ -38,9 +38,9 @@
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/tResult/getCategoryAndGo.do">
               <i class="fa fa-chart-line"></i>
-              <span>내 통계</span>
+              <span>내 문제풀이 통계</span>
             </a>
           </li>
          

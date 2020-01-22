@@ -10,7 +10,6 @@ import com.kh.sc.common.PageInfo;
 
 import com.kh.sc.admin.model.dao.AdminDAO;
 import com.kh.sc.admin.model.vo.Question;
-import com.kh.sc.admin.model.vo.Qunit;
 
 @Service
 public class AdminService {
@@ -63,12 +62,24 @@ public class AdminService {
 //		return qdao.deleteQuestion(qNo);
 //	}
 
-	public List<HashMap<String, String>> selectQunit() {
-		return qdao.selectQunit();
-	}
-
+	
 	public List<HashMap<String, String>> selectCategoryList() {
 		return qdao.selectCategoryList();
+	}
+
+	public int getsListCount(HashMap<String, Object> map) {
+		return qdao.getsListCount(map);
+	}
+
+/*
+	public List<Question> SearchSelectList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return qdao.SearchSelectList(map);
+	}
+*/
+	public List<HashMap<String, String>> searchList(HashMap<String, Object> map) {
+		
+		return qdao.searchList(map);
 	}
 	
 	

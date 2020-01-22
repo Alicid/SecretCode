@@ -170,6 +170,7 @@
       <div class="blog-button">
          <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/question/qInsert.qo"><span><b>문제 작성</b><span></a>
          <a class="hover-btn-new orange lead" data-toggle="modal" data-target="#staticBackdrop"><span><b>Excel 문제파일 업로드</b><span></a>
+		 <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/resources/excel/엑셀 업로드 샘플.xlsx"><span><b>문제 양식 받기</b><span></a>      
       </div>
          </c:if>
          <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -235,8 +236,8 @@
          <div class="widget-search">
                   <div class="site-search-area">
 						                  
-						<form action="${pageContext.request.contextPath}/question/questionSelectList.do" method="GET" id="site-searchform" style="text-align: center;" onsubmit="return comfirm();">
-						
+						<form action="${pageContext.request.contextPath}/question/questionSearchList.do" method="GET" id="site-searchform" style="text-align: center;" onsubmit="return comfirm();">
+						<!-- <input type="hidden" value="${!empty currentPage ? currentPage : 1 }"  name="currentPage"/> -->
 						<span class="custom-dropdown big">
 						    <select name="category" id="ccc"> 
 						    			<option value="0">-----카테고리-----</option>
@@ -255,8 +256,8 @@
 						
 							<br />
 							<div>
-							<input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-                           <input id="searchsubmit" value="Search" type="submit">
+							<input class="input-text form-control" name="searchContent" id="search-k" placeholder="Search keywords..." type="text">
+                           <input id="searchsubmit" name="Search" type="submit">
 							</div>
 						</form>	
 						</div>
@@ -264,10 +265,19 @@
       				</div>
    <br /><br /><br />
    <div class="pagingArea pagination d-flex justify-content-center" >
-         <c:url var="questionList" value="/question/questionList.qo"/>
+   <c:if test="${empty category && empty unit && empty searchContent}">
+     <c:url var="questionList" value="/question/questionList.do"/>
+   </c:if>
+   <c:if test="${!empty category && !empty unit && !empty searchContent}">
+     <c:url var="questionList" value="/question/questionSearchList.do" >
+     	<c:param name="category" value="${selectedCategory}"/>
+     	<c:param name="unit" value="${unit }"/>
+     	<c:param name="searchContent" value="${searchContent }"/>
+     </c:url>
+   </c:if>
          
          <!-- 처음 페이지 버튼 -->
-         <button class="page-link" onclick="location.href='${questionList}?currentPage=1'">
+         <button class="page-link" onclick="location.href='${questionList}&currentPage=1'">
             &lt;&lt;
          </button>
          
@@ -276,7 +286,7 @@
             <button class="page-link" disabled>&lt;</button>
          </c:if>
          <c:if test="${ pi.currentPage gt 1 }">
-            <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.currentPage - 1}'">
+            <button class="page-link" onclick="location.href='${questionList}&currentPage=${pi.currentPage - 1}'">
                &lt;
             </button>
          </c:if>
@@ -289,7 +299,7 @@
                </button>
             </c:if>
             <c:if test="${p ne pi.currentPage}">
-               <button class="page-link"  onclick="location.href='${questionList}?currentPage=${p}'">${p}</button>
+               <button class="page-link"  onclick="location.href='${questionList}&currentPage=${p}'">${p}</button>
             </c:if>
          </c:forEach>
          
@@ -299,47 +309,52 @@
             <button class="page-link" disabled>&gt;</button>
          </c:if>
          <c:if test="${ pi.currentPage lt pi.maxPage}">
-            <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.currentPage + 1}'">
+            <button class="page-link" onclick="location.href='${questionList}&currentPage=${pi.currentPage + 1}'">
                &gt;
             </button>
             
          </c:if>
          
          <!-- 마지막 페이지 버튼 -->
-         <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.maxPage}'">
+         <button class="page-link" onclick="location.href='${questionList}&currentPage=${pi.maxPage}'">
             &gt;&gt;
          </button>
          </div>
    <br /><br /><br />
    
-   
-   
    <script>
-   var $unit = $('#unit');
    $('#ccc').change(function(){
 		var category = $('#ccc').val();
 		console.log(category);
-		$.ajax({
-			url : '${pageContext.request.contextPath}/admin/selectQunit.qo',
-			data : {category:category},
-			dataType : 'json',
-			success : function(data){
-				console.log('단원 가져오는거 확인');
-				console.log(data);
-				console.log(data.unit[0]);
-				console.log(data.unit[0].QUNO);
-				console.log(data.unit[0].QUNAME);
-				
-				 $unit.empty();
-				 
-				for(var i in data.unit){
-					var uOption = $(' <option value="' + data.unit[i].QUNO + '">' + data.unit[i].QUNAME + '</a>');
-					
-					$unit.append(uOption);
-				}
-			}, error : function(data){
-			}
-		});//ajax 끝
+				$.ajax({
+					   url  : "${pageContext.request.contextPath}/question/selectUnit.do",
+					   type: 'POST',
+					   data : {category:category},
+					   dataType: "json",
+					   success : function(data){
+						   console.log('아작스 성공!');
+						   console.log(data);
+						   var $unit = $('#unit');
+						   $unit.empty();
+						   $unit.append('<option value="0">-----전체 선택-----</option>');
+						   //console.log($unit);
+						   //console.log(data.unit);
+						   //console.log(data.unit[0]);
+						   //console.log(data.unit[0].QU_NO);
+						   //console.log(data.unit.length);
+						   for(var i =0;i<data.unit.length;i++){
+							   $unit.append('<option value="'+data.unit[i].QU_NO+'">'+data.unit[i].QU_NAME+'</option>'); 
+						   }
+						  
+						   
+					   },error : function(jqxhr, textStatus, errorThrown){
+					      	     console.log("ajax 처리 실패");
+					    	     //에러로그
+					    	     console.log(jqxhr);
+					    	     console.log(textStatus);
+					    	     console.log(errorThrown);
+				   }
+			});//ajax 끝
 	});
    
    $(function(){

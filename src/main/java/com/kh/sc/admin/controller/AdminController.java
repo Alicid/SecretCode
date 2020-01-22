@@ -1,13 +1,7 @@
 package com.kh.sc.admin.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,12 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kh.sc.admin.excel.POIExcelManagerImpl;
-import com.kh.sc.admin.exception.QuestionException;
+import com.kh.sc.admin.excel.ExcelRead2;
 import com.kh.sc.admin.model.service.AdminService;
 import com.kh.sc.admin.model.vo.Question;
 import com.kh.sc.common.PageInfo;
-import com.kh.sc.admin.excel.*;
 
 
 @Controller
@@ -71,7 +58,7 @@ public class AdminController {
 		
 		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi).addAttribute("category", qcList);
 		
-		return "admin/questionList2";
+		return "admin/questionList";
 		
 	}
 	
@@ -145,5 +132,58 @@ public class AdminController {
 		return "common/msg";
 	}
 	
+	@RequestMapping("/question/questionSearchList.do")
+	public String questionSearchList(@RequestParam String searchContent, 
+			                                                  @RequestParam int category, 
+			                                                  @RequestParam int unit, 
+			                                                  @RequestParam(value="currentPage", required=false, defaultValue="1") 
+																int currentPage, Model model) {
+		
+		System.out.println("시험 분류 : " + category );
+		System.out.println("단원 번호 : " + unit);
+		System.out.println("키워드 : " + searchContent);
+		System.out.println("현재 페이지 : "  + currentPage);
+		List<Question> list = new ArrayList<Question>();
+		PageInfo pi = new PageInfo();
+		pi.setCurrentPage(currentPage);
+		pi.setEndPage(currentPage + 4);
+		
+		HashMap<String, Object> map = new HashMap();
+		
+		map.put("category", category);
+		map.put("unit", unit);
+		map.put("searchContent", searchContent);
+		
+		int sListCount = qs.getsListCount(map);
+		pi.calcPage(qs.getsListCount(map));
+		map.put("startRow", pi.getStartRow());
+		map.put("endRow", pi.getEndRow());
+		map.put("currentPage", pi.getCurrentPage());
+		
+		List<HashMap<String,String>> categoryList = qs.selectCategoryList();
+		
+		List<HashMap<String,String>> qcList = qs.searchList(map); // 맵을 담아 리스트 검색하기
+		
+		model.addAttribute("category", categoryList)
+		.addAttribute("selectedCategory", category)
+		.addAttribute("unit", unit)
+		.addAttribute("pi", pi)
+		.addAttribute("listCount", sListCount)
+		.addAttribute("searchContent", searchContent)
+		.addAttribute("list", qcList);
+		
+		return "admin/questionList";
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

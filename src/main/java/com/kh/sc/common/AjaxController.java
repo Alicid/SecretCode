@@ -150,7 +150,7 @@ public class AjaxController {
        }
        
        
-       String serverPath = "http://"+  inet.getHostAddress()+":8088/sc/resources/bUpFiles/"; 
+       String serverPath = "http://"+  inet.getHostAddress()+":"+request.getServerPort()+"/sc/resources/bUpFiles/"; 
 	     
 	      uploadPath = serverPath + renamedFileName;
 	    		  
@@ -180,17 +180,7 @@ public class AjaxController {
 		System.out.println(element.outerHtml());
 		return map;
 		}
-	@RequestMapping("/admin/selectQunit.qo")
-	public  Map<String, List> selectQunit(@RequestParam(value = "category", required = false)  int category ,Model model) {
-		System.out.println("카테고리 확인 : " + category);
-		Map<String,List> map = new HashMap();
-		System.out.println("단원 리스트 확인 : "+as.selectQunit());
-		List<HashMap<String,String>> quList = as.selectQunit();
-		
-	map.put("unit", quList);
-		
-		return map;
-	}
+	
 	@RequestMapping("/question/selectOneQuestion.do")
 	public Map<String,Questions> selectOneQuestion(@RequestParam int categoryNum , @RequestParam String unitNum) {
 		//System.out.println("문제 출제 전 카테고리 번호 받음 확인 : "+ categoryNum);
@@ -224,7 +214,6 @@ public class AjaxController {
 		session.setAttribute("result", map);
 		return map;
 	}
-	
 	
 	@RequestMapping("/question/selectUnit.do")
 	public Map<String,Object> selectUnit(@RequestParam int category) {

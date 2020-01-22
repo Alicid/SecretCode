@@ -3,13 +3,13 @@ package com.kh.sc.admin.model.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.sc.common.PageInfo;
 import com.kh.sc.admin.model.vo.Question;
-import com.kh.sc.admin.model.vo.Qunit;
 
 @Repository("qdao")
 public class AdminDAO {
@@ -43,14 +43,18 @@ public class AdminDAO {
 //		return sqlSession.update("question-mapper.deleteNotice", qNo);
 //	}
 
-
-	public List<HashMap<String, String>> selectQunit() {
-		return sqlSession.selectList("qunit-mapper.selectQunit");
+	public List<HashMap<String, String>> selectCategoryList() {
+		return sqlSession.selectList("question-mapper.selectCategoryList");
 	}
 
 
-	public List<HashMap<String, String>> selectCategoryList() {
-		return sqlSession.selectList("question-mapper.selectCategoryList");
+	public int getsListCount(HashMap<String, Object> map) {
+		return sqlSession.selectOne("question-mapper.getsListCount", map);
+	}
+	
+	public List<HashMap<String, String>> searchList(HashMap<String, Object> map) {
+		System.out.println(map);
+		return sqlSession.selectList("question-mapper.SearchSelectList", map);
 	}
 
 }

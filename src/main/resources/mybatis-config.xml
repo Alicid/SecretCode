@@ -19,6 +19,11 @@
 		<typeAlias type="com.kh.sc.admin.model.vo.Question" alias="Question" />
 		<typeAlias type="com.kh.sc.question.model.vo.Questions" alias="Questions" />
 		<typeAlias type="com.kh.sc.question.model.vo.Answer" alias="Answer"/>
+		<typeAlias type="com.kh.sc.statics.model.vo.QuestionStatics" alias="QuestionStatics"/>
+		<typeAlias type="com.kh.sc.tResult.model.vo.Qunit" alias="Qunit"/>
+		<typeAlias type="com.kh.sc.question.model.vo.Answer" alias="Answer" />
+		<typeAlias type="com.kh.sc.admin.model.vo.AnswerInsert" alias="AnswerInsert" />
+		<typeAlias type="com.kh.sc.admin.model.vo.QuestionInsert" alias="QuestionInsert" />
 	</typeAliases>
 </configuration>
 

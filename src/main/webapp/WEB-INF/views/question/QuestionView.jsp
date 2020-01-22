@@ -38,7 +38,7 @@
             <div id="id-9"></div>
           </div>
           <div id="main-header">
-            <div id="main-title"><h1>${category.cn}</h1><h6>${category.un}</h6><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
+            <div id="main-title"><h1 id="main-title2">${category.cn}</h1><h6 id="main-title3">${category.un}</h6><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
             <div id="main-title-paper"><p><b>Paper 1 (Non-Calculator)</b></p><input type="hidden" id="unitNum" value="${category.unum}"/></div>
             <div id="foundation"><p><b>${mode}</b></p></div>
           </div>
@@ -61,7 +61,7 @@
       <div class="test-border" id="quiz_area">
       <div id="instructions">
         <h4>Instructions</h4>
-        <ul>
+        <ul class="ul">
           <li>마우스를 이용해 정답을 선택해 주세요</li>
           <li>모든 질문에 답하십시오.</li>
           <li><b>한번 제출한 문제는 답안을 수정할 수 없습니다.</b></li>
@@ -70,7 +70,7 @@
       </div>
       <div id="information">
         <h4>Information</h4>
-        <ul>
+        <ul class="ul">
           <li>각 질문에 대한 표시는 괄호 안에 표시됩니다.<br>
             <i>-각 질문에 소요되는 시간에 대한 지침으로 이것을 사용하십시오.</i></li>
             <li>본 시험 문제들의 저작권은 전부 <b>유정훈</b> 강사님께 있으며<br>
@@ -79,7 +79,7 @@
       </div>
       <div id="advice">
         <h4>Advice</h4>
-        <ul>
+        <ul class="ul">
           <li>답변을 시작하기 전에 각 질문을주의 깊게 읽으십시오.</li>
           <li>시간을 주시하십시오.</li>
           <li>모든 질문에 답하십시오.</li>
@@ -153,11 +153,11 @@
 	            	//console.log(data.question.answer);
 	            	//console.log(data.question.answer[0]);
 	            	//console.log(data.question.answer[0].qancontent);
-	            	  $('#quiz_area').html('<div id="oneQuiz" style="padding-left: 60px;padding-top: 48px;padding-right: 60px;">'+num +'. '+data.question.qContent +'</div>');
+	            	  $('#quiz_area').html('<div id="oneQuiz" style="padding-left: 60px;padding-top: 48px;padding-right: 60px;height: 447px;overflow: auto;">'+num +'. '+data.question.qContent +'</div>');
 	            	  $('#oneQuiz').append('<br><br>');
 	            	  for(var i=0;i<4;i++){
 	                	  
-	            	  $('#oneQuiz').append('<input type="checkbox" class="answer" name="answer" value="'+data.question.answer[i].qstatus+'"> '+(i+1)+') '+data.question.answer[i].qancontent + '<br>');	
+	            	  $('#oneQuiz').append('<input type="checkbox" class="answer" name="answer" value="'+data.question.answer[i].qstatus+'" style="width: 20px;height: 20px;top: 5px;position: relative;"> '+(i+1)+') '+data.question.answer[i].qancontent + '<br>');	
 	                  }
 	            	  
 	                
@@ -173,7 +173,12 @@
 	          	      	//console.log(answer);
 	          	        }
 	          	    });
-	            	  var isAnswer = "Q"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            	  if(num<11){
+	            		  var isAnswer = "Q"+"0"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            	  }else{
+	            		  var isAnswer = "Q"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            	  }
+	            	 
 	            	  //var 
 	            	  var a;
 	            	  var curScore=0;
@@ -221,10 +226,11 @@
 	            	  if(num==21){
 	            		  alert('문제풀이 종료!');
 	            		  
-	            		 var category = $('#main-title').text();
+	            		 var category = $('#main-title2').text();
+	            		 var categoryRange = $('#main-title3').text();
 	            		 var mode = $('#foundation').text();
 	            		 
-	            		
+	            		 sessionStorage.setItem('range',categoryRange);
 	            		  sessionStorage.setItem('category',category);
 	            		  sessionStorage.setItem('mode',mode);
 	            		  

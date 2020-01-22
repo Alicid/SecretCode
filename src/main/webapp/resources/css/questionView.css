@@ -11,12 +11,12 @@ h4 {
   margin-bottom: -10px;
 }
 
-ul {
+.ul {
   list-style-type: disc;
   
 }
 
-li {
+.ul li {
   font-family: 'Calibri', sans-serif;
   font-size: 13px;
   margin: -5px 0 4px -19px;
@@ -384,3 +384,44 @@ li {
   left: 50%;
   transform: translate(-50%, 5%);
 }
+
+  .result tbody {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+ .result tbody td,.result tbody tr {
+    border-bottom: 1px solid #444444;
+    padding: 4px;
+  }
+  
+  #score{
+  	display : inline-block;
+  	position : absolute;
+  	bottom : 161px;
+  	right : 145px;
+  	font-size : 52px;
+  }
+  #score2{
+  	display : inline-block;
+  	position : absolute;
+  	bottom : 161px;
+  	right : 291px;
+  	font-size : 52px;
+  }
+  
+  .navbar{
+  	margin-right : 30px !important;
+  }
+  #myScore{
+  	position : absolute;
+  	font-size : 10px;
+  	display : inline-block;
+  	left : 13px;
+  }
+  #totalScore{
+  	position : absolute;
+  	font-size : 10px;
+  	display : inline-block;
+  	left : 176px;
+  }

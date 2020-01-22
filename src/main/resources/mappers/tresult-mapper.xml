@@ -30,7 +30,17 @@
       <result column="FC" property="FC" javaType="java.lang.String"/>
    </resultMap>
 
-   <select id="selectTresult" parameterType="int" resultMap="tResultResult">
+	<resultMap id="userStatics" type="java.util.HashMap">
+		<result column="QC_NO" property="category"/>
+		<result column="ANSWERRATE" property="answerrate"/>
+	</resultMap>
+	
+	<resultMap id="userStatics2" type="Qunit">
+	<result column="UNITNUM" property="unit1"/>
+		<result column="ANSWERRATE" property="unit2"/>
+	</resultMap>
+
+    <select id="selectTresult" parameterType="int" resultMap="tResultResult">
    	SELECT TO_CHAR(T_WT_REG) WR,
 			TO_CHAR(T_WT_GAZ) WG,
 			TO_CHAR(T_WT_CAN) WC,
@@ -42,10 +52,24 @@
 			TO_CHAR(T_FIN_CAN) FC FROM T_RESULT
 				WHERE T_YEAR = #{years}
 				ORDER BY T_YEAR
-   </select>
+    </select>
    
-   <select id="selectYears" resultType="int">
+	<select id="selectYears" resultType="int">
    		SELECT DISTINCT T_YEAR FROM T_RESULT ORDER BY T_YEAR DESC
-   </select>
+	</select>
+
+	<select id="getCategoryAndGo" resultType="hashmap">
+			SELECT QC_NO cnum ,QC_NAME name FROM Q_CATEGORY
+	</select>
+
+	<select  id="selectMyStaticsList" parameterType="hashmap" resultMap="userStatics2">
+		 SELECT C.QC_NO,Q.QU_PKNO,U.QU_NO UNITNUM, U_NO, COUNT(QA_STATUS) TOTAL, ROUND(SUM(DECODE(QA_STATUS,'Y',1,0))/COUNT(QA_STATUS),2)*100 ANSWERRATE
+   		 FROM QANALYSIS Q
+    	JOIN Q_UNIT U ON (Q.QU_PKNO=U.QU_PKNO)
+  	    JOIN Q_CATEGORY C ON (U.QC_NO=C.QC_NO)  
+   	    WHERE U_NO=#{uNo} AND C.QC_NO=#{category}
+        GROUP BY C.QC_NO,Q.QU_PKNO,U_NO,U.QU_NO
+        ORDER BY Q.QU_PKNO
+	</select>
 
 </mapper>

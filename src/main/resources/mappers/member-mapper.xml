@@ -13,6 +13,7 @@
 		<result column="ENROLLDATE" property="enrollDate"/>
 		<result column="U_STATUS" property="userStatus"/>
 		<result column="A_NO" property="aNo"/>
+		<result column="A_NAME" property="aName"/>
 	</resultMap>
 	
 	<insert id="insertMember" parameterType="Member">
@@ -67,7 +68,13 @@
 		UPDATE MEMBER SET USERPWD = #{userPwd} WHERE USERID = #{userId} AND EMAIL = #{email}
 	</update>
 	
+	<select id="selectMemberList" resultMap="memberResult">
+		SELECT U_NO,USERID, N_NAME,M.A_NO,A.A_NAME FROM MEMBER M JOIN AUTH A ON(A.A_NO=M.A_NO)
+	</select>
 	
+	<update id="adminMemberUpdate" parameterType="Member">
+		UPDATE MEMBER SET A_NO = #{aNo} WHERE U_NO = #{uNo}
+	</update>
 </mapper>
 
 

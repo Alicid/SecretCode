@@ -13,6 +13,9 @@ public class Question implements Serializable{
 	   private int qnum;
 	   private String qTitle;
 	   private String qWriter;
+	   private int quNo;
+	   private int cNum;
+	   private String searchContent;
 	   
 	   public Question() {
 		super();
@@ -31,8 +34,11 @@ public class Question implements Serializable{
 	}
 
 
+	
+
+
 	public Question(int qNo, int quPkNo, int uNo, String qContent, String qLevel, int qScore, int qnum, String qTitle,
-			String qWriter) {
+			String qWriter, int quNo, int cNum, String searchContent) {
 		super();
 		this.qNo = qNo;
 		this.quPkNo = quPkNo;
@@ -43,7 +49,12 @@ public class Question implements Serializable{
 		this.qnum = qnum;
 		this.qTitle = qTitle;
 		this.qWriter = qWriter;
+		this.quNo = quNo;
+		this.cNum = cNum;
+		this.searchContent = searchContent;
 	}
+
+
 
 
 	public int getqNo() {
@@ -136,17 +147,40 @@ public class Question implements Serializable{
 	}
 
 
+	public int getQuNo() {
+		return quNo;
+	}
+
+
+	public void setQuNo(int quNo) {
+		this.quNo = quNo;
+	}
+
+
+	public int getcNum() {
+		return cNum;
+	}
+
+
+	public void setcNum(int cNum) {
+		this.cNum = cNum;
+	}
+
+
+	public String getSearchContent() {
+		return searchContent;
+	}
+
+
+	public void setSearchContent(String searchContent) {
+		this.searchContent = searchContent;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Question [qNo=" + qNo + ", quPkNo=" + quPkNo + ", uNo=" + uNo + ", qContent=" + qContent + ", qLevel="
 				+ qLevel + ", qScore=" + qScore + ", qnum=" + qnum + ", qTitle=" + qTitle + ", qWriter=" + qWriter
-				+ "]";
-	}
-
-
-	
-	   
-	   
-	  
-	   
+				+ ", quNo=" + quNo + ", cNum=" + cNum + ", searchContent=" + searchContent + "]";
+	}  
 }

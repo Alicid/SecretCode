@@ -13,6 +13,288 @@
  <c:import url="../common/commonUtil.jsp" /> 
   
   <style>
+ 
+
+  @keyframes swing {
+  0% {transform: rotate(0deg);}
+  10% {transform: rotate(10deg);}
+  30% {transform: rotate(0deg);}
+  40% {transform: rotate(-10deg);}
+  50% {transform: rotate(0deg);}
+  60% {transform: rotate(5deg);}
+  70% {transform: rotate(0deg);}
+  80% {transform: rotate(-5deg);}
+  100% {transform: rotate(0deg);}
+}
+
+@keyframes sonar {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+
+body {
+  font-size: 0.9rem;
+}
+
+.page-wrapper {
+  height: 100vh;
+}
+.page-wrapper .theme {
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 4px;
+  margin: 2px;
+}
+.page-wrapper .theme.chiller-theme {
+  background: #1e2229;
+}
+.page-wrapper.toggled .sidebar-wrapper {
+  left: 0px;
+}
+@media screen and (min-width: 768px) {
+  .page-wrapper.toggled .page-content {
+    padding-left: 300px;
+  }
+}
+#show-sidebar {
+  position: fixed;
+  left: 0;
+  top: 10px;
+  border-radius: 0 4px 4px 0px;
+  width: 35px;
+  transition-delay: 0.3s;
+}
+.page-wrapper.toggled #show-sidebar {
+  left: -40px;
+}
+.sidebar-wrapper {
+  width: 260px;
+  height: 10%;
+  max-height: 100%;
+  position: fixed;
+  top: 1;
+  left: 0px;
+  z-index: 999;
+}
+.sidebar-wrapper ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar-wrapper a {
+  text-decoration: none;
+}
+.sidebar-wrapper .sidebar-brand {
+  padding: 20px 30px;
+  display: flex;
+  align-items: center;
+}
+.sidebar-wrapper .sidebar-brand > a {
+  text-transform: uppercase;
+  font-weight: bold;
+  flex-grow: 1;
+}
+.sidebar-wrapper .sidebar-brand #close-sidebar {
+  cursor: pointer;
+  font-size: 20px;
+}
+.sidebar-wrapper .sidebar-header {
+  padding: 20px;
+  overflow: hidden;
+}
+.sidebar-wrapper .sidebar-header .user-pic {
+  float: left;
+  width: 60px;
+  padding: 2px;
+  border-radius: 12px;
+  margin-right: 15px;
+  overflow: hidden;
+}
+.sidebar-wrapper .sidebar-header .user-pic img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+.sidebar-wrapper .sidebar-header .user-info {
+  float: left;
+}
+.sidebar-wrapper .sidebar-header .user-info > span {
+  display: block;
+}
+.sidebar-wrapper .sidebar-header .user-info .user-role {
+  font-size: 12px;
+}
+.sidebar-wrapper .sidebar-header .user-info .user-status {
+  font-size: 11px;
+  margin-top: 4px;
+}
+.sidebar-wrapper .sidebar-header .user-info .user-status i {
+  font-size: 8px;
+  margin-right: 4px;
+  color: #5cb85c;
+}
+.sidebar-wrapper .sidebar-search > div {
+  padding: 10px 20px;
+}
+.sidebar-wrapper .sidebar-menu {
+  padding-bottom: 10px;
+}
+.sidebar-wrapper .sidebar-menu .header-menu span {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 15px 20px 5px 20px;
+  display: inline-block;
+}
+.sidebar-wrapper .sidebar-menu ul li a {
+  display: inline-block;
+  width: 100%;
+  text-decoration: none;
+  position: relative;
+  padding: 8px 30px 8px 20px;
+}
+.sidebar-wrapper .sidebar-menu ul li a i {
+  margin-right: 10px;
+  font-size: 12px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 4px;
+}
+.sidebar-wrapper .sidebar-menu ul li a:hover > i::before {
+  display: inline-block;
+  animation: swing ease-in-out 0.5s 1 alternate;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown > a:after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f105";
+  font-style: normal;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  background: 0 0;
+  position: absolute;
+  right: 15px;
+  top: 14px;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu ul {
+  padding: 5px 0;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li {
+  padding-left: 25px;
+  font-size: 13px;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before {
+  content: "\f111";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 400;
+  font-style: normal;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-right: 10px;
+  font-size: 8px;
+}
+.sidebar-wrapper .sidebar-menu ul li a span.label,
+.sidebar-wrapper .sidebar-menu ul li a span.badge {
+  float: right;
+  margin-top: 8px;
+  margin-left: 5px;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .badge,
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a .label {
+  float: right;
+  margin-top: 0px;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-submenu {
+  display: none;
+}
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown.active > a:after {
+  transform: rotate(90deg);
+  right: 17px;
+}
+.page-wrapper .page-content {
+  display: inline-block;
+  width: 100%;
+  padding-left: 0px;
+  padding-top: 20px;
+}
+.page-wrapper .page-content > div {
+  padding: 20px 40px;
+}
+.page-wrapper .page-content {
+  overflow-x: hidden;
+}
+.chiller-theme .sidebar-wrapper {
+    background: white;
+}
+.chiller-theme .sidebar-wrapper .sidebar-header,
+.chiller-theme .sidebar-wrapper .sidebar-search,
+.chiller-theme .sidebar-wrapper .sidebar-menu {
+    border-top: 4px solid #02876C;
+}
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
+    border-color: transparent;
+    box-shadow: none;
+}
+.chiller-theme .sidebar-wrapper .sidebar-brand>a{color : rgb(0, 119, 73); font-size: 25px;}
+.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text,
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+.chiller-theme .sidebar-wrapper .sidebar-menu ul li a,
+.chiller-theme .sidebar-footer>a {
+    color: #02876C;
+}
+.chiller-theme .sidebar-wrapper .sidebar-header .user-info{
+    color: rgb(9, 102, 102)
+}
+.chiller-theme .sidebar-wrapper .sidebar-menu ul li:hover>a,
+.chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active>a,
+.chiller-theme .sidebar-wrapper .sidebar-brand>a:hover,
+.chiller-theme .sidebar-footer>a:hover i {
+    color: #b8bfce;
+}
+.chiller-theme .sidebar-wrapper ul li:hover a i,
+.chiller-theme .sidebar-wrapper .sidebar-dropdown .sidebar-submenu li a:hover:before,
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus+span,
+.chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
+    color: #b8bfce;
+    text-shadow:0px 0px 10px rgba(22, 199, 255, 0.5);
+}
+.chiller-theme .sidebar-wrapper .sidebar-menu ul li a i,
+.chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown div,
+.chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
+.chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
+    background: #aaf0d1;
+}
+.chiller-theme .sidebar-wrapper .sidebar-menu .header-menu span {
+    color: #6c7b88;
+}
+.field-label-responsive {
+    padding-top: .5rem;
+    text-align: right;
+}
+
+#sidebar{
+	margin-top : 0%;
+	position : absolute;
+	z-index : 0;
+}
   html,
   body {
     height: 100%;
@@ -70,11 +352,96 @@
     	background-color:#ECECED;
     }
        
+       .big {
+  font-size: 1.2em;
+}
+
+.small {
+  font-size: .7em;
+}
+
+.square {
+  width: .7em;
+  height: .7em;
+  margin: .5em;
+  display: inline-block;
+}
+
+/* Custom dropdown */
+.custom-dropdown {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 10px; /* demo only */
+}
+
+.custom-dropdown select {
+  background-color: #1abc9c;
+  color: #fff;
+  font-size: inherit;
+  padding: .5em;
+  padding-right: 2.5em;	
+  border: 0;
+  margin: 0;
+  border-radius: 3px;
+  text-indent: 0.01px;
+  text-overflow: '';
+  -webkit-appearance: button; /* hide default arrow in chrome OSX */
+}
+
+.custom-dropdown::before,
+.custom-dropdown::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.custom-dropdown::after { /*  Custom dropdown arrow */
+  content: "\25BC";
+  height: 1em;
+  font-size: .625em;
+  line-height: 1;
+  right: 1.2em;
+  top: 50%;
+  margin-top: -.5em;
+}
+
+.custom-dropdown::before { /*  Custom dropdown arrow cover */
+  width: 2em;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 0 3px 3px 0;
+}
+
+.custom-dropdown select[disabled] {
+  color: rgba(0,0,0,.3);
+}
+
+.custom-dropdown select[disabled]::after {
+  color: rgba(0,0,0,.1);
+}
+
+.custom-dropdown::before {
+  background-color: rgba(0,0,0,.15);
+}
+
+.custom-dropdown::after {
+  color: rgba(0,0,0,.4);
+}
+.inline-block{
+	display:inline-block;
+}
 </style>
+
+<c:import url="../common/commonUtil.jsp" /> 
+
    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
 </head>
-<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: #edf2f7; overflow-y: scroll;">
+<body class="host_version h-screen overflow-hidden items-center justify-center" style="background: white; overflow-y: scroll;">
    <c:import url="../common/header.jsp"/>
+   <div class="page-wrapper chiller-theme toggled">
+<c:import url="../member/myPageMenu.jsp"/>
 
 <div class="all-title-box">
       <div class="container text-center">
@@ -85,13 +452,47 @@
     <body class="flex items-center justify-center"  style="overflow-y: scroll;" >
    <!--<c:import url="../member/myPageMenu.jsp"/>-->
    <div id='root'></div>
-   <div class="container">
+   <div class="container"> 
    <c:if test="${!empty member and member.aNo eq 1}">
       <div class="blog-button">
-         <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/question/qInsert.qo"><span><b>글쓰기</b><span></a>
+         <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/question/qInsert.qo"><span><b>문제 작성</b><span></a>
+         <a class="hover-btn-new orange lead" data-toggle="modal" data-target="#staticBackdrop"><span><b>Excel 문제파일 업로드</b><span></a>
+		 <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/resources/excel/엑셀 업로드 샘플.xlsx"><span><b>문제 양식 받기</b><span></a>      
       </div>
-      </c:if>
+         </c:if>
+         <div class="modal fade" id="staticBackdrop" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <h5 class="modal-title" id="staticBackdropLabel">Excel 파일 업로드</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+		      </div>
+		      <div class="modal-body">
+		       <form id="excelUploadForm" name="excelUploadForm" enctype="multipart/form-data" method="post" 
+                                action= "${pageContext.request.contextPath}/excelUp.do">
+			    <div class="contents">
+			        <div>첨부파일은 한개만 등록 가능합니다.</div>
+			 
+			        <dl class="vm_name">
+			                <dt class="down w90">첨부 파일</dt>
+			                <dd><input id="excelFile" type="file" name="excelFile" /></dd>
+			        </dl>        
+			    </div>
+		      <div class="modal-footer">
+		        <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-dismiss="modal">Close</button>
+		        <button type="submit" id="addExcelImpoartBtn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"  onclick="check()"><span>추가</span></button>
+				</div>
+				</form>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+		</div>
+      
       <br />
+      <div class="container" style="width:70%;">
       <p class="lead"><strong>총 ${ listCount }건의 게시물이 있습니다.</strong></p>
       <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" style="table-layout:fixed;">
          <thead class="text-white">
@@ -121,21 +522,49 @@
       </table>
          <div class="widget-search">
                   <div class="site-search-area">
-                     <form method="get" id="site-searchform" action="#">
-                        <div>
-                           <input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-                           <input id="searchsubmit" value="Search" type="submit">
-                        </div>
-                     </form>
-                  </div>
-         </div>
-   </div>
+						                  
+						<form action="${pageContext.request.contextPath}/question/questionSearchList.do" method="GET" id="site-searchform" style="text-align: center;" onsubmit="return comfirm();">
+						<!-- <input type="hidden" value="${!empty currentPage ? currentPage : 1 }"  name="currentPage"/> -->
+						<span class="custom-dropdown big">
+						    <select name="category" id="ccc"> 
+						    			<option value="0">-----카테고리-----</option>
+						    	<c:forEach var="cate" items="${category}" varStatus="status"> 
+						        		<option name="category2" value="${cate.CNUM}">${cate.NAME} </option>
+						       </c:forEach>  
+						    </select>
+						</span>
+						<br />
+						
+						<span class="custom-dropdown big">
+							<select name="unit" id="unit">
+								<option value="0">-----단원 선택-----</option>
+							</select>
+						</span>
+						
+							<br />
+							<div>
+							<input class="input-text form-control" name="searchContent" id="search-k" placeholder="Search keywords..." type="text">
+                           <input id="searchsubmit" name="Search" type="submit">
+							</div>
+						</form>	
+						</div>
+                      </div> 
+      				</div>
    <br /><br /><br />
    <div class="pagingArea pagination d-flex justify-content-center" >
-         <c:url var="questionList" value="/question/questionList.qo"/>
+   <c:if test="${empty category && empty unit && empty searchContent}">
+     <c:url var="questionList" value="/question/questionList.do"/>
+   </c:if>
+   <c:if test="${!empty category && !empty unit && !empty searchContent}">
+     <c:url var="questionList" value="/question/questionSearchList.do" >
+     	<c:param name="category" value="${selectedCategory}"/>
+     	<c:param name="unit" value="${unit }"/>
+     	<c:param name="searchContent" value="${searchContent }"/>
+     </c:url>
+   </c:if>
          
          <!-- 처음 페이지 버튼 -->
-         <button class="page-link" onclick="location.href='${questionList}?currentPage=1'">
+         <button class="page-link" onclick="location.href='${questionList}&currentPage=1'">
             &lt;&lt;
          </button>
          
@@ -144,7 +573,7 @@
             <button class="page-link" disabled>&lt;</button>
          </c:if>
          <c:if test="${ pi.currentPage gt 1 }">
-            <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.currentPage - 1}'">
+            <button class="page-link" onclick="location.href='${questionList}&currentPage=${pi.currentPage - 1}'">
                &lt;
             </button>
          </c:if>
@@ -157,7 +586,7 @@
                </button>
             </c:if>
             <c:if test="${p ne pi.currentPage}">
-               <button class="page-link"  onclick="location.href='${questionList}?currentPage=${p}'">${p}</button>
+               <button class="page-link"  onclick="location.href='${questionList}&currentPage=${p}'">${p}</button>
             </c:if>
          </c:forEach>
          
@@ -167,23 +596,58 @@
             <button class="page-link" disabled>&gt;</button>
          </c:if>
          <c:if test="${ pi.currentPage lt pi.maxPage}">
-            <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.currentPage + 1}'">
+            <button class="page-link" onclick="location.href='${questionList}&currentPage=${pi.currentPage + 1}'">
                &gt;
             </button>
             
          </c:if>
          
          <!-- 마지막 페이지 버튼 -->
-         <button class="page-link" onclick="location.href='${questionList}?currentPage=${pi.maxPage}'">
+         <button class="page-link" onclick="location.href='${questionList}&currentPage=${pi.maxPage}'">
             &gt;&gt;
          </button>
          </div>
+         </div>
    <br /><br /><br />
    
-   <c:import url="../common/footer.jsp"/>
    <script>
+   $('#ccc').change(function(){
+		var category = $('#ccc').val();
+		console.log(category);
+				$.ajax({
+					   url  : "${pageContext.request.contextPath}/question/selectUnit.do",
+					   type: 'POST',
+					   data : {category:category},
+					   dataType: "json",
+					   success : function(data){
+						   console.log('아작스 성공!');
+						   console.log(data);
+						   var $unit = $('#unit');
+						   $unit.empty();
+						   $unit.append('<option value="0">-----전체 선택-----</option>');
+						   //console.log($unit);
+						   //console.log(data.unit);
+						   //console.log(data.unit[0]);
+						   //console.log(data.unit[0].QU_NO);
+						   //console.log(data.unit.length);
+						   for(var i =0;i<data.unit.length;i++){
+							   $unit.append('<option value="'+data.unit[i].QU_NO+'">'+data.unit[i].QU_NAME+'</option>'); 
+						   }
+						  
+						   
+					   },error : function(jqxhr, textStatus, errorThrown){
+					      	     console.log("ajax 처리 실패");
+					    	     //에러로그
+					    	     console.log(jqxhr);
+					    	     console.log(textStatus);
+					    	     console.log(errorThrown);
+				   }
+			});//ajax 끝
+	});
+   
    $(function(){
-      $('td').parent().mouseenter(function(){
+     
+	   $('td').parent().mouseenter(function(){
          //console.log("확인!");
          $(this).css('background','#ECECED');
       }).mouseleave(function(){
@@ -202,11 +666,9 @@
 	         $(this).css('background','white');
 	      })
 	   });
-   
-   
    </script>
-</body>
+   
 
-
 </body>
+<c:import url="../common/footer.jsp"/>
 </html>

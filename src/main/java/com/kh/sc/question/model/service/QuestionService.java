@@ -33,6 +33,10 @@ public class QuestionService {
 		return qdao.selectUnitNum(category);
 	}
 
+	public List selectHighScore() {
+		return qdao.selectHighScore();
+	}
+
 //	public List<HashMap<String, String>> selectUnitName() {
 //		return qdao.selectUnitName();
 //	}

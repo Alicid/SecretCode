@@ -39,9 +39,9 @@
             <div id="id-9"></div>
           </div>
           <div id="main-header">
-            <div id="main-title"><h1>${result.category}</h1><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
+            <div id="main-title"><h1>${tInfo.category}</h1><h6>${tInfo.range}</h6>><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
             <div id="main-title-paper"><p><b>Paper 1 (Non-Calculator)</b></p></div>
-            <div id="foundation"><p><b>${result.mode}</b></p></div>
+            <div id="foundation"><p><b>${tInfo.mode}</b></p></div>
           </div>
           <div id="date">
             <p id="date-time"><br></p>
@@ -61,22 +61,31 @@
       </div>
       <div class="test-border" id="quiz_area">
       <div id="oneQuiz" style="padding-left: 60px;padding-top: 48px;padding-right: 60px;">
+      
       <h2>시험 결과</h2>
       <br />
-      1. <c:if test="${result.Q1 eq 0}"> X </c:if> <c:if test="${result.Q1 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11. <c:if test="${result.Q11 eq 0}"> X </c:if> <c:if test="${result.Q11 ne 0}"> O </c:if><br />
-      2. <c:if test="${result.Q2 eq 0}"> X </c:if> <c:if test="${result.Q2 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12. <c:if test="${result.Q12 eq 0}"> X </c:if> <c:if test="${result.Q12 ne 0}"> O </c:if><br />
-      3. <c:if test="${result.Q3 eq 0}"> X </c:if> <c:if test="${result.Q3 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13. <c:if test="${result.Q13 eq 0}"> X </c:if> <c:if test="${result.Q13 ne 0}"> O </c:if><br />
-      4. <c:if test="${result.Q4 eq 0}"> X </c:if> <c:if test="${result.Q4 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14. <c:if test="${result.Q14 eq 0}"> X </c:if> <c:if test="${result.Q14 ne 0}"> O </c:if><br />
-      5. <c:if test="${result.Q5 eq 0}"> X </c:if> <c:if test="${result.Q5 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15. <c:if test="${result.Q15 eq 0}"> X </c:if> <c:if test="${result.Q15 ne 0}"> O </c:if><br />
-      6. <c:if test="${result.Q6 eq 0}"> X </c:if> <c:if test="${result.Q6 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16. <c:if test="${result.Q16 eq 0}"> X </c:if> <c:if test="${result.Q16 ne 0}"> O </c:if><br />
-      7. <c:if test="${result.Q7 eq 0}"> X </c:if> <c:if test="${result.Q7 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 17. <c:if test="${result.Q17 eq 0}"> X </c:if> <c:if test="${result.Q17 ne 0}"> O </c:if><br />
-      8. <c:if test="${result.Q8 eq 0}"> X </c:if> <c:if test="${result.Q8 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18. <c:if test="${result.Q18 eq 0}"> X </c:if> <c:if test="${result.Q18 ne 0}"> O </c:if><br />
-      9. <c:if test="${result.Q9 eq 0}"> X </c:if> <c:if test="${result.Q9 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 19. <c:if test="${result.Q19 eq 0}"> X </c:if> <c:if test="${result.Q19 ne 0}"> O </c:if><br />
-      10. <c:if test="${result.Q10 eq 0}"> X </c:if> <c:if test="${result.Q10 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20. <c:if test="${result.Q20 eq 0}"> X </c:if> <c:if test="${result.Q20 ne 0}"> O </c:if><br />
+      <div style="display: table-cell;">
+      <table class="result">
+      <c:forEach var="result" items="${result}" varStatus="status"  begin="0" end="9">
+			<tr> <td><c:if test="${result.value ne 0}"><img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 57px;"></c:if><c:if test="${result.value eq 0}"><img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 57px;"></c:if>${status.count}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
+      </c:forEach>
+      </table>
+      </div>
+      <div style="display: table-cell;position: relative;right: -123px;">
+      <table class="result">
+      <c:forEach var="result" items="${result}" varStatus="status"  begin="10">
+      <c:set var="num" value="${status.count+10}"/>
+			<tr><td><c:if test="${result.value ne 0}"><img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 0px;"></c:if><c:if test="${result.value eq 0}"><img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 0px;"></c:if>${num}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
+      </c:forEach>
+      </table>
+     </div>
+     
       <br />
-      <br />
- 																		<br> 
-     	${result.correct}&nbsp;&nbsp; / &nbsp;&nbsp;${result.totalScore} <br> 
+      
+ 																		
+ 			<div id="score"> 
+     			${tInfo.score}&nbsp;&nbsp; / &nbsp;&nbsp;${tInfo.total}
+    		</div> 
       </div>
     </div>
       <div class="button exam_btn" id="start_btn" >

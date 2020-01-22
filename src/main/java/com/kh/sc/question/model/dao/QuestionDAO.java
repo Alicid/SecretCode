@@ -43,5 +43,9 @@ public class QuestionDAO {
 		return sql.selectList("question-mapper.selectUnitNum",category);
 	}
 
+	public List selectHighScore() {
+		return sql.selectList("statics-mapper.timeAttackRanking");
+	}
+
 	
 }

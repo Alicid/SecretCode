@@ -39,8 +39,8 @@
             <div id="id-9"></div>
           </div>
           <div id="main-header">
-            <div id="main-title"><h1>${result.category}</h1><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
-            <div id="main-title-paper"><p><b>Paper 1 (Non-Calculator)</b></p></div>
+            <div id="main-title"><h1 id="main-title2">${result.category}</h1><h6 id="main-title3">${result.range}</h6><input type="hidden" id="categoryNum" value="${result.categoryNum}"/></div>
+            <div id="main-title-paper"><p><b>Paper 1 (Non-Calculator)</b></p><input type="hidden" id="unitNum" value="${result.unitNum}"/></div>
             <div id="foundation"><p><b>${result.mode}</b></p></div>
           </div>
           <div id="date">
@@ -63,20 +63,15 @@
       <div id="oneQuiz" style="padding-left: 60px;padding-top: 48px;padding-right: 60px;">
       <h2>시험 결과</h2>
       <br />
-      1. <c:if test="${result.Q1 eq 0}"> X </c:if> <c:if test="${result.Q1 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11. <c:if test="${result.Q11 eq 0}"> X </c:if> <c:if test="${result.Q11 ne 0}"> O </c:if><br />
-      2. <c:if test="${result.Q2 eq 0}"> X </c:if> <c:if test="${result.Q2 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 12. <c:if test="${result.Q12 eq 0}"> X </c:if> <c:if test="${result.Q12 ne 0}"> O </c:if><br />
-      3. <c:if test="${result.Q3 eq 0}"> X </c:if> <c:if test="${result.Q3 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 13. <c:if test="${result.Q13 eq 0}"> X </c:if> <c:if test="${result.Q13 ne 0}"> O </c:if><br />
-      4. <c:if test="${result.Q4 eq 0}"> X </c:if> <c:if test="${result.Q4 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 14. <c:if test="${result.Q14 eq 0}"> X </c:if> <c:if test="${result.Q14 ne 0}"> O </c:if><br />
-      5. <c:if test="${result.Q5 eq 0}"> X </c:if> <c:if test="${result.Q5 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 15. <c:if test="${result.Q15 eq 0}"> X </c:if> <c:if test="${result.Q15 ne 0}"> O </c:if><br />
-      6. <c:if test="${result.Q6 eq 0}"> X </c:if> <c:if test="${result.Q6 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16. <c:if test="${result.Q16 eq 0}"> X </c:if> <c:if test="${result.Q16 ne 0}"> O </c:if><br />
-      7. <c:if test="${result.Q7 eq 0}"> X </c:if> <c:if test="${result.Q7 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 17. <c:if test="${result.Q17 eq 0}"> X </c:if> <c:if test="${result.Q17 ne 0}"> O </c:if><br />
-      8. <c:if test="${result.Q8 eq 0}"> X </c:if> <c:if test="${result.Q8 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18. <c:if test="${result.Q18 eq 0}"> X </c:if> <c:if test="${result.Q18 ne 0}"> O </c:if><br />
-      9. <c:if test="${result.Q9 eq 0}"> X </c:if> <c:if test="${result.Q9 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 19. <c:if test="${result.Q19 eq 0}"> X </c:if> <c:if test="${result.Q19 ne 0}"> O </c:if><br />
-      10. <c:if test="${result.Q10 eq 0}"> X </c:if> <c:if test="${result.Q10 ne 0}"> O </c:if>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 20. <c:if test="${result.Q20 eq 0}"> X </c:if> <c:if test="${result.Q20 ne 0}"> O </c:if><br />
+   
+   			<div id="score2"> 
+   			     <p id="myScore">획득점수</p> <p id="totalScore">총점</p>
+     			${result.score}&nbsp;&nbsp; / &nbsp;&nbsp;${result.totalScore}
+    		</div> 
       <br />
       <br />
- 																		<br> 
-     	${result.correct}&nbsp;&nbsp; / &nbsp;&nbsp;${result.totalScore} <br> 
+ 																	
+     	
       </div>
     </div>
       <div class="button exam_btn" id="start_btn" >

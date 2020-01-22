@@ -16,6 +16,21 @@
 		<result column="N_NAME" property="qWriter"/>
 	</resultMap>
 	
+	<resultMap id="questionResult1" type="Question">
+		<result column="Q_NO" property="qNo"/>
+		<result column="QU_PKNO" property="quPkNo"/>
+		<result column="U_NO" property="uNo"/>
+		<result column="Q_CONTENT" property="qContent"/>
+		<result column="Q_LEVEL" property="qLevel"/>
+		<result column="Q_SCORE" property="qScore"/>
+		<result column="RM" property="qnum"/>
+		<result column="QU_NAME" property="qTitle"/>
+		<result column="N_NAME" property="qWriter"/>
+		<result column="QU_NO" property="quNo"/>
+		<result column="CNUM" property="cNum"/>
+		<result column="searchContent" property="searchContent"/>
+	</resultMap>
+	
 	<resultMap type="String" id="selectMap"> 
 	<result column="QC_NO" property="studentNo"/>
 	<result column="QC_NAME" property="studentNo"/>  
@@ -40,6 +55,13 @@
 		<result property="cn" column="CN"/>
 		<result property="un" column="UN"/>
 		<result property="unum" column="UNUM"/>
+	</resultMap>
+	
+	<resultMap id="getAnswer"  type="Answer">
+		<result property="cno" column="C_NO"/>
+		<result property="qancontent" column="QAN_CONTENT"/>
+		<result property="qstatus" column="Q_STATUS"/>
+		<result property="uName" column="N_NAME"/>
 	</resultMap>
 	
 	
@@ -68,6 +90,10 @@
 			WHERE Q_NO = #{qNo}
 		</select>
 		
+	
+		
+
+		
 		
 		<select id="selectCategoryList" resultType="hashmap">
 			SELECT QC_NO cnum ,QC_NAME name FROM Q_CATEGORY
@@ -83,11 +109,11 @@
 				</if>
 		
 	</select>
-	
+	<!-- 
 	<select id="">
 		SELECT QU_NO,QU_NAME FROM Q_UNIT WHERE QC_NO=1 AND QU_NO=4
 	</select>
-	
+	 -->
 	<select  id="selectQuestionNum" parameterType="hashMap" resultType="int">
 				SELECT Q_NO 
 						 FROM (SELECT * 
@@ -136,8 +162,56 @@
 		SELECT QU_NO,QU_NAME FROM Q_UNIT WHERE QC_NO=#{category}
 	</select>
 	
+	<insert id="insertQuestion" parameterType="QuestionInsert">
+		INSERT INTO QUESTION VALUES(SEQ_Q_NO.NEXTVAL, #{unitNum}, #{qContent},#{qLevel},#{qScore},#{uNo})
+	</insert>
 	
+	<select id="getLastQuestionNumber">
+		
+	</select>
 	
+	<insert id="insertAnswer" parameterType="AnswerInsert">
+		<selectKey keyProperty="qno" resultType="int" order="BEFORE">
+			SELECT SEQ_Q_NO.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO C_ANSWER VALUES (SEQ_CA_NO.NEXTVAL, #{qno}, #{uno},#{qancontent}, #{qstatus})
+	</insert>
+	<select id="selectCorrectAnswer" parameterType="int" resultMap="getAnswer">
+	SELECT C.C_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
+	FROM C_ANSWER C
+	JOIN MEMBER M ON (C.U_NO=M.U_NO)WHERE Q_NO=#{qNo} AND Q_STATUS='Y'
+	</select>
+
+	<select id="selectWrongAnswer" parameterType="int" resultMap="getAnswer">
+	SELECT C.C_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
+	FROM C_ANSWER C
+	JOIN MEMBER M ON (C.U_NO=M.U_NO)WHERE Q_NO=#{qNo} AND Q_STATUS='N'
+	</select>
+	<select id="SearchSelectList" parameterType="Question" resultMap="questionResult1">
+		<![CDATA[ SELECT * FROM 
+               					(SELECT N.* , ROWNUM RNUM
+									FROM(
+									         SELECT BD.* 
+									         FROM(
+									         SELECT ROWNUM RM, Q.*,M.N_NAME,QU.QU_NAME FROM QUESTION Q 
+									                       JOIN MEMBER M ON (Q.U_NO=M.U_NO)
+									                       JOIN Q_UNIT QU ON (Q.QU_PKNO=QU.QU_PKNO)
+									                       JOIN Q_CATEGORY QC ON(QU.QC_NO=QC.QC_NO)
+									                       WHERE  QU.QU_NO=#{unit} AND QC.QC_NO = #{category} AND Q_CONTENT LIKE '%'||#{searchContent}||'%') BD
+									                       ) N 
+									                 WHERE ROWNUM <= #{endRow})NO 
+									         WHERE RNUM > #{startRow}]]>
+		</select>
+		
+		<select  id="getsListCount" parameterType="hashmap" resultType="int">
+			SELECT COUNT(*) 
+						 FROM (SELECT * 
+					 		   FROM QUESTION 
+                               WHERE QU_PKNO = (SELECT QU_PKNO 
+					 	   					FROM Q_UNIT 
+					 	   					WHERE QC_NO =#{category} AND QU_NO=#{unit} AND Q_CONTENT LIKE '%' || #{searchContent} || '%'))
+		</select>
+	<!--  
 	<select id="getAnswerList" parameterType="int" resultType="Answer">
 		<![CDATA[SELECT * 
 				 FROM(
@@ -155,6 +229,16 @@
 							ORDER BY DBMS_RANDOM.RANDOM)
 					WHERE ROWNUM < 2)
 				ORDER BY DBMS_RANDOM.RANDOM]]>
+	</select>-->
+	
+	<select id="updateQuestionView" parameterType="int" resultMap="questionResult">
+		SELECT * FROM QUESTION WHERE Q_NO=#{qNo}
 	</select>
+	
+	<update id="updateQuestion" parameterType="Question">
+		 UPDATE QUESTION SET Q_CONTENT = #{qContent} WHERE Q_NO = #{qNo}
+	</update>
+	
+	
 	
 	</mapper>

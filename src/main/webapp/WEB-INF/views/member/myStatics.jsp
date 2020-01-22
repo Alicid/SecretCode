@@ -1,26 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<html lang="en">
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>My Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  
-<style> 
-@keyframes swing {
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ 
+ <script src="${pageContext.request.contextPath }/js/Chart.bundle.js" integrity="sha256-8zyeSXm+yTvzUN1VgAOinFgaVFEFTyYzWShOy9w7WoQ=" crossorigin="anonymous"></script>
+    <script src="${pageContext.request.contextPath }/js/Chart.bundle.min.js"  integrity="sha256-TQq84xX6vkwR0Qs1qH5ADkP+MvH0W+9E7TdHJsoIQiM=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/Chart.css" integrity="sha256-IvM9nJf/b5l2RoebiFno92E5ONttVyaEEsdemDC6iQA=" crossorigin="anonymous" />
+    <script src="${pageContext.request.contextPath }/js/Chart.js"  integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
+    <script src="${pageContext.request.contextPath }/js/Chart.min.js"integrity="sha256-R4pqcOYV8lt7snxMQO/HSbVCFRPMdrhAFMH+vr9giYI=" crossorigin="anonymous"></script>
+   <style>
+    @keyframes swing {
   0% {transform: rotate(0deg);}
   10% {transform: rotate(10deg);}
   30% {transform: rotate(0deg);}
@@ -42,10 +51,25 @@
     opacity: 0;
   }
 }
-
-
 body {
   font-size: 0.9rem;
+}
+.page-wrapper .sidebar-wrapper,
+.sidebar-wrapper .sidebar-brand > a,
+.sidebar-wrapper .sidebar-dropdown > a:after,
+.sidebar-wrapper .sidebar-menu .sidebar-dropdown .sidebar-submenu li a:before,
+.sidebar-wrapper ul li a i,
+.page-wrapper .page-content,
+.sidebar-wrapper .sidebar-search input.search-menu,
+.sidebar-wrapper .sidebar-search .input-group-text,
+.sidebar-wrapper .sidebar-menu ul li a,
+#show-sidebar,
+#close-sidebar {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .page-wrapper {
@@ -86,7 +110,7 @@ body {
   max-height: 100%;
   position: fixed;
   top: 1;
-  left: 0px;
+  left: -300px;
   z-index: 999;
 }
 .sidebar-wrapper ul {
@@ -294,169 +318,176 @@ body {
     padding-top: .5rem;
     text-align: right;
 }
-
+.btn{
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all .5s;
+}
+.btn:before,
+.btn:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: -1;
+  transition: all .5s;
+}
+.btn-dark:before{
+  background: #aaf0d1;
+}
+.btn-dark:after{
+  background: #02876C;
+}
+.btn-dark:hover{
+  background: #02876C;
+}
+.slidebottomleft:after{
+  transform: translate3D(100%,100%,0);
+}
+.slidebottomleft:hover:after{
+	transform: translate3D(0,0,0);
+  transition: all .5s;
+}
 #sidebar{
 	margin-top : 0%;
 	position : absolute;
 	z-index : 0;
 }
-	.title{
-		border-color: #aaf0d1;
-    	color: #666;
-    	background: #ffffff;
-    	font-size: inherit;
-    	padding : 5px;
-    	border-left : 5px solid #aaf0d1;
-    	margin:10px;
-	}
-	.content{
-		height : 500px;
-		overflow : auto;
-		margin:10px;
-	}
-	
-	i{
-		margin-left:15px;
-	}
-	
+.btn{
+  background: transparent;
+  position: relative;
+  overflow: hidden;
+  transition: all .5s;
+}
+.btn:before,
+.btn:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  z-index: -1;
+  transition: all .5s;
+}
+.btn-dark:before{
+  background: #aaf0d1;
+}
+.btn-dark:after{
+  background: #02876C;
+}
+.btn-dark:hover{
+  background: #02876C;
+}
+.slidebottomleft:after{
+  transform: translate3D(100%,100%,0);
+}
+.slidebottomleft:hover:after{
+	transform: translate3D(0,0,0);
+  transition: all .5s;
+}
+#sidebar{
+	margin-top : 0%;
+	position : absolute;
+	z-index : 0;
+}
 </style>
 <c:import url="../common/commonUtil.jsp"/>
 </head>
-<body class="host_version">
-<div>
-<c:import url="../common/header.jsp"/>
-</div>
-<div class="pa
-ge-wrapper chiller-theme toggled">
-<c:import url="../member/myPageMenu.jsp"/>
 
-<div class="all-title-box">
-      <div class="container text-center">
-         <h1 style="color:#02876C">시험 문제</h1>
-      </div>
-</div>
-
-<div id="overviews" class="section wb">
-        <div class="container">
-            <div class="row"> 
-					<br />
-                <div class="col-lg-12 blog-post-single">
-                    <div class="blog-item">
-                    <div class="blog-desc">
-						<div class="title display-5">
-							<h1>${question.qTitle}</h1>
-						</div>
-						<div class="post-content">
-							<div class="meta-info-blog">
-								<span><i class="fa fa-calendar fa-lg">난이도 : </i>${question.qLevel}</span>
-								<span><i class="fa fa-pencil fa-lg" aria-hidden="true">점수 : </i>${question.qScore}점</span>
-								<span><i class="fa fa-eye fa-lg" aria-hidden="true">${question.qWriter}</i></span>
-								 <input type="hidden" class="qNo" name="qNo" value="${question.qNo}"/>
-							</div>
-							<div class="blog-desc">
-								<blockquote class="default content">
-									${question.qContent} 
-								</blockquote>
-							</div>							
-						</div>
-					</div>
-    
-    <div class="blog-comments"></div>
-		<h4 align="center">정답  / 오답</h4>
-			<div id="comment-blog">
-				<ul class="comment-list" align="center">
-				
-				<li class="comment" style="display:inline-table; width: 45%;">
-					<div class="comment-container" style="margin-left: -22px;">
-							<h5 class="comment-author" style="margin-bottom: 20px;"><a href="#">정답 부분</a></h5>
-							<div style="display:inline-table;position: relative;left: 0px;border-bottom:2px solid #aaf0d1;width: 70%;"">내용</div><div style="display:inline-table;position: relative;right: -30px;border-bottom: 2px solid #aaf0d1;width: 30%;">작성자</div>
-						<c:forEach var="cAnswer" items="${cAnswer}">
-						<div class="comment-body">
-							<div style="position: relative;display: inline-table;width: 70%;">${cAnswer.qancontent}</div><div style="position: relative;display: inline-table;width: 30%;right: -30px;"">${cAnswer.uName}</div>
-						</div>
-						</c:forEach>
-					</div>
-				</li>
-					
-				<li class="comment" style="display:inline-table; width: 45%;">
-					<div class="comment-container" style="margin-left: -8px;">
-							<h5 class="comment-author" style="margin-bottom: 20px;"><a href="#">오답 부분</a></h5>
-							<div style="display:inline-table;position: relative;left: 0px;border-bottom:2px solid #aaf0d1;width: 70%;"">내용</div><div style="display:inline-table;position: relative;right: -30px;border-bottom: 2px solid #aaf0d1;width: 30%;">작성자</div>
-						<c:forEach var="wAnswer" items="${wAnswer}">
-						<div class="comment-body">
-							<div style="position: relative;display: inline-table;width: 70%;">${wAnswer.qancontent}</div><div style="position: relative;display: inline-table;width: 30%;right: -30px;"">${wAnswer.uName}</div>
-						</div>
-						</c:forEach>
-					</div>
-				</li>
-				
-					
-					<br />
-              <c:if test="${!empty member and (member.aNo eq 1 or member.aNo eq 2)}">
-			            <c:url var="questionUpdate" value="/admin/updateQuestionView.qo">
-			               <c:param name="qNo" value="${question.qNo}" />
-			            </c:url>
-			            <button class="btn btn-primary" id="btnli" onclick="location.href='${questionUpdate}'">수정</button>
-			   </c:if>
-                            <input type="button" id="btnli" class="btn btn-primary" value="목록"onclick="location.href='${pageContext.request.contextPath}/question/questionList.qo'">
-			</ul>
-		</div>
-	</div>
-    
-					</div>
-				</div>	
-              </div><!-- end col -->
-            </div><!-- end row -->
-        </div><!-- end container -->
-    </div><!-- end section -->
-    <c:import url="../common/footer.jsp" />
-    <script>
-    $(document).ready(function(){
-    	
-		$('#summernote').summernote({
-		    placeholder: '내용을 입력하세요.',
-		    tabsize: 2,
-		    height: 500,
-		    width: 900,
-		    focus: true,
-		    callbacks: {
-		       onImageUpload: function(files, editor, welEditable) {
-		             for (var i = files.length - 1; i >= 0; i--) {
-		                sendFile(files[i], this);
-		             }
-		         }
-		    }
-		 });
-		});
-			
-		  $('.dropdown-toggle').dropdown()
+<body>
+<c:import url="../common/header.jsp" />
+<div class="page-wrapper chiller-theme toggled">
+	<c:import url="myPageMenu.jsp" />
+ <main class="page-content">
  
- function sendFile(file, el) {
-    
- var form_data = new FormData();
-  form_data.append('file', file);
-  // console.log(form_data.file);
+    <div class="container-fluid">
+      <h2>My Page</h2>
+      <hr>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <span class="custom-dropdown big">
+		    <select name="category" id="ccc"> 
+		    			<option value="0">-----카테고리-----</option>
+		    	<c:forEach var="cate" items="${category}" varStatus="status"> 
+		        		<option name="category2" value="${cate.CNUM}" >${cate.NAME} </option>
+		       </c:forEach>  
+		    </select>
+	  </span>
+		 <canvas id="myChart" class="chartjs-render-monitor" width="300" height="150"></canvas>
+       </div>
+       </main>
+       </div> 
+       
+<c:import url="../common/footer.jsp" />
 
-  
-  $.ajax({
-       data: form_data,
-       type: "post",
-       url: '${pageContext.request.contextPath}/insert.tn',
-    cache : false,
-    contentType : false,
-       enctype: 'multipart/form-data',
-    processData : false,
-       success: function(url) {
-          console.log('----------------------------');
-          console.log(url);
-          console.log('----------------------------');
-          url.replace("\/","/");
-         $(el).summernote('editor.insertImage', url);
-       }, error: function(){
-          console.log("실패실패");
-       }
-  });
-}
-    </script>
+<script>
+
+var	myChart;
+$('#ccc').change(function(){
+	var category = $('#ccc').val();
+	$.ajax({
+		url:'${pageContext.request.contextPath}/tResult/selectMyStaticsList.re',
+		type: 'get',
+		data : {category : category},
+		dataType : 'json',
+		success: function(data){
+			console.log(data);
+			
+			if(myChart != null){
+				myChart.destroy();
+			}
+			
+			var ctx = document.getElementById('myChart').getContext('2d');
+			myChart = new Chart(ctx, {
+			    type: 'bar',
+			    data: {
+			        labels: ['응용SW기초기술활용', '프로그래밍 언어 활용', 'SQL 활용', '화면 구현', 'UI 테스트', '애플리케이션 테스트 수행', '애플리케이션 배포'],
+			        datasets: [{
+			            label: "정답율",
+			            data: data,
+			            backgroundColor: [
+			                'rgba(255, 99, 132, 0.5)',
+			                'rgba(54, 162, 235, 0.5)',
+			                'rgba(255, 99, 132, 0.5)',
+			                'rgba(54, 162, 235, 0.5)',
+			                'rgba(255, 99, 132, 0.5)',
+			                'rgba(54, 162, 235, 0.5)',
+			                'rgba(255, 99, 132, 0.5)',
+			            ],
+			            borderColor: [
+			                'rgba(255, 99, 132, 1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 99, 132, 1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 99, 132, 1)',
+			                'rgba(54, 162, 235, 1)',
+			                'rgba(255, 99, 132, 1)',
+			            ],
+			            borderWidth: 3
+			        }]
+			    },
+			    options: {
+			        scales: {
+			            yAxes: [{
+			                ticks: {
+			                    beginAtZero: true
+			                }
+			            }]
+			        }
+			    }
+				})
+		}, error : function(data){
+		}
+})
+})
+;
+
+	</script>
+
 </body>
 </html>

@@ -48,9 +48,15 @@
           <li class="sidebar-dropdown">
             <a href="${pageContext.request.contextPath}/question/questionList.qo">
               <i class="fa fa-folder"></i>
-              <span>관리자 페이지</span>
+              <span>시험문제 관리</span>
             </a>
           </li>
+          
+          <li class="sidebar-dropdown">
+            <a href="${pageContext.request.contextPath}/admin/adminMemberList.qo">
+              <i class="far fa-gem"></i>
+              <span>회원 관리</span>
+            </a>
           </c:if>
           
         </ul>

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.sc.admin.model.service.AdminService;
 import com.kh.sc.admin.model.vo.Question;
 import com.kh.sc.common.PageInfo;
+import com.kh.sc.member.model.vo.Member;
+import com.kh.sc.notice.model.vo.Notice;
 
 
 @Controller
@@ -61,5 +63,39 @@ public class AdminController {
 		
 		return "admin/questionDetail";
 		
+	}
+	
+	@RequestMapping("/admin/adminMemberList.qo")
+	public String selectadminMemberList(Model model) {
+		
+		List<Member> list = new ArrayList<>();
+		
+		
+		
+		list = qs.selectadminMemberList();
+		System.out.println(list);
+		model.addAttribute("list", list); 
+		return "admin/adminMemberList"; 
+	
+}
+	@RequestMapping("/admin/adminMemberUpdate.qo")
+	public String adminMemberUpdate(@RequestParam int memberGrade,@RequestParam int uno,Model model) {
+		System.out.println("회원번호 : "+uno);
+		System.out.println("회원 등업시킬 번호 : "+memberGrade);
+		Member m = new Member();
+		m.setuNo(uno);
+		m.setaNo(memberGrade);
+		System.out.println(m);
+		String msg = "";
+		String loc = "";
+		int result = qs.adminMemberUpdate(m);
+		
+		msg="등급변경 성공!";
+		loc="/admin/adminMemberList.qo";	
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("loc", loc);
+		
+		return "common/msg";
 	}
 }

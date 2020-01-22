@@ -1,12 +1,13 @@
 package com.kh.sc.admin.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.sc.common.PageInfo;
-
+import com.kh.sc.member.model.vo.Member;
 import com.kh.sc.admin.model.dao.AdminDAO;
 import com.kh.sc.admin.model.vo.Question;
 
@@ -61,6 +62,13 @@ public class AdminService {
 //		return qdao.deleteQuestion(qNo);
 //	}
 	
+	public List<Member> selectadminMemberList() {
+		return qdao.selectadminMemberList();
+	}
+
+	public int adminMemberUpdate(Member m) {
+		return qdao.adminMemberUpdate(m);
+	}
 	
 
 }

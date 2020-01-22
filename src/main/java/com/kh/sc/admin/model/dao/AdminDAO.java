@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.sc.common.PageInfo;
+import com.kh.sc.member.model.vo.Member;
 import com.kh.sc.admin.model.vo.Question;
 
 @Repository("qdao")
@@ -40,5 +41,15 @@ public class AdminDAO {
 //	public int deleteQuestion(int qNo) {
 //		return sqlSession.update("question-mapper.deleteNotice", qNo);
 //	}
+
+
+	public List<Member> selectadminMemberList() {
+		return sqlSession.selectList("member-mapper.selectMemberList");
+	}
+
+
+	public int adminMemberUpdate(Member m) {
+		return sqlSession.update("member-mapper.adminMemberUpdate",m);
+	}
 
 }

@@ -42,6 +42,13 @@
 		<result property="unum" column="UNUM"/>
 	</resultMap>
 	
+	<resultMap id="getAnswer"  type="Answer">
+		<result property="cno" column="C_NO"/>
+		<result property="qancontent" column="QAN_CONTENT"/>
+		<result property="qstatus" column="Q_STATUS"/>
+		<result property="uName" column="N_NAME"/>
+	</resultMap>
+	
 	
 		<select id="selectQuestion" parameterType="PageInfo" resultMap="questionResult">
 		<![CDATA[ SELECT * FROM 
@@ -147,7 +154,40 @@
 		SELECT QU_NO,QU_NAME FROM Q_UNIT WHERE QC_NO=#{category}
 	</select>
 	
+	<insert id="insertQuestion" parameterType="QuestionInsert">
+		INSERT INTO QUESTION VALUES(SEQ_Q_NO.NEXTVAL, #{unitNum}, #{qContent},#{qLevel},#{qScore},#{uNo})
+	</insert>
 	
+	<select id="getLastQuestionNumber">
+		
+	</select>
+	
+	<insert id="insertAnswer" parameterType="AnswerInsert">
+		<selectKey keyProperty="qno" resultType="int" order="BEFORE">
+			SELECT SEQ_Q_NO.CURRVAL FROM DUAL
+		</selectKey>
+		INSERT INTO C_ANSWER VALUES (SEQ_CA_NO.NEXTVAL, #{qno}, #{uno},#{qancontent}, #{qstatus})
+	</insert>
+	
+	<select id="selectCorrectAnswer" parameterType="int" resultMap="getAnswer">
+	SELECT C.C_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
+	FROM C_ANSWER C
+	JOIN MEMBER M ON (C.U_NO=M.U_NO)WHERE Q_NO=#{qNo} AND Q_STATUS='Y'
+	</select>
+	
+	<select id="selectWrongAnswer" parameterType="int" resultMap="getAnswer">
+	SELECT C.C_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
+	FROM C_ANSWER C
+	JOIN MEMBER M ON (C.U_NO=M.U_NO)WHERE Q_NO=#{qNo} AND Q_STATUS='N'
+	</select>
+	
+	<select id="updateQuestionView" parameterType="int" resultMap="questionResult">
+		SELECT * FROM QUESTION WHERE Q_NO=#{qNo}
+	</select>
+	
+	<update id="updateQuestion" parameterType="Question">
+		 UPDATE QUESTION SET Q_CONTENT = #{qContent} WHERE Q_NO = #{qNo}
+	</update>
 	<!--  
 	<select id="getAnswerList" parameterType="int" resultType="Answer">
 		<![CDATA[SELECT * 

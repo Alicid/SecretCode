@@ -3,7 +3,12 @@
 "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="statics-mapper">
-
+	
+	<resultMap id="rankingMap" type="java.util.HashMap">
+		<result property="name" column="N_NAME"/>
+		<result property="score" column="QR_SCORE"/>
+	</resultMap>
+	
 	<insert id="insertResult" parameterType="QuestionStatics">
 		INSERT INTO QANALYSIS VALUES(SEQ_QA_NO.NEXTVAL,#{uno},#{cNum},#{qno},#{isCorrect},SYSDATE)
 	</insert>
@@ -11,6 +16,15 @@
 	<insert id="insertHighScore" parameterType="hashmap">
 		INSERT INTO Q_RANKING VALUES (SEQ_QR_NO.NEXTVAL,#{categoryNum},#{unitNum},#{uno},#{score},DEFAULT)
 	</insert>	
+	
+	<select id="timeAttackRanking" resultMap="rankingMap">
+		<![CDATA[SELECT ROWNUM RNUM,QRM.*
+				 FROM(SELECT M.N_NAME,QR.QR_SCORE 
+				 	  FROM Q_RANKING QR
+				   	  JOIN MEMBER M ON (QR.QR_USER_NO=M.U_NO) 
+				   	  ORDER BY QR.QR_SCORE DESC)QRM
+				 WHERE ROWNUM <11]]>
+	</select>
 	
 	<!-- 
 	 <insert id="addExemption" parameterType="business.oracle.exemption.ExemptionRecord">

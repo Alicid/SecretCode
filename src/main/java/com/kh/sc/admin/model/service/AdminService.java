@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.sc.common.PageInfo;
-
+import com.kh.sc.question.model.vo.Answer;
 import com.kh.sc.admin.model.dao.AdminDAO;
 import com.kh.sc.admin.model.vo.Question;
 import com.kh.sc.admin.model.vo.Qunit;
@@ -71,6 +71,25 @@ public class AdminService {
 		return qdao.selectCategoryList();
 	}
 	
-	
+	public int insertQuestions(List<List<Object>> list) {
+		return qdao.insertQuestions(list);
+	}
+
+	public List<Answer> selectCorrectAnswers(int qNo) {
+		return qdao.selectCorrectAnswer(qNo);
+	}
+
+	public List<Answer> selectWrongAnswers(int qNo) {
+		// TODO Auto-generated method stub
+		return qdao.selectWrongAnswer(qNo);
+	}
+
+	public Question updateQuestionView(int qNo) {
+		return qdao.updateQuestionView(qNo);
+	}
+
+	public int updateQuestion(Question q) {
+		return qdao.updateQuestion(q);
+	}
 
 }

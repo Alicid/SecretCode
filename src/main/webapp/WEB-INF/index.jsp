@@ -329,18 +329,25 @@ nav > div a.nav-item.nav-link:focus
       </div><!-- end media -->
       <br />
 			<div class="row align-items-center" style="margin-top:-4%;">
-				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <div class="post-media wow fadeIn">
-                        <img src="${pageContext.request.contextPath }/images/about_03.jpg" alt="" class="img-fluid img-rounded" scrolling="no">
-                    </div><!-- end media -->
+				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12" >
+					<h2><p style=" text-align: center;">타임어택 랭킹</p></h2>
+					<table class="table table-sm public" style="margin-bottom:-1%;" id="ranking">
+						<thead>
+							<tr style="border-bottom: 3px solid #02876C;">
+								<td>등수</td>
+								<td>이름</td>
+								<td>점수</td>
+							</tr>
+						</thead>
+          
+                   </table>
                 </div><!-- end col -->
 				
 				<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <div class="message-box">
-                        <h2>The standard Lorem Ipsum passage, used since the 1500s</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <h2>Time Attack Ranking</h2>
+                        <p>문제풀이 에서 타임어택 모드 로 가장 많은 점수를 얻은 회원들을 상위 10위 내에 표시해 줍니다. </p>
 
-                        <p> Integer rutrum ligula eu dignissim laoreet. Pellentesque venenatis nibh sed tellus faucibus bibendum.</p>
 
                         <a href="#" class="btn btn-secondary"><span>Learn More</span></a>
                     </div><!-- end messagebox -->
@@ -377,10 +384,11 @@ nav > div a.nav-item.nav-link:focus
 		<div class="container">
 			 <div class="section-title row text-center">
                 <div class="col-md-8 offset-md-2">
-                    <h3>Our history</h3>
-                    <p class="lead">Lorem Ipsum dolroin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem!</p>
+                    <h3>Our Team</h3>
+                    <p class="lead">2020년 1월 23일, KH 정보교육원 352Class에 그들이 온다! 코벤져스!</p>
                 </div>
             </div><!-- end title -->
+            <!--  
 			<div class="timeline">
 				<div class="timeline__wrap">
 					<div class="timeline__items">
@@ -442,6 +450,9 @@ nav > div a.nav-item.nav-link:focus
 						</div>
 					</div>
 				</div>
+			</div>-->
+			<div style="margin: auto;display: table; width: 100px;">
+			<iframe width="700" height="500" src="https://www.youtube.com/embed/vRMYesmUCYk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			</div>
 		</div>
 	</section>
@@ -534,7 +545,7 @@ nav > div a.nav-item.nav-link:focus
 				dataType : 'json',
 				success : function(data){
 					console.log(data);
-					console.log(data.test);
+					//console.log(data.test);
 					var examPlan = JSON.parse(data.test).response.body.items.item;
 					console.log(examPlan);
 					
@@ -639,7 +650,35 @@ nav > div a.nav-item.nav-link:focus
 			}
 		});
 		
-		
+		 $.ajax({
+	            url  : "${pageContext.request.contextPath}/question/highScore.do",
+	            dataType: "json",
+	            async : false,
+	            success : function(data){
+	            	var $ranking = $('#ranking');
+	            	console.log($ranking);
+	                console.log(data);
+	               
+	                console.log(data.highScore);
+	                //console.log(data.highScore[0]);
+	                //console.log(data.highScore[0].score);
+	                //console.log(data.highScore[0].RNUM);
+	                //console.log(data.highScore[0].name);
+	                //console.log(data.highScore.length);
+	               // $ranking.append('<tr>');
+	               // $('#ranking tbody tr td:nth-child(1)').html('<tr><td>'+data.highScore[i].RNUM +  '</td><td>'+data.highScore[i].name+ '</td><td>' + data.highScore[i].score+ '</td></tr>');
+	                for(var i =0;i<data.highScore.length;i++){
+	                	$('#ranking').append('<tr><td>'+data.highScore[i].RNUM +  '</td><td>'+data.highScore[i].name+ '</td><td>' + data.highScore[i].score+ '</td></tr>');
+	                }
+	             
+	            }, error : function(jqxhr, textStatus, errorThrown){
+	                console.log("ajax 처리 실패");
+	                //에러로그
+	                console.log(jqxhr);
+	                console.log(textStatus);
+	                console.log(errorThrown);
+	            }
+     	});
 		});
 		
 		var	myChart;
@@ -721,7 +760,13 @@ nav > div a.nav-item.nav-link:focus
 		          console.log(e);
 		     }
 		     return formatNum;
-		}
+		};
+		
+		$(function(){
+			
+			
+			
+		});
 
 
 	</script>

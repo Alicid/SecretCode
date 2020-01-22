@@ -33,17 +33,16 @@
 <br />
 <section>
 <div class="mb-2" align="center">
-<form id="updateForm" action="${ pageContext.request.contextPath }/question/qUpdate.qo"  method="post"  >
+<form id="updateForm" action="${ pageContext.request.contextPath }/admin/updateQuestion.qo"  method="post"  >
 		<div class="input-group mb-3" style="width:900px;">
 			<br />
 		<input type="hidden" name="uNo"  value="${member.uNo}"/>
-		<input type="hidden" name="qNo"  value="${question.qNo}"/>
-  				<input type="text" class="form-control" aria-label="Text input with dropdown button" 
- 				 name="nTitle" id="title" placeholder="제목을 입력하세요." value="${notice.nTitle}">
+		<input type="hidden" name="qNo"  value="${q.qNo}"/>
+
 		</div>
 
 		<div class="editorArea"  style="margin-top:20px;">
-  				<textarea id="summernote" name="nContent">${question.qContent}</textarea>
+  				<textarea id="summernote" name="qContent">${q.qContent}</textarea>
 		</div>
 		
 <br /><br />

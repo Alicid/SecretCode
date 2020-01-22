@@ -70,35 +70,38 @@
 			<div id="comment-blog">
 				<ul class="comment-list" align="center">
 				
-				<li class="comment" style="display:inline-block; width: 45%;">
+				<li class="comment" style="display:inline-table; width: 45%;">
 					<div class="comment-container" style="margin-left: -22px;">
-							<h5 class="comment-author"><a href="#">정답 부분</a></h5>
-						
+							<h5 class="comment-author" style="margin-bottom: 20px;"><a href="#">정답 부분</a></h5>
+							<div style="display:inline-table;position: relative;left: 0px;border-bottom:2px solid #aaf0d1;width: 70%;"">내용</div><div style="display:inline-table;position: relative;right: -30px;border-bottom: 2px solid #aaf0d1;width: 30%;">작성자</div>
+						<c:forEach var="cAnswer" items="${cAnswer}">
 						<div class="comment-body">
-							<p>정답 부분</p>
+							<div style="position: relative;display: inline-table;width: 70%;">${cAnswer.qancontent}</div><div style="position: relative;display: inline-table;width: 30%;right: -30px;"">${cAnswer.uName}</div>
 						</div>
+						</c:forEach>
 					</div>
 				</li>
 					
-				<li class="comment" style="display:inline-block; width: 45%;">
+				<li class="comment" style="display:inline-table; width: 45%;">
 					<div class="comment-container" style="margin-left: -8px;">
-							<h5 class="comment-author"><a href="#">오답 부분</a></h5>
-						
+							<h5 class="comment-author" style="margin-bottom: 20px;"><a href="#">오답 부분</a></h5>
+							<div style="display:inline-table;position: relative;left: 0px;border-bottom:2px solid #aaf0d1;width: 70%;"">내용</div><div style="display:inline-table;position: relative;right: -30px;border-bottom: 2px solid #aaf0d1;width: 30%;">작성자</div>
+						<c:forEach var="wAnswer" items="${wAnswer}">
 						<div class="comment-body">
-							<p>오답 부분</p>
+							<div style="position: relative;display: inline-table;width: 70%;">${wAnswer.qancontent}</div><div style="position: relative;display: inline-table;width: 30%;right: -30px;"">${wAnswer.uName}</div>
 						</div>
+						</c:forEach>
 					</div>
 				</li>
 				
-					
+					<br />
               <c:if test="${!empty member and (member.aNo eq 1 or member.aNo eq 2)}">
-			            <c:url var="questionUpdate" value="qUpdateForm.qo">
+			            <c:url var="questionUpdate" value="/admin/updateQuestionView.qo">
 			               <c:param name="qNo" value="${question.qNo}" />
 			            </c:url>
-			            <button class="btn btn-primary" id="btnli" onclick="location.href='#'">수정</button>
+			            <button class="btn btn-primary" id="btnli" onclick="location.href='${questionUpdate}'">수정</button>
 			   </c:if>
-                            <input type="button" id="btnli" class="btn btn-primary" value="목록"
-                                onclick="location.href='${pageContext.request.contextPath}/question/questionList.qo'">
+                            <input type="button" id="btnli" class="btn btn-primary" value="목록"onclick="location.href='${pageContext.request.contextPath}/question/questionList.qo'">
 			</ul>
 		</div>
 	</div>
@@ -110,6 +113,53 @@
         </div><!-- end container -->
     </div><!-- end section -->
     <c:import url="../common/footer.jsp" />
+    <script>
+    $(document).ready(function(){
+    	
+		$('#summernote').summernote({
+		    placeholder: '내용을 입력하세요.',
+		    tabsize: 2,
+		    height: 500,
+		    width: 900,
+		    focus: true,
+		    callbacks: {
+		       onImageUpload: function(files, editor, welEditable) {
+		             for (var i = files.length - 1; i >= 0; i--) {
+		                sendFile(files[i], this);
+		             }
+		         }
+		    }
+		 });
+		});
+			
+		  $('.dropdown-toggle').dropdown()
+ 
+ function sendFile(file, el) {
     
+ var form_data = new FormData();
+  form_data.append('file', file);
+  // console.log(form_data.file);
+
+  
+  $.ajax({
+       data: form_data,
+       type: "post",
+       url: '${pageContext.request.contextPath}/insert.tn',
+    cache : false,
+    contentType : false,
+       enctype: 'multipart/form-data',
+    processData : false,
+       success: function(url) {
+          console.log('----------------------------');
+          console.log(url);
+          console.log('----------------------------');
+          url.replace("\/","/");
+         $(el).summernote('editor.insertImage', url);
+       }, error: function(){
+          console.log("실패실패");
+       }
+  });
+}
+    </script>
 </body>
 </html>

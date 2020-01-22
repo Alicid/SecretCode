@@ -35,6 +35,7 @@ import com.kh.sc.admin.model.service.AdminService;
 import com.kh.sc.admin.model.vo.Question;
 import com.kh.sc.common.PageInfo;
 import com.kh.sc.member.model.vo.Member;
+import com.kh.sc.question.model.vo.Answer;
 import com.kh.sc.admin.excel.*;
 
 
@@ -79,10 +80,15 @@ public class AdminController {
 	
 	@RequestMapping("/question/questionDetail.qo")
 	public String selectOne(@RequestParam("qNo") int qNo, Model model) {
-		
+		List<Answer> cAnswer= new ArrayList();
+		List<Answer> wAnswer= new ArrayList();
 		Question q = qs.selectOne(qNo);
+		 cAnswer = qs.selectCorrectAnswers(qNo);
+		 wAnswer = qs.selectWrongAnswers(qNo);
 		System.out.println(q);
-		model.addAttribute("question", q);
+		System.out.println("정답 목록 : "+cAnswer);
+		System.out.println("오답 목록 : "+wAnswer);
+		model.addAttribute("question", q).addAttribute("cAnswer", cAnswer).addAttribute("wAnswer", wAnswer);
 		
 		return "admin/questionDetail";
 		
@@ -93,7 +99,8 @@ public class AdminController {
 			HttpServletRequest request,
 			Model model,
 			HttpSession session) {
-		ExcelRead2 er = new ExcelRead2();
+		List<List<Object>> list = new ArrayList<List<Object>>();
+		ExcelRead er = new ExcelRead();
 		Member m = (Member) session.getAttribute("member");
 		int uno = m.getuNo();
 		String msg = "";
@@ -126,15 +133,12 @@ public class AdminController {
 		
 				try {
 					f.transferTo(new File(savePath + "/" + renamedFileName));
-					
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
 				try {
-					er.getXLSXExcel(savePath + "/" + renamedFileName,uno);
+					 list = er.getXLSXExcel2(savePath + "/" + renamedFileName,uno);
+					//er.getXLSXExcel(savePath + "/" + renamedFileName,uno);
 				}catch (Exception e) {
 					//throw new QuestionException("파일양식 미준수");
 				}finally {
@@ -143,6 +147,10 @@ public class AdminController {
 				
 			}
 		}// for 끝
+		System.out.println("엑셀 읽어온 결과 :" + list);
+		
+		int result = qs.insertQuestions(list);
+		
 		loc="/question/questionList.qo";
 		msg="문제 읽기 성공!";
 		model.addAttribute("loc", loc).addAttribute("msg", msg);
@@ -150,5 +158,32 @@ public class AdminController {
 		return "common/msg";
 	}
 	
+	@RequestMapping("/admin/updateQuestionView.qo")
+	public String updateQuestionView(@RequestParam int qNo,Model model) {
+		System.out.println("수정화면컨트롤러 qNo 도착 확인 " + qNo);
+		Question que = qs.updateQuestionView(qNo);
+		System.out.println(que);
+		model.addAttribute("q", que);
+
+		return "admin/questionUpdateForm";
+	}
+	
+	@RequestMapping("/admin/updateQuestion.qo")
+	public String updateQuestion(Question q,Model model) {
+		System.out.println("수정컨트롤러 수정값 도착 확인 :"+ q);
+		
+		int result = qs.updateQuestion(q);
+		String msg = "";
+		String loc = "";
+		if(result>0) {
+			msg = "문제 수정 성공!";
+			loc = "/question/questionList.qo";
+		}else {
+			msg = "문제 수정 실패!";
+			loc = "/question/questionList.qo";
+		}
+		model.addAttribute("msg", msg).addAttribute("loc", loc);
+		return "common/msg";
+	}
 
 }

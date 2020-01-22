@@ -9,6 +9,7 @@ public class Answer implements Serializable {
 	private int uno;
 	private String qancontent;
 	private String qstatus;
+	private String uName;
 	
 	public Answer() {
 		super();
@@ -21,6 +22,17 @@ public class Answer implements Serializable {
 		this.uno = uno;
 		this.qancontent = qancontent;
 		this.qstatus = qstatus;
+	}
+	
+	
+	public Answer(int cno, int qno, int uno, String qancontent, String qstatus, String uName) {
+		super();
+		this.cno = cno;
+		this.qno = qno;
+		this.uno = uno;
+		this.qancontent = qancontent;
+		this.qstatus = qstatus;
+		this.uName = uName;
 	}
 	public int getCno() {
 		return cno;
@@ -52,11 +64,20 @@ public class Answer implements Serializable {
 	public void setQstatus(String qstatus) {
 		this.qstatus = qstatus;
 	}
+	
+	
+	public String getuName() {
+		return uName;
+	}
+	public void setuName(String uName) {
+		this.uName = uName;
+	}
 	@Override
 	public String toString() {
 		return "Answer [cno=" + cno + ", qno=" + qno + ", uno=" + uno + ", qancontent=" + qancontent + ", qstatus="
-				+ qstatus + "]";
+				+ qstatus + ", uName=" + uName + "]";
 	}
+	
 	
 	
 }

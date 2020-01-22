@@ -85,12 +85,7 @@
 		<c:if test="${!empty member}">
 			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardInsertView.do"><span>글 작성<span></a>
 		</c:if>
-			<select name="one" class="dropdown-select">
-      			<option value="">전체</option>
-      			<option value="1">자랑</option>
-      			<option value="2">팁</option>
-      		<option value="3">잡담</option>
-    	</select>
+			
 		</div>
 		
   	

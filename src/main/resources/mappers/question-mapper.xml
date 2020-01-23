@@ -108,7 +108,7 @@
 					AND QU_NO=1
 				</if>
 		
-	</select>
+		</select>
 	<!-- 
 	<select id="">
 		SELECT QU_NO,QU_NAME FROM Q_UNIT WHERE QC_NO=1 AND QU_NO=4
@@ -187,6 +187,7 @@
 	FROM C_ANSWER C
 	JOIN MEMBER M ON (C.U_NO=M.U_NO)WHERE Q_NO=#{qNo} AND Q_STATUS='N'
 	</select>
+	
 	<select id="SearchSelectList" parameterType="Question" resultMap="questionResult1">
 		<![CDATA[ SELECT * FROM 
                					(SELECT N.* , ROWNUM RNUM

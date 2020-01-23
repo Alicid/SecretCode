@@ -327,9 +327,9 @@ body {
   
 
    
-  <input class="form-control" id="myInput" type="text" placeholder="회원 검색">
+  <input class="form-control" id="myInput" type="text" placeholder="회원 검색" style="margin-left: 20%;width: 80%;">
   <br>
-  <div style="height: 500px;overflow: auto;">
+  <div style="height: 500px;overflow: auto;margin-left: 20%;">
   <table class="table table-bordered table-striped">
     <thead>
       <tr style="color:#02876C">

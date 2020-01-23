@@ -291,7 +291,7 @@ body {
 }
 
 #sidebar{
-	margin-top : 0%;
+	margin-top : 1%;
 	position : absolute;
 	z-index : 0;
 }
@@ -433,7 +433,7 @@ body {
 	display:inline-block;
 }
 </style>
-
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 <c:import url="../common/commonUtil.jsp" /> 
 
    <link rel="stylesheet" href="${pageContext.request.contextPath }/css/versions.css">
@@ -441,10 +441,11 @@ body {
 <body class="host_version h-screen overflow-hidden items-center justify-center" style="background: white; overflow-y: scroll;">
    <c:import url="../common/header.jsp"/>
    <div class="page-wrapper chiller-theme toggled">
-<c:import url="../member/myPageMenu.jsp"/>
-
-<div class="all-title-box">
-      <div class="container text-center">
+ 	 <div>
+	<c:import url="../member/myPageMenu.jsp"/>
+	</div>
+<div class="all-title-box" style="margin-bottom: -50px;">
+      <div class="container text-center" style="margin-left: 25%;">
          <h1 class="container text-center" style="color:#02876C">시험 문제 관리</h1>
       </div>
 </div>
@@ -452,7 +453,7 @@ body {
     <body class="flex items-center justify-center"  style="overflow-y: scroll;" >
    <!--<c:import url="../member/myPageMenu.jsp"/>-->
    <div id='root'></div>
-   <div class="container"> 
+   <div class="container" style="margin-left: 25%;"> 
    <c:if test="${!empty member and member.aNo eq 1}">
       <div class="blog-button">
          <a class="hover-btn-new orange lead" href="${pageContext.request.contextPath}/question/qInsert.qo"><span><b>문제 작성</b><span></a>
@@ -492,9 +493,9 @@ body {
 		</div>
       
       <br />
-      <div class="container" style="width:70%;">
+      <div class="container" style="width:70%;margin-left:25%;">
       <p class="lead"><strong>총 ${ listCount }건의 게시물이 있습니다.</strong></p>
-      <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg my-5" style="table-layout:fixed;">
+      <table class="w-full flex flex-row flex-no-wrap sm:bg-white rounded-lg overflow-hidden sm:shadow-lg" style="table-layout:fixed;">
          <thead class="text-white">
          <c:forEach var="q" items="${list }">
             <tr class="bg-teal-400 flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0 tablehead " >
@@ -521,37 +522,38 @@ body {
          </tbody>
       </table>
          <div class="widget-search">
-                  <div class="site-search-area">
-						                  
+                  <div class="site-search-area">               
 						<form action="${pageContext.request.contextPath}/question/questionSearchList.do" method="GET" id="site-searchform" style="text-align: center;" onsubmit="return comfirm();">
 						<!-- <input type="hidden" value="${!empty currentPage ? currentPage : 1 }"  name="currentPage"/> -->
-						<span class="custom-dropdown big">
-						    <select name="category" id="ccc"> 
+						<div style="display: inline-block;position: absolute;top: 125%;left: 25%;">
+							<span class="custom-dropdown big">
+						   		 <select name="category" id="ccc"> 
 						    			<option value="0">-----카테고리-----</option>
-						    	<c:forEach var="cate" items="${category}" varStatus="status"> 
+						    		<c:forEach var="cate" items="${category}" varStatus="status"> 
 						        		<option name="category2" value="${cate.CNUM}">${cate.NAME} </option>
-						       </c:forEach>  
-						    </select>
-						</span>
-						<br />
-						
-						<span class="custom-dropdown big">
-							<select name="unit" id="unit">
-								<option value="0">-----단원 선택-----</option>
-							</select>
-						</span>
-						
-							<br />
-							<div>
-							<input class="input-text form-control" name="searchContent" id="search-k" placeholder="Search keywords..." type="text">
-                           <input id="searchsubmit" name="Search" type="submit">
-							</div>
-						</form>	
+						       		</c:forEach>  
+						   		 </select>
+							</span>
 						</div>
-                      </div> 
+			
+						<div style="position: absolute;top: 125%;left: 43%;">
+							<span class="custom-dropdown big">
+								<select name="unit" id="unit">
+									<option value="0">-----단원 선택-----</option>
+								</select>
+							</span>
+						</div>
+		 	
+						<div style="display: inline-block;position: absolute;top: 132%;left: 26%;">
+								<input class="input-text form-control" name="searchContent" id="search-k" placeholder="Search keywords..." type="text">
+                          		 <input id="searchsubmit" name="Search" type="submit">
+						</div>
+						</form>	
+					</div>
+           </div> 
       				</div>
    <br /><br /><br />
-   <div class="pagingArea pagination d-flex justify-content-center" >
+   <div class="pagingArea pagination d-flex justify-content-center" style="top: 8%;position: absolute;left: 44%;align-items: center;top: 138%;">
    <c:if test="${empty category && empty unit && empty searchContent}">
      <c:url var="questionList" value="/question/questionList.do"/>
    </c:if>
@@ -668,7 +670,8 @@ body {
 	   });
    </script>
    
+<br /><br /><br /><br /><br /><br /><br /><br />
 
-</body>
 <c:import url="../common/footer.jsp"/>
+</body>
 </html>

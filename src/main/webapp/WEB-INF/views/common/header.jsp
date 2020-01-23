@@ -131,6 +131,9 @@
 	</div>
 	<script>
 	$(function(){
+		$(".guide.error").hide();
+    	$(".guide.ok").hide();
+    	$(".guide.invalid").hide();
 		$("#Password2").blur(function(){
 			var p1=$("#Password").val(), p2=$("#Password2").val();
 			if(p1!=p2){

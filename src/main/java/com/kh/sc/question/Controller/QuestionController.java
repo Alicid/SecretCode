@@ -72,6 +72,9 @@ public class QuestionController {
 		if(mode.equals("타임어택")) {
 			return "question/TimeAttack";
 		}
+		if(mode.equals("하드코어")) {
+			return "question/hardcore";
+		}
 		return "question/QuestionView";
 	}
 	

@@ -106,7 +106,7 @@
          <tbody class="flex-1 sm:flex-none">
          
          <c:forEach var="notice" items="${list }">
-            <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 lead">
+            <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 lead" style="cursor:default">
                <td class="border-grey-light border p-3 text-center">${notice.nnum }</td>
                <td class="border-grey-light border p-3  truncate">${notice.nTitle }</td>
                <td class="border-grey-light border p-3 text-center  truncate">${notice.writer }</td>
@@ -117,16 +117,7 @@
          </c:forEach>
          </tbody>
       </table>
-         <div class="widget-search">
-                  <div class="site-search-area">
-                     <form method="get" id="site-searchform" action="#">
-                        <div>
-                           <input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-                           <input id="searchsubmit" value="Search" type="submit">
-                        </div>
-                     </form>
-                  </div>
-         </div>
+     
    </div>
    <br /><br /><br />
    <div class="pagingArea pagination d-flex justify-content-center" >
@@ -194,9 +185,9 @@
    $(function(){
 	      $('button').mouseenter(function(){
 	         //console.log("확인!");
-	         $(this).css('background','#ECECED');
+	         $(this).css('background','orange');
 	      }).mouseleave(function(){
-	         $(this).css('background','white');
+	         $(this).css('background','#2d3032');
 	      })
 	   });
    

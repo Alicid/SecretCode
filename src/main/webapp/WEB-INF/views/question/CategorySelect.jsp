@@ -121,6 +121,7 @@
 	<select name="mode">
 		<option value="문제풀이 모드">문제풀이 모드</option>
 		<option value="타임어택">타임어택</option>
+		<c:if test="${member.aNo eq 1}"><option value="하드코어">하드코어 모드</option></c:if>
 	</select>
 </span>
 	<br />

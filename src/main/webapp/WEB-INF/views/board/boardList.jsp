@@ -85,12 +85,7 @@
 		<c:if test="${!empty member}">
 			<a class="hover-btn-new orange" href="${pageContext.request.contextPath}/board/boardInsertView.do"><span>글 작성<span></a>
 		</c:if>
-			<select name="one" class="dropdown-select">
-      			<option value="">전체</option>
-      			<option value="1">자랑</option>
-      			<option value="2">팁</option>
-      		<option value="3">잡담</option>
-    	</select>
+			
 		</div>
 		
   	
@@ -111,7 +106,7 @@
 			<tbody class="flex-1 sm:flex-none">
 			
 			<c:forEach var="board" items="${list }">
-				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0">
+				<tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0" style="cursor:default">
 					<td class="border-grey-light border  p-3 text-center">${board.bnum }</td>
 					<td class="border-grey-light border  p-3 truncate text-center">${board.bCategory }</td>
 					<td class="border-grey-light border  p-3 truncate" style="padding-left: 50px;">${board.bTitle }&nbsp;<c:if test="${board.cCount ne 0}"><b>(${board.cCount})</b></c:if></td>
@@ -123,32 +118,23 @@
 			</c:forEach>
 			</tbody>
 		</table>
-			<div class="widget-search" style="margin : auto;">
-						<div class="site-search-area">
-							<form method="get" id="site-searchform" action="#">
-								<div>
-									<input class="input-text form-control" name="search-k" id="search-k" placeholder="Search keywords..." type="text">
-									<input id="searchsubmit" value="Search" type="submit">
-								</div>
-							</form>
-						</div>
-			</div>
+		
 	</div>
 	<br /><br /><br />
-	<div class="pagingArea" align="center">
+	<div class="pagingArea pagination d-flex justify-content-center" align="center">
 			<c:url var="selectList" value="/board/boardSelectList.do"/>
 			
 			<!-- 처음 페이지 버튼 -->
-			<button onclick="location.href='${selectList}?currentPage=1'">
+			<button class="page-link" onclick="location.href='${selectList}?currentPage=1'">
 				&lt;&lt;
 			</button>
 			
 			<!-- 이전 페이지 버튼 -->
 			<c:if test="${ pi.currentPage le 1 }">
-				<button disabled>&lt;</button>
+				<button class="page-link" disabled>&lt;</button>
 			</c:if>
 			<c:if test="${ pi.currentPage gt 1 }">
-				<button onclick="location.href='${selectList}?currentPage=${pi.currentPage - 1}'">
+				<button class="page-link" onclick="location.href='${selectList}?currentPage=${pi.currentPage - 1}'">
 					&lt;
 				</button>
 			</c:if>
@@ -156,28 +142,28 @@
 			<!-- 상세 페이지 구현을 위한 반복문 -->
 			<c:forEach var="p" begin="${pi.startPage }" end="${pi.endPage }">
 				<c:if test="${p eq pi.currentPage }">
-					<button disabled>
+					<button class="page-link" disabled>
 					<b>${p}</b>
 					</button>
 				</c:if>
 				<c:if test="${p ne pi.currentPage }">
-					<button onclick="location.href='${selectList }?currentPage=${p }'">${p}</button>
+					<button class="page-link" onclick="location.href='${selectList }?currentPage=${p }'">${p}</button>
 				</c:if>
 			</c:forEach>
 			
 			
 			<!-- 다음 페이지 버튼 -->
 			<c:if test="${ pi.currentPage ge pi.maxPage }">
-				<button disabled>&gt;</button>
+				<button class="page-link" disabled>&gt;</button>
 			</c:if>
 			<c:if test="${ pi.currentPage lt pi.maxPage }">
-				<button onclick="location.href='${selectList}?currentPage=${pi.currentPage + 1}'">
+				<button class="page-link" onclick="location.href='${selectList}?currentPage=${pi.currentPage + 1}'">
 					&gt;
 				</button>
 			</c:if>
 			
 			<!-- 마지막 페이지 버튼 -->
-			<button onclick="location.href='${selectList}?currentPage=${pi.maxPage}'">
+			<button class="page-link" onclick="location.href='${selectList}?currentPage=${pi.maxPage}'">
 				&gt;&gt;
 			</button>
 			</div>
@@ -188,7 +174,7 @@
 	$(function(){
 		$('td').parent().mouseenter(function(){
 			//console.log("확인!");
-			$(this).css('background','darkgray');
+			$(this).css('background','#ECECED');
 		}).mouseleave(function(){
 			$(this).css('background','white');
 		}).click(function(){

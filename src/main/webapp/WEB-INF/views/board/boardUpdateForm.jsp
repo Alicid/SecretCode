@@ -18,7 +18,7 @@
 <!-- include summernote css/js -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote-lite.min.js"></script>
-<title>공지 사항 작성</title>
+<title>게시글 작성</title>
 
 </head>
 <body class="host_version">
@@ -33,6 +33,15 @@
 		<input type="hidden" name="bno"  value="${board.bno}"/>
   				<input type="text" class="form-control" aria-label="Text input with dropdown button" 
  				 name="bTitle" id="title" placeholder="제목을 입력하세요." value="${board.bTitle}">
+ 				  <div style="margin-top: 8px;margin-right: 23px;margin-left: 30px;">
+ 				 카테고리 선택 : 
+ 				 </div>
+ 				<select name="bCategory" class="dropdown-select" style="width: 132px;">
+ 					<option value="${board.bCategory}">${board.bCategory}</option>
+      				<option value="잡담">잡담</option>
+      				<option value="자랑">자랑</option>
+      				<option value="팁">팁</option>
+    			</select>
 		</div>
 
 		<div class="editorArea"  style="margin-top:20px;">

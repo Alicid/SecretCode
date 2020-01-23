@@ -184,10 +184,10 @@ public class AjaxController {
 	public  Map<String, List> selectQunit(@RequestParam(value = "category", required = false)  int category ,Model model) {
 		System.out.println("카테고리 확인 : " + category);
 		Map<String,List> map = new HashMap();
-		System.out.println("단원 리스트 확인 : "+as.selectQunit());
-		List<HashMap<String,String>> quList = as.selectQunit();
+		//System.out.println("단원 리스트 확인 : "+as.selectQunit());
+		//List<HashMap<String,String>> quList = as.selectQunit();
 		
-	map.put("unit", quList);
+		//map.put("unit", quList);
 		
 		return map;
 	}

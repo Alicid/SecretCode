@@ -17,6 +17,7 @@
 		INSERT INTO Q_RANKING VALUES (SEQ_QR_NO.NEXTVAL,#{categoryNum},#{unitNum},#{uno},#{score},DEFAULT)
 	</insert>	
 	
+	
 	<select id="timeAttackRanking" resultMap="rankingMap">
 		<![CDATA[SELECT ROWNUM RNUM,QRM.*
 				 FROM(SELECT M.N_NAME,QR.QR_SCORE 
@@ -25,51 +26,7 @@
 				   	  ORDER BY QR.QR_SCORE DESC)QRM
 				 WHERE ROWNUM <11]]>
 	</select>
-	<!-- 
-	 <insert id="addExemption" parameterType="business.oracle.exemption.ExemptionRecord">
-        <selectKey keyProperty="exemptionId" resultType="INTEGER" order="BEFORE">
-            select exemption_seq.nextval from dual
-        </selectKey>
-        insert into exemption (id,account_id,customer_id,customer_name,address1,address2,city,state,country_code,zipcode,
-        federal_id_type,federal_id,phone_number,email,active)
-        values(#{exemptionId,jdbcType=DECIMAL},#{accountId,jdbcType=DECIMAL},#{customerId,jdbcType=VARCHAR},#{customerName,jdbcType=VARCHAR},
-        #{address1,jdbcType=VARCHAR},#{address2,jdbcType=VARCHAR},#{city,jdbcType=VARCHAR},#{state,jdbcType=VARCHAR},
-        #{country,jdbcType=VARCHAR},#{zipcode,jdbcType=VARCHAR},#{federalIdType,jdbcType=VARCHAR},#{federalId,jdbcType=VARCHAR},
-        #{phoneNumber,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR},#{active,jdbcType=INTEGER})
-    </insert>
-	 -->
-	<!--  <insert id="insertResult" parameterType="java.util.List">
-		INSERT INTO QANALYSIS(statics_id,uno,cNum,qno,isCorrect,SYSDATE)
-		SELECT SEQ_QA_NO.NEXTVAL,A.* FROM (
-		<foreach collection="list" item="item" separator="UNION ALL">
-			SELECT #{item.uno} as uno,
-				   #{item.cNum} as cNum,
-				   #{item.qno} as qno,
-				   #{item.isCorrect} as isCorrect
-				   FROM DUAL
-		</foreach>)A
-	</insert>-->
-	   <!-- 
-	   <insert id="insertFileInfo" parameterType="java.util.Map">
-			insert into attach_ms(attach_id,mtext_id,org_name,path)
-			select seq.nextval, A.* from(
- 				<foreach item="item" collection="list" separator="UNION ALL " >
-   					select #{item.mtext_id} as mtext_id,
-         			 #{item.org_name} as org_name,
-         			 #{item.path} as path
-  					 from dual
- 				</foreach>) A
-		</insert>
-	    -->
-
-	<!-- 
-	<insert id="insertSelectSeq" parameterType="com.model.Test"> 
-	INSERT INTO seq_test(idx,title) VALUES(idx_test_seq.nextval,#{title})
-	 <selectKey keyProperty="idx" resultType="Integer" order="AFTER"> 
-	 SELECT idx_test_seq.currval FROM dual 
-	 </selectKey>
-	  </insert>
-	   -->
+	
 	 
 
 

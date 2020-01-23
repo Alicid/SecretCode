@@ -58,7 +58,7 @@
 	</select>
 	<insert id="insertBoard" parameterType="Board">
 		INSERT INTO BOARD VALUES(SEQ_B_NO.NEXTVAL,
-								 1, #{uno}, '자랑', 
+								 1, #{uno}, #{bCategory}, 
 								 #{bTitle}, #{bContent},
 								  DEFAULT, DEFAULT, DEFAULT)
 	</insert>
@@ -66,7 +66,7 @@
 		UPDATE BOARD SET B_COUNT=B_COUNT+1 WHERE B_NO= #{bno}
 	</update>
 	<update id="updateBoard" parameterType="Board">
-		UPDATE BOARD SET B_TITLE = #{bTitle},B_CONTENT=#{bContent} WHERE B_NO = #{bno}
+		UPDATE BOARD SET B_TITLE = #{bTitle},B_CONTENT=#{bContent},BCATEGORY=#{bCategory} WHERE B_NO = #{bno}
 	</update>
 	<update id="deleteBoard" parameterType="int">
 		UPDATE BOARD SET B_STATUS = 'Y' WHERE B_NO = #{bno}

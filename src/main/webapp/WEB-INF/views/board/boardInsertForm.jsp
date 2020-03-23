@@ -33,6 +33,15 @@
 		<input type="hidden" name="uNo"  value="${member.uNo}"/>
   				<input type="text" class="form-control" aria-label="Text input with dropdown button" 
  				 name="bTitle" id="title" placeholder="제목을 입력하세요.">
+ 				 <div style="margin-top: 8px;margin-right: 23px;margin-left: 30px;">
+ 				 카테고리 선택 : 
+ 				 </div>
+ 				<select name="bCategory" class="dropdown-select" style="width: 132px;">
+      				<option value="잡담">잡담</option>
+      				<option value="자랑">자랑</option>
+      				<option value="팁">팁</option>
+    			</select>
+    			
 		</div>
 
 		<div class="editorArea"  style="margin-top:20px;">

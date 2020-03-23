@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tresult-mapper">
+
+<resultMap id="tResultResult" type="tResult">
+      <result column="T_NO" property="tNo"/>
+      <result column="T_YEAR" property="tYear"/>
+      <result column="WR" property="tWtReg"/>
+      <result column="WG" property="tWtGaz"/>
+      <result column="WC" property="tWtCan"/>
+      <result column="WA" property="tWtAvg"/>
+      <result column="PR" property="tPtReg"/>
+      <result column="PG" property="tPtGaz"/>
+      <result column="PC" property="tPtCan"/>
+      <result column="PA" property="tPtAvg"/>
+      <result column="FC" property="tFinCan"/>
+   </resultMap>
+
+   <resultMap id="tResultResult2" type="java.util.HashMap">
+      <result column="WR" property="WR" javaType="java.lang.String"/>
+      <result column="WG" property="WG" javaType="java.lang.String"/>
+      <result column="WC" property="WC" javaType="java.lang.String"/>
+      <result column="WA" property="WA" javaType="java.lang.String"/>
+      <result column="PR" property="PR" javaType="java.lang.String"/>
+      <result column="PG" property="PG" javaType="java.lang.String"/>
+      <result column="PC" property="PC" javaType="java.lang.String"/>
+      <result column="PA" property="PA" javaType="java.lang.String"/>
+      <result column="FC" property="FC" javaType="java.lang.String"/>
+   </resultMap>
+
+	<resultMap id="userStatics" type="java.util.HashMap">
+		<result column="QC_NO" property="category"/>
+		<result column="ANSWERRATE" property="answerrate"/>
+	</resultMap>
+	
+	<resultMap id="userStatics2" type="Qunit">
+	<result column="UNITNUM" property="unit1"/>
+		<result column="ANSWERRATE" property="unit2"/>
+	</resultMap>
+
+    <select id="selectTresult" parameterType="int" resultMap="tResultResult">
+   	SELECT TO_CHAR(T_WT_REG) WR,
+			TO_CHAR(T_WT_GAZ) WG,
+			TO_CHAR(T_WT_CAN) WC,
+			TO_CHAR(T_WT_AVG) WA,
+			TO_CHAR(T_PT_REG) PR,
+			TO_CHAR(T_PT_GAZ) PG,
+			TO_CHAR(T_PT_CAN) PC,
+			TO_CHAR(T_PT_AVG) PA,
+			TO_CHAR(T_FIN_CAN) FC FROM T_RESULT
+				WHERE T_YEAR = #{years}
+				ORDER BY T_YEAR
+    </select>
+   
+	<select id="selectYears" resultType="int">
+   		SELECT DISTINCT T_YEAR FROM T_RESULT ORDER BY T_YEAR DESC
+	</select>
+
+	<select id="getCategoryAndGo" resultType="hashmap">
+			SELECT QC_NO cnum ,QC_NAME name FROM Q_CATEGORY
+	</select>
+
+	<select  id="selectMyStaticsList" parameterType="hashmap" resultMap="userStatics2">
+		 SELECT C.QC_NO,Q.QU_PKNO,U.QU_NO UNITNUM, U_NO, COUNT(QA_STATUS) TOTAL, ROUND(SUM(DECODE(QA_STATUS,'Y',1,0))/COUNT(QA_STATUS),2)*100 ANSWERRATE
+   		 FROM QANALYSIS Q
+    	JOIN Q_UNIT U ON (Q.QU_PKNO=U.QU_PKNO)
+  	    JOIN Q_CATEGORY C ON (U.QC_NO=C.QC_NO)  
+   	    WHERE U_NO=#{uNo} AND C.QC_NO=#{category}
+        GROUP BY C.QC_NO,Q.QU_PKNO,U_NO,U.QU_NO
+        ORDER BY Q.QU_PKNO
+	</select>
+
+</mapper>

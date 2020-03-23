@@ -44,7 +44,7 @@
                     <div class="blog-desc">
                     
 						<div class="title display-5">
-							<h1>[${board.bCategory}]&nbsp;&nbsp;${board.bTitle}&nbsp;(${clist.size()})</h1>
+							<h1>[${board.bCategory}]&nbsp;&nbsp;${board.bTitle}&nbsp;<c:if test="${clist.size() ne 0}">(${clist.size()})</c:if></h1>
 						</div>
 					
 		
@@ -52,7 +52,7 @@
 							
 							<div class="meta-info-blog">
 								<span><i class="fa fa-calendar fa-lg" name="bDate">${board.bDate}</i> </span>
-								<span><i class="fa fa-comments fa-lg" >12 Comments</i> </span>
+								<span><i class="fa fa-comments fa-lg" >${clist.size()}</i> </span>
 								<span><i class="fa fa-pencil fa-lg" aria-hidden="true" name="writer">${board.writer}</i></span>
 								<span><i class="fa fa-eye fa-lg" aria-hidden="true" name="bCount">${board.bCount}</i></span>
 								 <input type="hidden" class="bno" name="bno" value="${board.bno}"/>

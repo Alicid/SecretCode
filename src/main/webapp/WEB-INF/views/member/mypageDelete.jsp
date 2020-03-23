@@ -407,7 +407,7 @@ body {
       <div id="wrap">
         <h1 align="center">회원 탈퇴</h1>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <form action="${pageContext.request.contextPath}/member/mypageDelete.do">
+        <form action="${pageContext.request.contextPath}/member/mypageDelete.do" onsubmit="return password();">
             <table align="center">
                 <tr>
                     <td>
@@ -426,10 +426,11 @@ body {
 
 <script>
 function password() {
-	var result = window.confirm("정말 탈퇴하시겠습니까?");
 	
 	if(result) {
 		location.href=$("#userPwd");
+	} else {
+		return false;
 	}
 }
 

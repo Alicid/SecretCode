@@ -38,11 +38,27 @@
             </a>
           </li>
           <li class="sidebar-dropdown">
-            <a href="#">
+            <a href="${pageContext.request.contextPath}/tResult/getCategoryAndGo.do">
               <i class="fa fa-chart-line"></i>
-              <span>내 통계</span>
+              <span>내 문제풀이 통계</span>
             </a>
           </li>
+         
+          <c:if test="${!empty member && member.aNo == 1 }">
+          <li class="sidebar-dropdown">
+            <a href="${pageContext.request.contextPath}/question/getCategory.qo">
+              <i class="fa fa-folder"></i>
+              <span>시험문제 관리</span>
+            </a>
+          </li>
+          
+          <li class="sidebar-dropdown">
+            <a href="${pageContext.request.contextPath}/admin/adminMemberList.qo">
+              <i class="far fa-gem"></i>
+              <span>회원 관리</span>
+            </a>
+          </c:if>
+          
         </ul>
       </div>
      </div>

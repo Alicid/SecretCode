@@ -12,6 +12,7 @@ public class Member implements Serializable{
 	private Date enrollDate;
 	private String userStatus;
 	private int aNo;
+	private String aName;
 	
 	public Member() {
 		super();
@@ -28,6 +29,21 @@ public class Member implements Serializable{
 		this.enrollDate = enrollDate;
 		this.userStatus = userStatus;
 		this.aNo = aNo;
+	}
+
+	
+	public Member(int uNo, String userId, String userPwd, String nickName, String email, Date enrollDate,
+			String userStatus, int aNo, String aName) {
+		super();
+		this.uNo = uNo;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.nickName = nickName;
+		this.email = email;
+		this.enrollDate = enrollDate;
+		this.userStatus = userStatus;
+		this.aNo = aNo;
+		this.aName = aName;
 	}
 
 	public int getuNo() {
@@ -93,13 +109,23 @@ public class Member implements Serializable{
 	public void setaNo(int aNo) {
 		this.aNo = aNo;
 	}
+	
+	public String getaName() {
+		return aName;
+	}
+
+	public void setaName(String aName) {
+		this.aName = aName;
+	}
 
 	@Override
 	public String toString() {
 		return "Member [uNo=" + uNo + ", userId=" + userId + ", userPwd=" + userPwd + ", nickName=" + nickName
 				+ ", email=" + email + ", enrollDate=" + enrollDate + ", userStatus=" + userStatus + ", aNo=" + aNo
-				+ "]";
+				+ ", aName=" + aName + "]";
 	}
+
+	
 	
 	
 	

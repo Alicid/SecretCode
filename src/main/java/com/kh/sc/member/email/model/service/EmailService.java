@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
-
+import com.kh.sc.member.email.RandomNumber;
 import com.kh.sc.member.email.emailHandler.EmailHandler;
 import com.kh.sc.member.email.model.dao.EmailDAO;
 import com.kh.sc.member.email.model.vo.Email;
+import com.kh.sc.member.model.vo.Member;
 
 @Service
 public class EmailService {
@@ -27,14 +28,15 @@ public class EmailService {
 	
 	public String sendEmail(String email) throws Exception {
 
-		String userId = emailDao.sendEmail(email);
-		
 		String msg = "";
 		
-		if(userId == null || userId == "") {
-			msg="입력하신 이메일이 존재하지 않습니다.";
-		} else {
+	
 			
+				
+			String userId = emailDao.sendEmail(email);
+			if(userId == null || userId == "") {
+				msg="입력하신 이메일이 존재하지 않습니다.";
+			}else {
 			EmailHandler sendMail = new EmailHandler(mailSender);
 			
 			sendMail.setSubject("시크릿코드 문의하신 아이디 입니다.");
@@ -42,12 +44,28 @@ public class EmailService {
 			sendMail.setFrom("zerous1318@gmail.com", "시크릿코드 고객센터");
 			sendMail.setTo(email);
 			sendMail.send();
+				msg = "입력하신 이메일로 ID를 전송 해드렸습니다.";
 			
-			msg = "입력하신 이메일로 ID를 전송 해드렸습니다.";
-		}
-		
+			}
 		
 		return msg;
+	}
+	public String sendEmail(String email,String pwd) throws Exception {
+
+		String msg = "임시 비밀번호를 이메일로 발송 해드렸습니다.";
+		
+				EmailHandler sendMail = new EmailHandler(mailSender);
+				
+				sendMail.setSubject("시크릿코드 임시 비밀번호 입니다.");
+				sendMail.setText(pwd);
+				sendMail.setFrom("zerous1318@gmail.com", "시크릿코드 고객센터");
+				sendMail.setTo(email);
+				sendMail.send();
+		
+		return msg;
+	}
+	public int userConfirm(Member m) {
+		return emailDao.userConfirm(m);
 	}
 
 	/*

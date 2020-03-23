@@ -37,7 +37,7 @@
 		<!-- Tab panes -->
 		<div class="tab-content">
 			<div class="tab-pane active" id="idFind">
-				<form role="form" class="form-horizontal" action="${pageContext.request.contextPath}/member/idFind.do">
+				<form role="form" class="form-horizontal" action="${pageContext.request.contextPath}/member/pwFind.do">
 					<div class="form-group">
 						<div class="col-sm-12">
 							<input class="form-control" id="pwFind1" name="pwFind1" placeholder="아이디 입력" type="text">

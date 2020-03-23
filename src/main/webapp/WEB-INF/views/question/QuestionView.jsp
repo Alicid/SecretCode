@@ -109,6 +109,10 @@
     <script>
     var num = 1;
     var answer;
+    var isAnswer;
+    var a;
+	var curScore=0;
+	var score;
     $(function(){
     	sessionStorage.clear();
     	 $('#fin_btn').hide();
@@ -138,6 +142,16 @@
       
       $('#next_btn').click(function(){
     	  $('#quiz_area').html('');
+    	  if(num>1){
+    		  curScore = parseInt(sessionStorage.getItem("correct"));
+			  
+    		  curScore += a;
+    		  sessionStorage.setItem("correct",curScore); 
+    		
+     		 
+    		sessionStorage.setItem(isAnswer,a);
+    	  }
+    	  
     	  var $categoryNum = $('#categoryNum').val();
     	  var $unitNum = $('#unitNum').val();
     	  //console.log($categoryNum);
@@ -159,62 +173,50 @@
 	                	  
 	            	  $('#oneQuiz').append('<input type="checkbox" class="answer" name="answer" value="'+data.question.answer[i].qstatus+'" style="width: 20px;height: 20px;top: 5px;position: relative;"> '+(i+1)+') '+data.question.answer[i].qancontent + '<br>');	
 	                  }
-	            	  
+	            	  a=0;
+	            	    $('.answer').click(function(){
+	                		
+	            	        //클릭 이벤트 발생한 요소가 체크 상태인 경우
+	            	        if ($(this).prop('checked')) {
+	            	        
+	            	            //체크박스 그룹의 요소 전체를 체크 해제후 클릭한 요소 체크 상태지정
+	            	            $('input[type="checkbox"]').prop('checked', false);
+	            	            $(this).prop('checked', true);
+	            	          answer = $(this).val();
+	            	          if(answer=='N'||answer==null){
+		            			  a = 0; 
+		            	  		}else if(answer=='Y'){
+		            		  	  a = data.question.qScore;
+		            	  		}  
+	            	      	console.log(answer);
+	            	      	console.log(a);
+	            	        }
+	            	    });
 	                
-	            	  $('.answer').click(function(){
-	              		
-	          	        //클릭 이벤트 발생한 요소가 체크 상태인 경우
-	          	        if ($(this).prop('checked')) {
-	          	        
-	          	            //체크박스 그룹의 요소 전체를 체크 해제후 클릭한 요소 체크 상태지정
-	          	            $('input[type="checkbox"]').prop('checked', false);
-	          	            $(this).prop('checked', true);
-	          	          answer = $(this).val();
-	          	      	//console.log(answer);
-	          	        }
-	          	    });
-	            	  if(num<11){
-	            		  var isAnswer = "Q"+"0"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            	 
+	            	  if(num<10){
+	            		  isAnswer = "Q"+"0"+num+'_'+data.question.quPkno+'_'+data.question.qno;
 	            	  }else{
-	            		  var isAnswer = "Q"+(num-1)+'_'+data.question.quPkno+'_'+data.question.qno;
+	            		  isAnswer = "Q"+num+'_'+data.question.quPkno+'_'+data.question.qno;
 	            	  }
 	            	 
 	            	  //var 
-	            	  var a;
-	            	  var curScore=0;
+	            	
 	            	  
-	            	  if(num==2){
+	            	  if(num==1){
 	            		  sessionStorage.setItem("correct",0);
 	            	  }
 	            	  
-	            	  
-	            	  if(answer=='N'|| answer==null){
-	            		   a = 0;
-	            		   sessionStorage.setItem(isAnswer,a);
-	            		   //$('#answerList').append('<input type="hidden" name="" id="Q'+num+'" value="'+a+'">');
-	            	  }else if(answer=='Y'){
-	            		  a = data.question.qScore;
-	            		  sessionStorage.setItem(isAnswer,a);
-	            		 // $('#answerList').append('<input type="hidden" name="" id="Q'+num+'" value="'+a+'">');
-	            		 
-	            		  curScore = parseInt(sessionStorage.getItem("correct"));
-	            		 // console.log(typeof(sessionStorage.getItem("correct")));
-	            		 // console.log(typeof(parseInt(sessionStorage.getItem("correct"))));
-	            		  curScore += a;
-	            		  sessionStorage.setItem("correct",curScore);
+	            	  //if(answer=='N'|| answer==null)
 	            		  
-	            	  }
-	            	  
-	            	 // console.log(data.question.qScore);
-	            	  //console.log(typeof(data.question.qScore));
-	            	 
+
+	            	 	
 	            	 if(num==1){
 	            		 sessionStorage.setItem("totalScore",0);
 	            	 }else{
-	            		 var score = parseInt(sessionStorage.getItem("totalScore"));
-	            		 score+=data.question.qScore;
-	            		 sessionStorage.setItem("totalScore",score);
-	            		  
+	            		 score = parseInt(sessionStorage.getItem("totalScore"));
+	             		 score+=data.question.qScore;
+	             		sessionStorage.setItem("totalScore",score);
 	            	 }
 	            	 // console.log( sessionStorage.getItem("totalScore"));
 	            	  if(num==20){
@@ -270,7 +272,7 @@
       	});
       });
       
-      
+  
    
      
     </script>

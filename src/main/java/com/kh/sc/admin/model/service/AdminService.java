@@ -31,8 +31,8 @@ public class AdminService {
 	 * }
 	 */
 	
-	public List<Question> selectList(PageInfo pi) {
-		return qdao.selectList(pi);
+	public List<Question> selectList(HashMap<String, Object> map) {
+		return qdao.selectList(map);
 		
 	}
 	

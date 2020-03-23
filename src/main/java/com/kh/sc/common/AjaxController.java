@@ -96,7 +96,7 @@ public class AjaxController {
              e.printStackTrace();
           }
           //System.out.println(request.getServerPort());
-    String serverPath = "http://192.168.20.80:"+request.getServerPort()+"/sc/resources/bUpFiles/"; 
+    String serverPath = "http://192.168.20.94:"+request.getServerPort()+"/sc/resources/bUpFiles/"; 
 	   		//System.out.println(serverPath);
 	     
 	      uploadPath = serverPath + renamedFileName;
@@ -150,7 +150,7 @@ public class AjaxController {
        }
        
        
-      String serverPath = "http://192.168.20.80:8088"+"/sc/resources/bUpFiles/"; 
+      String serverPath = "http://192.168.20.94:8088"+"/sc/resources/bUpFiles/"; 
 	     
 	      uploadPath = serverPath + renamedFileName;
 	    		  

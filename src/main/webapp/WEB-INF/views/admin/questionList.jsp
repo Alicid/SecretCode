@@ -432,6 +432,10 @@ body {
 .inline-block{
 	display:inline-block;
 }
+td{
+	overflow-y : hidden;
+	height : 10px !important;
+}
 </style>
 <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 <c:import url="../common/commonUtil.jsp" /> 
@@ -511,11 +515,11 @@ body {
          
          <c:forEach var="q" items="${list }">
             <tr class="flex flex-col flex-no wrap sm:table-row mb-2 sm:mb-0 lead">
-               <td class="border-grey-light border p-3">${q.qnum}</td>
-               <td class="border-grey-light border p-3  truncate">${q.qTitle}</td>
-               <td class="border-grey-light border p-3 text-left  truncate">${q.qContent}</td>
-               <td class="border-grey-light border p-3  text-center  truncate">${q.qWriter}</td>
-               <td class="border-grey-light border p-3 truncate">${q.qLevel}</td>
+               <td class="border-grey-light border p-1">${q.qnum}</td>
+               <td class="border-grey-light border p-1  truncate">${q.qTitle}</td>
+               <td class="border-grey-light border p-1 text-left  truncate">${q.qContent}</td>
+               <td class="border-grey-light border p-1  text-center  truncate">${q.qWriter}</td>
+               <td class="border-grey-light border p-1 truncate">${q.qLevel}</td>
                <input type="hidden" name="qno" value="${q.qNo}"/>               
             </tr>
          </c:forEach>
@@ -525,26 +529,8 @@ body {
                   <div class="site-search-area">               
 						<form action="${pageContext.request.contextPath}/question/questionSearchList.do" method="GET" id="site-searchform" style="text-align: center;" onsubmit="return comfirm();">
 						<!-- <input type="hidden" value="${!empty currentPage ? currentPage : 1 }"  name="currentPage"/> -->
-						<div style="display: inline-block;position: absolute;top: 125%;left: 25%;">
-							<span class="custom-dropdown big">
-						   		 <select name="category" id="ccc"> 
-						    			<option value="0">-----카테고리-----</option>
-						    		<c:forEach var="cate" items="${category}" varStatus="status"> 
-						        		<option name="category2" value="${cate.CNUM}">${cate.NAME} </option>
-						       		</c:forEach>  
-						   		 </select>
-							</span>
-						</div>
-			
-						<div style="position: absolute;top: 125%;left: 43%;">
-							<span class="custom-dropdown big">
-								<select name="unit" id="unit">
-									<option value="0">-----단원 선택-----</option>
-								</select>
-							</span>
-						</div>
 		 	
-						<div style="display: inline-block;position: absolute;top: 132%;left: 26%;">
+						<div style="display: inline-block;position: relative;top: 10px;left: -15px;">
 								<input class="input-text form-control" name="searchContent" id="search-k" placeholder="Search keywords..." type="text">
                           		 <input id="searchsubmit" name="Search" type="submit">
 						</div>
@@ -553,22 +539,21 @@ body {
            </div> 
       				</div>
    <br /><br /><br />
-   <div class="pagingArea pagination d-flex justify-content-center" style="top: 8%;position: absolute;left: 44%;align-items: center;top: 138%;">
-   <c:if test="${empty category && empty unit && empty searchContent}">
-     <c:url var="questionList" value="/question/questionList.do"/>
-   </c:if>
-   <c:if test="${!empty category && !empty unit && !empty searchContent}">
-     <c:url var="questionList" value="/question/questionSearchList.do" >
-     	<c:param name="category" value="${selectedCategory}"/>
+   <div class="pagingArea pagination d-flex justify-content-center" style="position: relative;left: 10px;align-items: center;top: -45px;">
+  
+   
+     <c:url var="questionList" value="/admin/questionSelectList.do" >
+     	<c:param name="category" value="${category }"></c:param>
      	<c:param name="unit" value="${unit }"/>
-     	<c:param name="searchContent" value="${searchContent }"/>
      </c:url>
-   </c:if>
+   
          
          <!-- 처음 페이지 버튼 -->
-         <button class="page-link" onclick="location.href='${questionList}&currentPage=1'">
+
+         <button class="page-link" onclick="location.href='${questionList}'">
             &lt;&lt;
          </button>
+         
          
          <!-- 이전 페이지 버튼 -->
          <c:if test="${ pi.currentPage le 1 }">
@@ -588,7 +573,10 @@ body {
                </button>
             </c:if>
             <c:if test="${p ne pi.currentPage}">
-               <button class="page-link"  onclick="location.href='${questionList}&currentPage=${p}'">${p}</button>
+            	
+            		<button class="page-link"  onclick="location.href='${questionList}&currentPage=${p}'">${p}</button>
+            
+        
             </c:if>
          </c:forEach>
          
@@ -670,7 +658,7 @@ body {
 	   });
    </script>
    
-<br /><br /><br /><br /><br /><br /><br /><br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
 <c:import url="../common/footer.jsp"/>
 </body>

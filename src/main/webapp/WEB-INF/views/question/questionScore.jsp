@@ -10,6 +10,11 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/css/questionView.css">
  <c:import url="../common/commonUtil.jsp"/>
+ <style>
+ 	.resultTable{
+ 		column-count: 2;
+ 	}
+ </style>
 </head>
 <body>
 <c:import url="../common/header.jsp"/>
@@ -40,7 +45,7 @@
           </div>
           <div id="main-header">
             <div id="main-title"><h1>${tInfo.category}</h1><h6>${tInfo.range}</h6>><input type="hidden" id="categoryNum" value="${categoryNum}"/></div>
-            <div id="main-title-paper"><p><b>Paper 1 (Non-Calculator)</b></p></div>
+            <div id="main-title-paper" style="position: absolute;top: 72px;left: 15px;"><p><b>Paper 1 (Non-Calculator)</b></p></div>
             <div id="foundation"><p><b>${tInfo.mode}</b></p></div>
           </div>
           <div id="date">
@@ -63,22 +68,47 @@
       <div id="oneQuiz" style="padding-left: 60px;padding-top: 48px;padding-right: 60px;">
       
       <h2>시험 결과</h2>
-      <br />
-      <div style="display: table-cell;">
+
+      <div class="resultTable" style="display: table-cell;">
       <table class="result">
-      <c:forEach var="result" items="${result}" varStatus="status"  begin="0" end="9">
-			<tr> <td><c:if test="${result.value ne 0}"><img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 57px;"></c:if><c:if test="${result.value eq 0}"><img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 57px;"></c:if>${status.count}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
+      <c:forEach var="result" items="${result}" varStatus="status">
+			<tr> 
+				<td>
+					<c:if test="${status.count < 11}">
+					<c:if test="${result.value ne 0}">
+					<img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 57px;">
+					</c:if>
+					<c:if test="${result.value eq 0}">
+					<img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 57px;">
+					</c:if>
+					</c:if>
+					<c:if test="${status.count > 10}">
+						<c:if test="${result.value ne 0}">
+							<img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 169px;">
+						</c:if>
+						<c:if test="${result.value eq 0}">
+							<img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 169px;">
+						</c:if>
+					</c:if>
+					${status.count}.
+				</td> 
+				<td>
+					<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#basicExampleModal${status.count}" style="font-size: 1px;">
+					  문제보기
+					</button>
+				</td>
+			</tr>
       </c:forEach>
       </table>
       </div>
-      <div style="display: table-cell;position: relative;right: -123px;">
+     <!-- <div class="resultTable" style="display: table-cell;position: relative;right: -123px;">
       <table class="result">
       <c:forEach var="result" items="${result}" varStatus="status"  begin="10">
       <c:set var="num" value="${status.count+10}"/>
 			<tr><td><c:if test="${result.value ne 0}"><img src="${pageContext.request.contextPath}/resources/images/redcircle no1.png" style="position: absolute;height: 26px;left: 0px;"></c:if><c:if test="${result.value eq 0}"><img src="${pageContext.request.contextPath}/resources/images/wrongSign.png" style="position: absolute;height: 26px;left: 0px;"></c:if>${num}.</td> <td><c:if test="${result.value eq 0}"> X </c:if><c:if test="${result.value ne 0}">O</c:if> </td></tr>
       </c:forEach>
       </table>
-     </div>
+     </div> --> 
      
       <br />
       
@@ -102,9 +132,36 @@
     <p id="code-bottom">&copy 2020 Secret Code Ltd.<br>6/5/5/</p>
     </div>
     <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-    <form action="" id="answerList">
-    	
-    </form>
+    <c:forEach var="question" items="${qlist}" varStatus="status">
+    	<div class="modal fade" id="basicExampleModal${status.count}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  			<div class="modal-dialog" role="document">
+    			<div class="modal-content">
+      				<div class="modal-header">
+        				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          						<span aria-hidden="true">&times;</span>
+        					</button>
+      				</div>
+	      			<div class="modal-body">
+	       				 <div id="oneQuiz" style="padding-left: 10px;padding-top: 10px;padding-right: 10px;height: auto;overflow: auto;">
+	       				 	${question.qContent}
+	       				 	 <div class="answerList">
+	       				 		<c:forEach var="answer" items="${question.answer}" varStatus="status2">
+	       				 			<p>${status2.count}. ${answer.qancontent}<input type="hidden" class="answerVal" value="${answer.qstatus}"></p>
+	       				 		</c:forEach>
+	       				 	</div>
+	       				 </div>
+	       				
+	       				 
+	      			</div>
+			      	<div class="modal-footer">
+			      	  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			      	  <button type="button" class="btn btn-primary" onclick="printAnswer(this);">정답보기</button>
+			     	 </div>
+    			</div>
+  			</div>
+		</div>
+    </c:forEach>
 
 <c:import url="../common/footer.jsp"/>
 <script>
@@ -124,7 +181,35 @@ $(function(){
 	 		
 	  	var todayDate = todayLabel +'    '+year+' / '+month+' / '+date;
 		$('#date-time').text(todayDate);
-})
+		
+		
+		  $('.result tr').hover(function() {
+			  console.log("확인");
+			    var modalId = $(this).data('target');
+			    $(modalId).modal('show');
+
+			  });
+});
+
+	function printAnswer(element){
+		console.log(element);
+		var $answerbutton = $(element);
+		var $answerList = $answerbutton.parent().parent().find('.answerList').children();
+		
+		$answerList.each(function(){
+			if($(this).find('.answerVal').val()=='Y'){
+				$(this).css({
+							'color':'red',
+							'text-decoration':'underline'
+							});
+				console.log($(this));
+			};
+			
+		});
+		
+		console.log($answerbutton.parent().parent().find('.answerList').children());
+		
+	};
 </script>
 </body>
 </html>

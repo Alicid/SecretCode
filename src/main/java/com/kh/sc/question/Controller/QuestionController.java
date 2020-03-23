@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.sc.question.model.service.QuestionService;
+import com.kh.sc.question.model.vo.Questions;
 import com.kh.sc.member.model.vo.Member;
 import com.kh.sc.statics.model.service.StaticsService;
 import com.kh.sc.statics.model.vo.QuestionStatics;
@@ -80,14 +81,16 @@ public class QuestionController {
 	
 	@RequestMapping("/question/printResult.do")
 	public String printResult(HttpSession session,Model model) {
-		List<QuestionStatics> list = new ArrayList();
+		List<QuestionStatics> list = new ArrayList<>();
+		List<Questions> qlist = new ArrayList<>();
+		List<Integer> tlist = new ArrayList<>();
 		TreeMap<String, String> tmap = new TreeMap<String, String>();
 		Map<String,String> rmap = new HashMap<String, String>();
 		Map<String,String> map = (Map<String, String>) session.getAttribute("result");
 		Member m = (Member) session.getAttribute("member");
 		System.out.println("화면 전달 확인 : "+map);
 		System.out.println(map.keySet());
-		//{Q19_20=0, correct=30, Q15_234=0, Q20_260=0, Q16_59=0, Q12_30=0, Q10_70=0, Q2_183=15, Q1_59=0, Q4_173=0, mode=문제풀이 모드, Q3_2=5, Q13_261=0, Q14_189=0, Q18_243=0, Q0_314=0, Q6_222=0, Q8_23=0, Q17_56=0, totalScore=165, Q11_191=0, Q9_226=0, category=정보처리 산업기사전체, Q5_281=10, Q7_250=0}
+		//{Q14_3_123=0, correct=0, Q01_1_46=0, Q09_6_254=0, range=전체, Q17_3_114=0, Q07_5_205=0, mode=문제풀이 모드, Q08_1_17=0, Q05_1_30=0, Q12_2_82=0, Q03_6_298=0, Q00_1_48=0, Q02_4_176=0, Q15_4_195=0, Q13_3_128=0, Q16_4_188=0, Q06_4_183=0, totalScore=205, Q19_4_181=0, Q20_1_24=0, Q04_1_4=0, Q10_3_131=0, Q18_3_137=0, Q11_2_64=0, category=정보처리 산업기사}
 //		for(String key : map.keySet()) {
 //			if(key.contains("_")) {
 //			}
@@ -101,9 +104,13 @@ public class QuestionController {
 				qus.setQno(Integer.parseInt(realNum[2]));
 				qus.setcNum(Integer.parseInt(realNum[1]));
 				
-				if(!realNum[0].equals("Q00")) {
-					tmap.put(realNum[0], entry.getValue());	
-				}
+//				if(!realNum[0].equals("Q00")) {
+//					tmap.put(realNum[0], entry.getValue());
+//				}
+				
+					tmap.put(entry.getKey(), entry.getValue());
+				
+				
 				if(entry.getValue().equals("0")) {
 					qus.setIsCorrect("N");
 				}else {
@@ -120,11 +127,17 @@ public class QuestionController {
 		rmap.put("category", map.get("category"));
 		rmap.put("range", map.get("range"));
 		int result = ss.insertResult(list);
+		
+		
+		qlist = qs.getQuestionList(tmap);
 		//System.out.println("인서트 결과 "+result);
 		//m.getuNo();
 		System.out.println("정렬 확인 : "+tmap);
 		System.out.println("결과들 확인 : " +rmap);
-		model.addAttribute("result", tmap).addAttribute("tInfo", rmap);
+		for(int i=0;i<qlist.size();i++) {
+			System.out.println("각 문제 번호"+qlist.get(i).getQno());
+		}
+		model.addAttribute("result", tmap).addAttribute("tInfo", rmap).addAttribute("qlist", qlist);
 		
 		
 		return "question/questionScore";

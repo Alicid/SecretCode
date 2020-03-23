@@ -26,8 +26,8 @@ public class AdminDAO {
 	 * sqlSession.insert("question-mapper.insertQuestion", question); }
 	 */
 
-	public List<Question> selectList(PageInfo pi) {
-		return sqlSession.selectList("question-mapper.selectQuestion", pi);
+	public List<Question> selectList(HashMap<String, Object> map) {
+		return sqlSession.selectList("question-mapper.selectQuestion", map);
 	}
 
 
@@ -66,7 +66,7 @@ public class AdminDAO {
 
 
 	public int getsListCount(HashMap<String, Object> map) {
-		return sqlSession.selectOne("question-mapper.getsListCount", map);
+		return sqlSession.selectOne("question-mapper.getsListCount1", map);
 	}
 	
 	public List<HashMap<String, String>> searchList(HashMap<String, Object> map) {

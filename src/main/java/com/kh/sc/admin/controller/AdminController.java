@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +37,7 @@ import com.kh.sc.admin.model.vo.Question;
 import com.kh.sc.common.PageInfo;
 import com.kh.sc.member.model.vo.Member;
 import com.kh.sc.notice.model.vo.Notice;
+import com.kh.sc.question.model.service.QuestionService;
 import com.kh.sc.question.model.vo.Answer;
 import com.kh.sc.admin.excel.*;
 
@@ -45,6 +47,9 @@ public class AdminController {
 	
 	@Autowired
 	AdminService qs;
+	
+	@Autowired
+	QuestionService qss;
 	
 	@RequestMapping("/admin/adminQuestion.do")
 	public String adminQuestion() {
@@ -61,7 +66,7 @@ public class AdminController {
 	@RequestMapping("/question/questionList.qo")
 	public String selectquestionList(@RequestParam(value="currentPage", required=false, defaultValue="0") 
 			int currentPage, Model model) {
-				
+		HashMap<String,Object> map = new HashMap<>();
 		List<Question> list = new ArrayList<Question>();
 		PageInfo pi = new PageInfo();
 		List<HashMap<String,String>> qcList = qs.selectCategoryList();
@@ -70,8 +75,8 @@ public class AdminController {
 		
 		int listCount = qs.getListCount();
 		pi.calcPage(qs.getListCount());
-		
-		list = qs.selectList(pi);
+		map.put("pi",pi);
+		list = qs.selectList(map);
 		
 		model.addAttribute("list", list).addAttribute("listCount", listCount).addAttribute("pi", pi).addAttribute("category", qcList);
 		
@@ -252,12 +257,50 @@ public class AdminController {
 		String loc = "";
 		if(result>0) {
 			msg = "문제 수정 성공!";
-			loc = "/question/questionList.qo";
+			loc = "/question/getCategory.qo";
 		}else {
 			msg = "문제 수정 실패!";
-			loc = "/question/questionList.qo";
+			loc = "/question/getCategory.qo";
 		}
 		model.addAttribute("msg", msg).addAttribute("loc", loc);
 		return "common/msg";
+	}
+	@RequestMapping("/question/getCategory.qo")
+	public String selectCategory(Model model) {
+		
+		List<HashMap<String,String>> list = qs.selectCategoryList();
+		//System.out.println(list);
+		
+		model.addAttribute("category", list);
+		
+		return "admin/adminCategorySelect";
+	}
+	@RequestMapping("/admin/questionSelectList.do")
+	public String goQuestionPage(@RequestParam(value="currentPage", required=false, defaultValue="0") int currentPage,
+								 @RequestParam String category,
+								 @RequestParam int unit, 
+								 @RequestParam (value="searchContent", required=false) String searchContent, 
+								 Model model) {
+		PageInfo pi = new PageInfo();
+		if(currentPage!=0) pi.setCurrentPage(currentPage);
+		HashMap<String, Object> map = new HashMap();
+		map.put("category", category);
+		map.put("unit", unit);
+		
+		
+		int sListCount = qs.getsListCount(map);
+		
+		pi.calcPage(sListCount);
+		
+		map.put("pi",pi);
+		//List<HashMap<String,String>> list = qs.selectUnitName();
+		List<Question> list = new ArrayList<Question>();
+		
+		list = qs.selectList(map);
+		
+		model.addAttribute("list", list).addAttribute("listCount", sListCount).addAttribute("pi", pi).addAttribute("category",category).addAttribute("unit", unit);
+		
+		return "admin/questionList";
+
 	}
 }

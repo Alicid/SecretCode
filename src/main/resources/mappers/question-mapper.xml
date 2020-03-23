@@ -65,17 +65,17 @@
 	</resultMap>
 	
 	
-		<select id="selectQuestion" parameterType="PageInfo" resultMap="questionResult">
+		<select id="selectQuestion" parameterType="hashmap" resultMap="questionResult">
 		<![CDATA[ SELECT * FROM 
                (SELECT N.*, ROWNUM RNUM 
                   FROM(SELECT BD.*
                        FROM (SELECT ROWNUM RM, Q.*,M.N_NAME,QU.QU_NAME FROM QUESTION Q 
                        JOIN MEMBER M ON (Q.U_NO=M.U_NO)
                        JOIN Q_UNIT QU ON (Q.QU_PKNO=QU.QU_PKNO)
-                       WHERE Q.QU_PKNO=1) BD 
+                       WHERE QU.QC_NO=#{category} AND QU.QU_NO=#{unit}) BD 
                         ) N 
-                 WHERE ROWNUM <= #{endRow})NO 
-         WHERE RNUM > #{startRow}]]>
+                 WHERE ROWNUM <= #{pi.endRow})NO 
+         WHERE RNUM > #{pi.startRow}]]>
 		</select>
 		
 		<select  id="getListCount" resultType="int">
@@ -177,13 +177,13 @@
 		INSERT INTO C_ANSWER VALUES (SEQ_CA_NO.NEXTVAL, #{qno}, #{uno},#{qancontent}, #{qstatus})
 	</insert>
 	<select id="selectCorrectAnswer" parameterType="int" resultMap="getAnswer">
-	SELECT C.C_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
+	SELECT C.CA_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
 	FROM C_ANSWER C
 	JOIN MEMBER M ON (C.U_NO=M.U_NO)WHERE Q_NO=#{qNo} AND Q_STATUS='Y'
 	</select>
 
 	<select id="selectWrongAnswer" parameterType="int" resultMap="getAnswer">
-	SELECT C.C_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
+	SELECT C.CA_NO,C.Q_STATUS,C.QAN_CONTENT,M.N_NAME 
 	FROM C_ANSWER C
 	JOIN MEMBER M ON (C.U_NO=M.U_NO)WHERE Q_NO=#{qNo} AND Q_STATUS='N'
 	</select>
@@ -204,14 +204,23 @@
 									         WHERE RNUM > #{startRow}]]>
 		</select>
 		
-		<select  id="getsListCount" parameterType="hashmap" resultType="int">
+		<select  id="getsListCount1" parameterType="hashmap" resultType="int">
+			SELECT COUNT(*) 
+						 FROM (SELECT * 
+					 		   FROM QUESTION 
+                               WHERE QU_PKNO = (SELECT QU_PKNO 
+					 	   					FROM Q_UNIT 
+					 	   					WHERE QC_NO =#{category} AND QU_NO=#{unit}))
+		</select>
+		
+			<select  id="getsListCount2" parameterType="hashmap" resultType="int">
 			SELECT COUNT(*) 
 						 FROM (SELECT * 
 					 		   FROM QUESTION 
                                WHERE QU_PKNO = (SELECT QU_PKNO 
 					 	   					FROM Q_UNIT 
 					 	   					WHERE QC_NO =#{category} AND QU_NO=#{unit} AND Q_CONTENT LIKE '%' || #{searchContent} || '%'))
-		</select>
+			</select>	
 	<!--  
 	<select id="getAnswerList" parameterType="int" resultType="Answer">
 		<![CDATA[SELECT * 

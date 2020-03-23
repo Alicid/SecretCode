@@ -46,7 +46,7 @@
          
           <c:if test="${!empty member && member.aNo == 1 }">
           <li class="sidebar-dropdown">
-            <a href="${pageContext.request.contextPath}/question/questionList.qo">
+            <a href="${pageContext.request.contextPath}/question/getCategory.qo">
               <i class="fa fa-folder"></i>
               <span>시험문제 관리</span>
             </a>
